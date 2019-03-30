@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view>
+        <h:head>
+            <title>Inicio</title>
+            <h:outputStylesheet name="css/estilos.css"/>
+        </h:head>
+        <h:body>
+            <header>
+                <h1>Maps2Go</h1>
+                <h:form id="busqueda">
+                    <p:commandButton 
+                                     value="Registrarse"
+                                     styleClass="ButtonReg"/>
+
+                    <p:commandButton 
+                                     value="Iniciar Sesion"
+                                     styleClass="ButtonIn"/>
+                </h:form>
+            </header>
+            <main>
+                
+                <aside>
+                    <h:form>
+                        <p:inputText id="tema" 
+                                     placeholder="Buscar"
+                                     /> <br/><br/>
+                    </h:form>
+                    
+                </aside>
+            </main>
+            <footer>
+                <h1 class = "a"> Copyright </h1>
+                <h1 class = "b"> 2019 Maps2go.com</h1>
+                <h1 class = "c"> Support</h1>
+                    
+            </footer>
+
+        </h:body>
+    </f:view>
+</html>
