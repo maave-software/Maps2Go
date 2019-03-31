@@ -6,7 +6,7 @@
     <class name="com.maave.maps2go.modelo.Usuario" table="usuario" schema="public" optimistic-lock="version">
         <id name="idUsuario" type="int">
             <column name="id_usuario" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="nombreUsuario" type="string">
             <column name="nombre_usuario" not-null="true" />
