@@ -6,7 +6,7 @@
     <class name="com.maave.maps2go.modelo.Marcador" table="marcador" schema="public" optimistic-lock="version">
         <id name="numMarcador" type="int">
             <column name="num_marcador" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="tema" class="com.maave.maps2go.modelo.Tema" fetch="select">
             <column name="tipo_tema" not-null="true" />
