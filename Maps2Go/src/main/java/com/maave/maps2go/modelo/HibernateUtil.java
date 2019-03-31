@@ -1,4 +1,4 @@
-package com.maave.maps2go1.modelo;
+package com.maave.maps2go.modelo;
 
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
