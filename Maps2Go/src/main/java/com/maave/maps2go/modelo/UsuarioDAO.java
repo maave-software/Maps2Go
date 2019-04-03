@@ -6,12 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class UsuarioDAO extends AbstractDAO<Usuario>{
+public class UsuarioDAO extends AbstractDAO<Usuario> {
 
     public UsuarioDAO() {
         super();
     }
-    
+
     @Override
     public void agregar(Usuario usuario) {
         super.agregar(usuario);
@@ -36,45 +36,45 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
     }
 
     public Usuario buscaUsuario(String correo, String contrasenia) {
-        Usuario u =null;
+        Usuario u = null;
         Session session = this.sessionFactory.openSession();
-        Transaction tx =null;
-        try{
+        Transaction tx = null;
+        try {
             tx = session.beginTransaction();
             String hql = "from Usuario where correo = :correo and contrasenia = :contrasenia";
             Query query = session.createQuery(hql);
             query.setParameter("correo", correo);
-            query.setParameter("contrasenia",contrasenia);
-            u = (Usuario)query.uniqueResult();
+            query.setParameter("contrasenia", contrasenia);
+            u = (Usuario) query.uniqueResult();
             tx.commit();
-        }catch(HibernateException e){
-            if(tx!=null){
+        } catch (HibernateException e) {
+            if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
-        }finally{
+        } finally {
             session.close();
         }
         return u;
     }
-    
-    public Usuario buscaPorCorreo(String correo){
-        Usuario u =null;
+
+    public Usuario buscaPorCorreo(String correo) {
+        Usuario u = null;
         Session session = this.sessionFactory.openSession();
-        Transaction tx =null;
-        try{
+        Transaction tx = null;
+        try {
             tx = session.beginTransaction();
             String hql = "from Usuario where correo = :correo";
             Query query = session.createQuery(hql);
             query.setParameter("correo", correo);
-            u = (Usuario)query.uniqueResult();
+            u = (Usuario) query.uniqueResult();
             tx.commit();
-        }catch(HibernateException e){
-            if(tx!=null){
+        } catch (HibernateException e) {
+            if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
-        }finally{
+        } finally {
             session.close();
         }
         return u;
@@ -82,6 +82,28 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
 
     public Usuario buscaInformador(String nombre) {
         return null;
+    }
+
+    public boolean existeCorreo(String correo) {
+        Usuario u = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Usuario where correo = :correo";
+            Query query = session.createQuery(hql);
+            query.setParameter("correo", correo);
+            u = (Usuario) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return u != null;
     }
 
 }
