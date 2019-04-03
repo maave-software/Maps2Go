@@ -6,12 +6,9 @@ import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.ContraseniaIncorrectaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @SessionScoped
@@ -73,7 +70,7 @@ public class SessionCtrl implements Serializable {
                 incorrecta.mostrarMensaje();
             }
         }
-        return "index?faces-redirect=false";
+        return "inicioSesionFallido?faces-redirect=false";
     }
 
     public String cerrarSesion() {
