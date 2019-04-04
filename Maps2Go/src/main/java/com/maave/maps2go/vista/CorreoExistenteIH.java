@@ -1,4 +1,6 @@
 package com.maave.maps2go.vista;
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
 
 public class CorreoExistenteIH {
     private String mensaje;
@@ -14,6 +16,8 @@ public class CorreoExistenteIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = ("Este correo ya está registrado. Intenta nuevamente con uno distinto.");
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }
