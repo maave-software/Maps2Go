@@ -9,6 +9,7 @@ import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.ComentarioVacioIH;
 import com.maave.maps2go.vista.ErrorServidorIH;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class  ComentarioCtrl {
@@ -66,13 +67,15 @@ public class  ComentarioCtrl {
             UsuarioDAO udb = new UsuarioDAO();
             MarcadorDAO mdb = new MarcadorDAO();         
             Comentario coment = new Comentario();
-    // implementacio con login       SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-            Usuario u = udb.buscaPorCorreo("qwerty");
+            // implementacio con login       
+            SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            Usuario u = udb.buscaPorCorreo(us.getCorreo());
+            //Implementacion sin login Usuario u = udb.buscaPorCorreo("qwerty");
             Marcador m = mdb.buscaMarcador(1); //Pendiente 
             coment.setMarcador(m);
             coment.setLikes(0);
             coment.setDislikes(0);
-            coment.setContenido(contenido);  
+            coment.setContenido(contenido);
             coment.setUsuario(u);
             try{
                 cmdb.agregar(coment);
