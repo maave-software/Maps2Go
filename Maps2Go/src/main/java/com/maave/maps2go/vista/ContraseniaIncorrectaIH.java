@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class ContraseniaIncorrectaIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class ContraseniaIncorrectaIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = "Contraseña incorrecta,\nprueba de nuevo";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Ey!", mensaje));
     }
 
 }
