@@ -2,6 +2,9 @@ package com.maave.maps2go.vista;
 import javax.faces.application.FacesMessage;
 import org.primefaces.context.RequestContext;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class CorreoExistenteIH {
     private String mensaje;
 
