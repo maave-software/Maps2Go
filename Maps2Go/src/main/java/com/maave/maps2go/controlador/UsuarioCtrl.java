@@ -2,6 +2,7 @@ package com.maave.maps2go.controlador;
 
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
+import com.maave.maps2go.vista.CampoVacioIH;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
@@ -60,6 +61,18 @@ public class UsuarioCtrl {
     }
     
     public void agregarCuenta(){
+         if (nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH cv = new CampoVacioIH();
+            cv.mostrarMensaje();
+        } else {
+            Usuario u = new Usuario();
+            u.setNombreUsuario(nombreUsuario);
+            u.setCorreo(correo);
+            u.setContrasenia(contrasenia);
+            u.setRol(3);
+            UsuarioDAO udb = new UsuarioDAO();
+            udb.agregar(u);
+        }
 
     }
     
