@@ -52,8 +52,16 @@
             <artifactId>postgresql</artifactId>
             <version>9.3-1100-jdbc3</version>
         </dependency>
+<<<<<<< HEAD
         
         
+=======
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.6.2</version>
+            </dependency>                  
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     </dependencies>
 
     <build>

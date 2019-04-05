@@ -36,4 +36,28 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         return super.consultarTodos(Marcador.class);
     }
 
+    public Marcador buscaMarcador(int id) {
+        Marcador m = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Marcador where num_marcador = :num";
+            Query query = session.createQuery(hql);
+            query.setParameter("num", id);
+            m = (Marcador)query.uniqueResult();
+            tx.commit();
+            
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+
+        }finally{
+            session.close();
+        }
+        return m;
+    }
+    
 }
