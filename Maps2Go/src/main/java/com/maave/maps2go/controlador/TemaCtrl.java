@@ -39,7 +39,7 @@ public class TemaCtrl {
         UsuarioDAO udb = new UsuarioDAO();
         TemaDAO tdb = new TemaDAO();
         SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        u = udb.buscaPorCorreo("v@correo.com");
+        u = udb.buscaPorCorreo(us.getCorreo());
         t.setTipoTema(tipoTema);
         t.setColor(color);
         t.setUsuario(u);
