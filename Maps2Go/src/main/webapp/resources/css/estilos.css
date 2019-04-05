@@ -180,3 +180,14 @@ h1.c{
     font-size: 15px;
     text-align:  right; 
 }
+
+#re{
+    color: #47525E;
+    font-family: Cardo;
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 78px;
+    text-align: center;
+    position: relative;
+    top: 20px;
+}
