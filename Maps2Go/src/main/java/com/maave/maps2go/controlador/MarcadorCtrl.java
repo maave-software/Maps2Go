@@ -83,7 +83,7 @@ public class MarcadorCtrl {
         Marcador m = new Marcador();
         TemaDAO tdb = new TemaDAO();
         Tema t = new Tema();
-        t = tdb.buscaTema("Mascotas");
+        t = tdb.buscaTema("Mascota");
         m.setDescripcion(descripcion);
         m.setDatosUtiles(datosUtiles);
         m.setLatitud(latitud);
