@@ -11,10 +11,12 @@
         <h:head>
             <title>Marcador</title>
             <h:outputStylesheet name="css/estiloMarcador.css"/>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=P-Key">
+
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc">
             </script>
+
         </h:head>
-        
+
         <h:body>
             <header>
                 <h1>Maps2Go</h1>
@@ -32,19 +34,21 @@
                             <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{marcadorCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
                             <p:inputTextarea  id="datos" rows="6" cols="33" value="#{marcadorCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
                             <p:commandButton id="agregaMarcador" value="Aceptar" action="#{marcadorCtrl.agregarMarcador()}" update="form" styleClass="text-box2"/><br></br>
-                        
+
                         </h:form>
                     </p:layoutUnit>
 
-                    <p:layoutUnit position="center">                      
-                        <p:gmap id='map' center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:400%;height:600%" model="#{marcadorCtrl.simpleModel}">
+                    <p:layoutUnit position="center">
+                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:100%" model="#{marcadorCtrl.simpleModel}">
                             <p:ajax event="markerDrag" listener="#{marcadorCtrl.onMarkerDrag}" update="form"/>
                             <p:ajax event="pointSelect" listener="#{marcadorCtrl.onPointSelect}" update="form map"/>
+                           
                         </p:gmap>
+                                         
                     </p:layoutUnit>
                 </p:layout>
             </main>
-            
+
             <footer>
                 <h3>
                     Lorem ipsum dolor sit amet.
