@@ -4,28 +4,40 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
     <h:head>
         <title>Inicio</title>
-        <h:outputStylesheet name="css/estilos.css"/>
     </h:head>
     <h:body>      
         <h:form id="comments">
-            <p:inputTextarea value="#{comentarioCtrl.contenido}" />
-            <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioScrollerView.load()}" value="AgregaComentario" update="comments"/>
+            <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" />
+            <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioScrollerView.load()}" value="Comentar" update="comments"/>
             <p:dataScroller value="#{comentarioScrollerView.comentarios}" var="comentario" chunkSize="10"> 
                 <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">                            
                     <p:outputPanel>
                         <h:panelGrid columns="2" cellpadding="5">
 
-                                <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold"/>
-                                <h:outputText value="#{comentario.contenido}"/>
-                                <h:outputText value="Likes:" />
-                                <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
-                                <h:outputText value="Dislikes:" />
-                                <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>
+                            <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold"/>
+                            <h:outputText value="#{comentario.contenido}"/>
+                            <i class="far fa-thumbs-up like"></i>
+                            <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
+                            <i class="far fa-thumbs-down dislike" ></i>
+                            <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>
+                                <!--<p:commandLink action="#{toggleView.buttonAction()}" update="edit-area"><i class="fas fa-pencil-alt edit" ></i></p:commandLink>-->
+                           <!-- <c:if test="#{comentarioCtrl.esComentarioPropio(comentario.numComentario) eq true}">-->
+                                <h:form>
+
+                                    <p:panel toggleable="true" collapsed="true" toggleOrientation="horizontal" header="X">
+                                        <h:panelGrid columns="2" cellpadding="10">
+                                            <p:inputTextarea placeholder="Escribe comentario..."  value="#{comentarioCtrl.contenido}"></p:inputTextarea>
+                                            <p:commandButton ajax="true" action="#{comentarioCtrl.actualizarComentario(comentario.numComentario)}" value="Aceptar" update="comments"/>
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </h:form>
+                            <!--</c:if>-->
                         </h:panelGrid>
                     </p:outputPanel>                            
                 </h:panelGrid>                        

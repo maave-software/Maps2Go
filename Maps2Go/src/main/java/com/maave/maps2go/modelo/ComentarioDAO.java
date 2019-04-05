@@ -57,5 +57,52 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
         }
         return obj;
     }
+    
+    public Comentario buscaId(int id){
+        Comentario obj = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Comentario where num_comentario = :id";
+            System.out.println(hql);
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            obj = (Comentario) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+
+        }
+        return obj;
+    }
+
+    public Comentario esPropio(int id, int user){
+        Comentario obj = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Comentario where num_comentario = :id and id_usuario = :user";
+            System.out.println(hql);
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            query.setParameter("user", user);
+            obj = (Comentario) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+
+        }
+        return obj;
+    }
 
 }
