@@ -11,7 +11,7 @@
         <many-to-one name="marcador" class="com.maave.maps2go.modelo.Marcador" fetch="select">
             <column name="num_marcador" not-null="true" />
         </many-to-one>
-        <many-to-one name="usuario" class="com.maave.maps2go.modelo.Usuario" fetch="select">
+        <many-to-one name="usuario" class="com.maave.maps2go.modelo.Usuario" fetch="select" lazy="false">
             <column name="id_usuario" not-null="true" />
         </many-to-one>
         <property name="contenido" type="string">

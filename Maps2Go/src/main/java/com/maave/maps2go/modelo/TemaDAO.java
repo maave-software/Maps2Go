@@ -43,7 +43,7 @@ public class TemaDAO extends AbstractDAO<Tema>{
             tx = session.beginTransaction();
             String hql = "from Tema where tipoTema = :tema";
             Query query = session.createQuery(hql);
-            query.setParameter("tipoTema", tema);
+            query.setParameter("tema", tema);
             t = (Tema)query.uniqueResult();
             tx.commit();
         }catch(HibernateException e){
