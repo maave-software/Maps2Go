@@ -180,3 +180,9 @@ h1.c{
     font-size: 15px;
     text-align:  right; 
 }
+
+.panel{
+    background: url(img/pencil.svg) no-repeat;
+    height: 16px;
+    width: 16px;
+}
