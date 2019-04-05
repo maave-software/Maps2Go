@@ -2,18 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>is.lab</groupId>
-    <artifactId>Mapita</artifactId>
+    <groupId>com.maave</groupId>
+    <artifactId>Maps2Go</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Map2go</name>
+    <name>Maps2Go</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -40,7 +39,6 @@
             <artifactId>primefaces-extensions</artifactId>
             <version>6.2.2</version>
         </dependency>
-       
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -52,18 +50,12 @@
             <artifactId>postgresql</artifactId>
             <version>9.3-1100-jdbc3</version>
         </dependency>
-<<<<<<< HEAD
-        
-        
-=======
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>1.6.2</version>
             </dependency>                  
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

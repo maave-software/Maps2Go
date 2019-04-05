@@ -6,12 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class UsuarioDAO extends AbstractDAO<Usuario> {
+public class UsuarioDAO extends AbstractDAO<Usuario>{
 
     public UsuarioDAO() {
         super();
     }
-
+    
     @Override
     public void agregar(Usuario usuario) {
         super.agregar(usuario);
@@ -31,13 +31,8 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return super.consultarString(Usuario.class, id);
     }
     
-<<<<<<< HEAD
     public Usuario consultarId(int id) {
         return super.consultarInt(Usuario.class, id); 
-=======
-    public Usuario consultarPorId(int id) {
-        return super.consultarInt(Usuario.class, id);
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
     public List<Usuario> consultarTodos() {
@@ -45,60 +40,16 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
     }
 
     public Usuario buscaUsuario(String correo, String contrasenia) {
-        Usuario u = null;
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "from Usuario where correo = :correo and contrasenia = :contrasenia";
-            Query query = session.createQuery(hql);
-            query.setParameter("correo", correo);
-            query.setParameter("contrasenia", contrasenia);
-            u = (Usuario) query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return u;
-    }
-
-    public Usuario buscaPorCorreo(String correo) {
-        Usuario u = null;
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "from Usuario where correo = :correo";
-            Query query = session.createQuery(hql);
-            query.setParameter("correo", correo);
-            u = (Usuario) query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return u;
-    }
-
-    public List<Usuario> buscaInformadores() {
-        List<Usuario> obj =null;
+        Usuario u =null;
         Session session = this.sessionFactory.openSession();
         Transaction tx =null;
         try{
             tx = session.beginTransaction();
-            String hql = "from Usuario where rol = :rol";
+            String hql = "from Usuario where correo = :correo and contrasenia = :contrasenia";
             Query query = session.createQuery(hql);
-            query.setParameter("rol", 2);
-            obj = (List<Usuario>)query.list();
+            query.setParameter("correo", correo);
+            query.setParameter("contrasenia",contrasenia);
+            u = (Usuario)query.uniqueResult();
             tx.commit();
         }catch(HibernateException e){
             if(tx!=null){
@@ -108,42 +59,21 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         }finally{
             session.close();
         }
-        return obj;
-    }
-    public boolean existeCorreo(String correo){
-         Usuario u = null;
-         Session session = this.sessionFactory.openSession();
-         Transaction tx = null; 
-         try{
-             tx = session.beginTransaction();
-             String hql = "from Usuario where correo = :correo";
-             Query query = session.createQuery(hql);
-             query.setParameter("correo", correo);
-             u = (Usuario)query.uniqueResult();
-             tx.commit();
-         }catch(HibernateException e){
-            if(tx!=null){
-                tx.rollback();
-            }
-            e.printStackTrace();
-        }finally{
-            session.close();
-        }
-        return u!= null;
+        return u;
     }
     
-    public boolean existeNombre(String nombreUsuario){
-         Usuario u = null;
-         Session session = this.sessionFactory.openSession();
-         Transaction tx = null; 
-         try{
-             tx = session.beginTransaction();
-             String hql = "from Usuario where nombreUsuario = :nombreUsuario";
-             Query query = session.createQuery(hql);
-             query.setParameter("nombreUsuario", nombreUsuario);
-             u = (Usuario)query.uniqueResult();
-             tx.commit();
-         }catch(HibernateException e){
+    public Usuario buscaPorCorreo(String correo){
+        Usuario u =null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx =null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Usuario where correo = :correo";
+            Query query = session.createQuery(hql);
+            query.setParameter("correo", correo);
+            u = (Usuario)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
             if(tx!=null){
                 tx.rollback();
             }
@@ -151,7 +81,7 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         }finally{
             session.close();
         }
-        return u!= null;    
+        return u;
     }
     
          public boolean existeCorreo(String correo){
@@ -198,27 +128,8 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return u!= null;    
     }
 
-
-    public boolean existeCorreo(String correo) {
-        Usuario u = null;
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "from Usuario where correo = :correo";
-            Query query = session.createQuery(hql);
-            query.setParameter("correo", correo);
-            u = (Usuario) query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return u != null;
+    public Usuario buscaInformador(String nombre) {
+        return null;
     }
 
 }
