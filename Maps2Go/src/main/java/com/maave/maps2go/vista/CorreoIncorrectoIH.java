@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class CorreoIncorrectoIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class CorreoIncorrectoIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = ("Tu correo es incorrecto, revísalo y vuelve a intentarlo.");
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }

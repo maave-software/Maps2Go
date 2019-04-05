@@ -4,11 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <f:view>
         <h:head>
             <title>Inicio</title>
             <h:outputStylesheet name="css/estilos.css"/>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=TUAPIKEY">
+            </script>    
         </h:head>
         <h:body>
             <header>
@@ -19,6 +22,7 @@
                                      styleClass="ButtonReg"/>
 
                     <p:commandButton 
+                                     action="iniciarSesion" 
                                      value="Iniciar Sesion"
                                      styleClass="ButtonIn"/>
                 </h:form>
@@ -33,6 +37,21 @@
                     </h:form>
                     
                 </aside>
+             <h:form prependId="false">        
+                    <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{marcadorCtrl.simpleModel}">
+                    
+                        <p:ajax event="overlaySelect" listener="#{marcadorCtrl.onMarkerSelect}"/>
+                        
+                        <p:gmapInfoWindow id="infoWindow">
+                            <p:outputPanel style="text-align: center; margin: auto">
+                                <h:outputText value="#{marcadorCtrl.marker.title}" style="font-weight:bold"/>
+                                 <br/>
+                                 <h:outputText value="#{marcadorCtrl.marker.data}"/>
+                            </p:outputPanel>
+                        </p:gmapInfoWindow>   
+                    </p:gmap>
+                </h:form>       
+                
             </main>
             <footer>
                 <h1 class = "a"> Copyright </h1>

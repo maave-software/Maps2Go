@@ -17,8 +17,7 @@ public class ComentarioVacioIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "¡Hey! \n El contenido del comentario no puede ser vacío.";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia",mensaje));
+
     }
 
 }

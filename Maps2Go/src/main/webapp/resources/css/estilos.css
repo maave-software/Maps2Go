@@ -113,3 +113,11 @@ h1.c{
     font-size: 15px;
     text-align:  right; 
 }
+
+.text-box{
+    position:relative; 
+    left:680px;
+    top:150px;
+    height:70px;
+    width: 500px;
+}
