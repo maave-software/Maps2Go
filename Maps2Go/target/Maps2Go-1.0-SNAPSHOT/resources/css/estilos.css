@@ -19,10 +19,32 @@ html,body{
     background-color: #B0E0E6;
 }
 h1{
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 35px;
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);*/
+  color: #5A6978;
+  font-family: Josefin Slab;
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 72px;
+  text-align: left;
+}
+
+h2{
+    color: #47525E;
+    font-family: Cardo;
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 78px;
+    text-align: center;
+    position: relative;
+    top: 20px;
+}
+
+hr {
+  height: 2px;
+  background-color: black;
 }
 
 
@@ -45,6 +67,51 @@ body *{
     height: 48px;
 }
 
+.ButtonAceptar{
+    background-color: #2D9CD7;
+    border-radius: 100px;
+    width: 192px;
+    height: 50px;
+    position: relative;
+    left: 755px;
+    top: 200px;
+    color: #FFFFFF;
+    font-family: Lato;
+}
+
+.textoCampo1{
+    background-color: #FFFFFF;
+    border: 1px solid #8492A6;
+    border-radius: 5px;
+    width: 565px;
+    height: 56px;
+    position: relative;
+    left: 370px;
+    top: 150px;
+    color: #8190A5;
+    font-family: Cardo;
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 62px;
+    text-align: center;
+}
+
+.textoCampo2{
+    background-color: #FFFFFF;
+    border: 1px solid #8492A6;
+    border-radius: 5px;
+    width: 565px;
+    height: 56px;
+    position: relative;
+    left: 370px;
+    top: 170px;
+    color: #8190A5;
+    font-family: Cardo;
+    font-size: 45px;
+    font-weight: 400;
+    line-height: 62px;
+    text-align: center;
+}
 header{
     width: 100%;
     height: 10%;
@@ -114,10 +181,17 @@ h1.c{
     text-align:  right; 
 }
 
+<<<<<<< HEAD
 .text-box{
     position:relative; 
     left:680px;
     top:150px;
     height:70px;
     width: 500px;
+=======
+.panel{
+    background: url(img/pencil.svg) no-repeat;
+    height: 16px;
+    width: 16px;
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
 }
