@@ -17,8 +17,8 @@ public class CorreoExistenteIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "¡Ey! :( \n Este correo ya existe";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"advertencia", mensaje));
+        this.mensaje = "Este correo ya existe";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Ey!", mensaje));
     
     }
 
