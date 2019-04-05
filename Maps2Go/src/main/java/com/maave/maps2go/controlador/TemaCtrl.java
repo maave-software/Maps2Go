@@ -1,6 +1,11 @@
 package com.maave.maps2go.controlador;
 
+import com.maave.maps2go.modelo.Tema;
+import com.maave.maps2go.modelo.TemaDAO;
+import com.maave.maps2go.modelo.Usuario;
+import com.maave.maps2go.modelo.UsuarioDAO;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class TemaCtrl {
@@ -29,6 +34,16 @@ public class TemaCtrl {
     }
 
     public void agregarTema() {
+        Tema t = new Tema();
+        Usuario u = new Usuario();
+        UsuarioDAO udb = new UsuarioDAO();
+        TemaDAO tdb = new TemaDAO();
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        u = udb.buscaPorCorreo("v@correo.com");
+        t.setTipoTema(tipoTema);
+        t.setColor(color);
+        t.setUsuario(u);
+        tdb.agregar(t);
     }
 
     public void consultarTemas() {

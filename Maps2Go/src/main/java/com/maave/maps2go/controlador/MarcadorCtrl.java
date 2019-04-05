@@ -82,7 +82,8 @@ public class MarcadorCtrl {
         UsuarioDAO udb = new UsuarioDAO();
         Marcador m = new Marcador();
         TemaDAO tdb = new TemaDAO();
-        Tema t = tdb.buscaTema("hola");
+        Tema t = new Tema();
+        t = tdb.buscaTema("Mascotas");
         m.setDescripcion(descripcion);
         m.setDatosUtiles(datosUtiles);
         m.setLatitud(latitud);
@@ -102,7 +103,7 @@ public class MarcadorCtrl {
         simpleModel = new DefaultMapModel();
         marcador = new Marker(new LatLng(23.382390, -102.291477),"Arrastrame");
         marcador.setDraggable(true);
-        //marcador.setClickable(true);
+        marcador.setClickable(true);
         simpleModel.addOverlay(marcador);
         this.latitud = marcador.getLatlng().getLat();
         this.longitud = marcador.getLatlng().getLng();
