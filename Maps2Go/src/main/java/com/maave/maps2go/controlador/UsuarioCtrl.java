@@ -4,6 +4,7 @@ import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.CorreoExistenteIH;
+import com.maave.maps2go.vista.InformadorAgregadoIH;
 import com.maave.maps2go.vista.NombreExistenteIH;
 import javax.faces.bean.ManagedBean;
 import java.security.SecureRandom;
@@ -72,7 +73,7 @@ public class UsuarioCtrl {
         this.rol = rol;
     }
 
-    public void agregarInformador() {
+    public String agregarInformador() {
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
@@ -96,9 +97,12 @@ public class UsuarioCtrl {
             u.setRol(2);
             
             udb.agregar(u);
-            //return "/admimnistrador/perfil?faces-redirect=true";
+            
+            InformadorAgregadoIH exito = new InformadorAgregadoIH();
+            exito.mostrarMensaje();
+            return "/administrador/perfil?faces-redirect=false";
         }
-        //return "agregarInformadorFallido?faces-redirect=false";
+        return "/administrador/agregarInformadorFallido?faces-redirect=false";
     }
 
     public String buscarInformador(){
