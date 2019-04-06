@@ -119,6 +119,20 @@ public class UsuarioCtrl {
         buscarInformador();
     }
 
+    public void agregarCuenta(){
+         if (nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH cv = new CampoVacioIH();
+            cv.mostrarMensaje();
+        } else {
+            Usuario u = new Usuario();
+            u.setNombreUsuario(nombreUsuario);
+            u.setCorreo(correo);
+            u.setContrasenia(contrasenia);
+            u.setRol(3);
+            UsuarioDAO udb = new UsuarioDAO();
+            udb.agregar(u);
+    }
+
     public void agregarCuenta() {
     }
 
