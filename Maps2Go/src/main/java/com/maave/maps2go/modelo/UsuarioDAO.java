@@ -31,8 +31,13 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return super.consultarString(Usuario.class, id);
     }
     
+<<<<<<< HEAD
+    public Usuario consultarId(int id) {
+        return super.consultarInt(Usuario.class, id); 
+=======
     public Usuario consultarPorId(int id) {
         return super.consultarInt(Usuario.class, id);
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
     public List<Usuario> consultarTodos() {
@@ -134,6 +139,50 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
          try{
              tx = session.beginTransaction();
              String hql = "from Usuario where nombreUsuario = :nombreUsuario";
+             Query query = session.createQuery(hql);
+             query.setParameter("nombreUsuario", nombreUsuario);
+             u = (Usuario)query.uniqueResult();
+             tx.commit();
+         }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return u!= null;    
+    }
+    
+         public boolean existeCorreo(String correo){
+         Usuario u = null;
+         Session session = this.sessionFactory.openSession();
+         Transaction tx = null; 
+         try{
+             tx = session.beginTransaction();
+             String hql = "from Usuario where correo = :correo";
+             Query query = session.createQuery(hql);
+             query.setParameter("correo", correo);
+             u = (Usuario)query.uniqueResult();
+             tx.commit();
+         }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return u!= null;    
+    }
+        
+        public boolean existeNombre(String nombreUsuario){
+         Usuario u = null;
+         Session session = this.sessionFactory.openSession();
+         Transaction tx = null; 
+         try{
+             tx = session.beginTransaction();
+             String hql = "from Usuario where nombre_usuario = :nombreUsuario";
              Query query = session.createQuery(hql);
              query.setParameter("nombreUsuario", nombreUsuario);
              u = (Usuario)query.uniqueResult();

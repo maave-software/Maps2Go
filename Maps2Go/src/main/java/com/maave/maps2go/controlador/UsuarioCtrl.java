@@ -2,10 +2,20 @@ package com.maave.maps2go.controlador;
 
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
+<<<<<<< HEAD
+import com.maave.maps2go.vista.CamposSinLlenarIH;
+import com.maave.maps2go.vista.CorreoExistenteIH;
+import com.maave.maps2go.vista.NombreExistenteIH;
+import com.maave.maps2go.vista.CuentaActualizadaIH;
+import com.maave.maps2go.vista.CorreoIncorrectoIH;
+import java.util.regex.Matcher; 
+import java.util.regex.Pattern; 
+=======
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.CorreoExistenteIH;
 import com.maave.maps2go.vista.InformadorAgregadoIH;
 import com.maave.maps2go.vista.NombreExistenteIH;
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
 import javax.faces.bean.ManagedBean;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -14,12 +24,28 @@ import java.util.Random;
 
 @ManagedBean
 public class UsuarioCtrl {
+<<<<<<< HEAD
+    
+    private int idUsuario;
+=======
 
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     private int rol;
     private int idUsuario;
     private String correo;
     private String contrasenia = "i";
     private String nombreUsuario;
+<<<<<<< HEAD
+
+    public int getIdUsuario() {
+        // Automatically generated method. Please do not modify this code.
+        return this.idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        // Automatically generated method. Please do not modify this code.
+        this.idUsuario = idUsuario;
+=======
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static List<Usuario> informadores = new ArrayList();
@@ -31,6 +57,7 @@ public class UsuarioCtrl {
     public int getIdUsuario(){
         return this.idUsuario;
         
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
     
     public String getNombreUsuario() {
@@ -118,6 +145,10 @@ public class UsuarioCtrl {
         udb.borrar(usuario);
         buscarInformador();
     }
+<<<<<<< HEAD
+    
+    public void agregarCuenta(){
+=======
 
     public void agregarCuenta(){
          if (nombreUsuario.compareTo("") == 0) {
@@ -134,12 +165,62 @@ public class UsuarioCtrl {
     }
 
     public void agregarCuenta() {
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
     public void actualizarCuenta() {
+        UsuarioDAO udb = new UsuarioDAO();
+        Usuario usuario = udb.consultarId(idUsuario);
+        if (usuario != null){
+            //Validaciones para el nombre de usuario
+            if(nombreUsuario != null && !nombreUsuario.isEmpty()){
+                if(!udb.existeNombre(nombreUsuario)){
+                    usuario.setNombreUsuario(nombreUsuario);
+                }else{
+                    NombreExistenteIH mensaje = new NombreExistenteIH();
+                    mensaje.mostrarMensaje();
+                }
+            }
+            //Actualización de contrseña
+            if (contrasenia != null && !contrasenia.isEmpty()) {
+                usuario.setContrasenia(contrasenia);
+            }
+            //Validaciones para el correo
+            if (correo != null && !correo.isEmpty()) {
+                if (!validarCorreo(correo)){
+                    CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
+                    mensaje.mostrarMensaje();  
+                } 
+                if(!udb.existeCorreo(correo)){
+                    usuario.setCorreo(correo);
+                }else{
+                    CorreoExistenteIH mensaje = new CorreoExistenteIH();
+                    mensaje.mostrarMensaje();
+                }
+            }
+            
+            if(nombreUsuario.isEmpty() && contrasenia.isEmpty() && correo.isEmpty()){
+                CamposSinLlenarIH mensaje = new CamposSinLlenarIH();
+                mensaje.mostrarMensaje();
+            }
+        
+            udb.actualizar(usuario);
+        }
+    }
+    
+    public static boolean validarCorreo(String correo){
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                       "[a-zA-Z0-9_+&*-]+)*@" + 
+                       "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                       "A-Z]{2,7}$";
+        Pattern pat = Pattern.compile(regex);
+        return pat.matcher(correo).matches(); 
     }
 
-    public void eliminarCuenta() {
+    public void borrarCuenta(){
+        UsuarioDAO udb = new UsuarioDAO();
+        Usuario cv = udb.consultarId(idUsuario);
+        udb.borrar(cv);
     }
 
 }

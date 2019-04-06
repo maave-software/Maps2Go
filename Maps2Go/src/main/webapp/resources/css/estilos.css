@@ -181,6 +181,18 @@ h1.c{
     text-align:  right; 
 }
 
+.text-box{
+    position:relative; 
+    left:680px;
+    top:150px;
+    height:70px;
+    width: 500px;
+
+.panel{
+    background: url(img/pencil.svg) no-repeat;
+    height: 16px;
+    width: 16px;
+}
 
 .text-box2{
    position: relative;

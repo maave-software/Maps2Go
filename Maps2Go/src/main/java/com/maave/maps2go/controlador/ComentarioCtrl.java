@@ -1,13 +1,5 @@
 package com.maave.maps2go.controlador;
 
-import com.maave.maps2go.modelo.Comentario;
-import com.maave.maps2go.modelo.ComentarioDAO;
-import com.maave.maps2go.modelo.Marcador;
-import com.maave.maps2go.modelo.MarcadorDAO;
-import com.maave.maps2go.modelo.Usuario;
-import com.maave.maps2go.modelo.UsuarioDAO;
-import com.maave.maps2go.vista.ComentarioVacioIH;
-import com.maave.maps2go.vista.ErrorServidorIH;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
@@ -87,6 +79,8 @@ public class  ComentarioCtrl {
     }
 
     public void agregarComentario() {        
+<<<<<<< HEAD
+=======
         if(contenido.compareTo("") != 0){
             ComentarioDAO cmdb = new ComentarioDAO();
             UsuarioDAO udb = new UsuarioDAO();
@@ -112,6 +106,7 @@ public class  ComentarioCtrl {
             ComentarioVacioIH warn = new ComentarioVacioIH();
             warn.mostrarMensaje();
         }
+>>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
     public void actualizarComentario(int id) {      
