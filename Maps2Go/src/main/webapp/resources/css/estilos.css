@@ -181,17 +181,22 @@ h1.c{
     text-align:  right; 
 }
 
-<<<<<<< HEAD
 .text-box{
     position:relative; 
     left:680px;
     top:150px;
     height:70px;
     width: 500px;
-=======
+
 .panel{
     background: url(img/pencil.svg) no-repeat;
     height: 16px;
     width: 16px;
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
 }
+
+.text-box2{
+   position: relative;
+   left: 800px;
+   top: 150px;
+   height: 50px;
+   width: 100px;

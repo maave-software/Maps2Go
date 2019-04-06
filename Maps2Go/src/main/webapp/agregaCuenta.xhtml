@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:view>
+        <h:head>
+            <title>Registrar</title>
+        </h:head>
+
+        <h:head>
+            <h:outputStylesheet name="css/estilos.css"/>
+        </h:head>
+        <body>
+            <header>
+                <h1>Maps2Go</h1>
+                <hr></hr>
+
+                <h:form>
+
+                    <h2>Registrarse</h2>
+
+                    <p:inputText id="nombre" 
+                                 value="#{usuarioCtrl.nombreUsuario}"
+                                 styleClass="textoCampo1"
+                                 placeholder="Nombre"/> <br/>
+                    <p:inputText id="correo" 
+                                 value="#{usuarioCtrl.correo}"
+                                 styleClass="textoCampo1"
+                                 placeholder="Correo"/> <br/>
+                    <p:password  id="contrasenia" 
+                                 value="#{usuarioCtrl.contrasenia}"
+                                 styleClass="textoCampo1"
+                                 placeholder="Contraseña"/> <br/>
+                    <p:commandButton 
+                        action="#{usuarioCtrl.agregarCuenta()}"
+                        value="Aceptar"
+                        styleClass="ButtonAceptar"/>
+                </h:form>
+            </header>
+        </body>
+    </f:view>
+</html>
+

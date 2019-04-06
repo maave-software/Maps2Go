@@ -150,6 +150,20 @@ public class UsuarioCtrl {
     public void agregarCuenta(){
 =======
 
+    public void agregarCuenta(){
+         if (nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH cv = new CampoVacioIH();
+            cv.mostrarMensaje();
+        } else {
+            Usuario u = new Usuario();
+            u.setNombreUsuario(nombreUsuario);
+            u.setCorreo(correo);
+            u.setContrasenia(contrasenia);
+            u.setRol(3);
+            UsuarioDAO udb = new UsuarioDAO();
+            udb.agregar(u);
+    }
+
     public void agregarCuenta() {
 >>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
