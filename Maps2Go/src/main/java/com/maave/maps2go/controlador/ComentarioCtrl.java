@@ -20,31 +20,6 @@ public class  ComentarioCtrl {
     private String contenido;
     private double longitud;
     private double latitud;
-    private Usuario usuario;
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
     
     public int getNumComentario() {
         // Automatically generated method. Please do not modify this code.
@@ -142,5 +117,5 @@ public class  ComentarioCtrl {
             return false;
         else
             return true;
-    }
+    }    
 }

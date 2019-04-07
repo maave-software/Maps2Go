@@ -35,8 +35,8 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
     public List<Marcador> consultarTodos() {
         return super.consultarTodos(Marcador.class);
     }
-
-    public Marcador buscaMarcador(int id) {
+    
+       public Marcador buscaMarcador(int id) {
         Marcador m = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
@@ -59,5 +59,4 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         }
         return m;
     }
-    
 }

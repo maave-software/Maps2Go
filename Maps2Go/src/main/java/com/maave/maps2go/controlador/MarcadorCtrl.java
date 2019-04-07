@@ -21,9 +21,7 @@ public class MarcadorCtrl {
     private double longitud;
     private int numMarcador;
     private Tema tema;
-   
 
-    
     public int getNumMarcador() {
         // Automatically generated method. Please do not modify this code.
         return this.numMarcador;
@@ -90,9 +88,8 @@ public class MarcadorCtrl {
 
     public void eliminarMarcador() {
     }
-    
-    
+
+
      //Métodos auxiliares para agregar marcador
-  
 
 }
