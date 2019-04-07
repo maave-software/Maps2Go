@@ -24,12 +24,25 @@
                 </h:form>
             </header>
             <main>
-                
+               
                 <aside>
                     <h:form>
                         <p:inputText id="tema" 
                                      placeholder="Buscar"
                                      /> <br/><br/>
+                    </h:form>
+                    
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true" />
+                        
+                        <p:dataTable value="#{temaScroller.temas}"  var="Tema" selectionMode="single"  selection="#{temaScroller.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true" scrollHeight="500">
+                            <p:ajax event="rowSelect" listener="#{temaScroller.onRowSelect}" update=":form:msgs" />
+                            <p:ajax event="rowUnselect" listener="#{temaScroller.onRowUnselect}" update=":form:msgs" />
+                            <p:column headerText="Temas">
+                                <h:outputText value="#{Tema.tipoTema}" />
+                            </p:column>  
+                            
+                        </p:dataTable>
                     </h:form>
                     
                 </aside>

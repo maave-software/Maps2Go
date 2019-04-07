@@ -1,6 +1,9 @@
 package com.maave.maps2go.controlador;
 
 import javax.faces.bean.ManagedBean;
+import com.maave.maps2go.modelo.TemaDAO;
+import com.maave.maps2go.modelo.Tema;
+import java.util.List;
 
 @ManagedBean
 public class TemaCtrl {
@@ -31,7 +34,10 @@ public class TemaCtrl {
     public void agregarTema() {
     }
 
-    public void consultarTemas() {
+    public List<Tema> consultarTemas() {
+        TemaDAO tma= new TemaDAO();
+        return tma.consultarTodos();
     }
+    
 
 }
