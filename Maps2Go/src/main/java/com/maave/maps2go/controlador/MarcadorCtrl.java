@@ -26,7 +26,7 @@ public class MarcadorCtrl implements Serializable {
     private double latitud;
     private double longitud;
     private int numMarcador;
-    private MapModel  simpleModel;
+    private MapModel simpleModel;
     private Marker marker;
     private Marker marcador;
     private Tema tema;
