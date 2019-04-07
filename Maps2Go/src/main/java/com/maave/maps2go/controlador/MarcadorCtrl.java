@@ -29,6 +29,38 @@ public class MarcadorCtrl implements Serializable {
     private MapModel  simpleModel;
     private Marker marker;
     private Marker marcador;
+
+    public MapModel getSimpleModel() {
+        return simpleModel;
+    }
+
+    public void setSimpleModel(MapModel simpleModel) {
+        this.simpleModel = simpleModel;
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+
+    public Marker getMarcador() {
+        return marcador;
+    }
+
+    public void setMarcador(Marker marcador) {
+        this.marcador = marcador;
+    }
+
+    public Tema getTema() {
+        return tema;
+    }
+
+    public void setTema(Tema tema) {
+        this.tema = tema;
+    }
     private Tema tema;
 
     public int getNumMarcador() {
