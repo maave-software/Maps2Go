@@ -12,7 +12,7 @@
             <title>Marcador</title>
             <h:outputStylesheet name="css/estilos.css"/>
 
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=Pkey">
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=PKey">
             </script>
 
         </h:head>
@@ -29,19 +29,19 @@
                             <p:messages id="men" showDetail="true" closable="true">
                                 <p:autoUpdate/>
                             </p:messages>
-                            <p:inputNumber decimalPlaces="6" id="longitud" value="#{marcadorCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
-                            <p:inputNumber decimalPlaces="6" id="latitud" value="#{marcadorCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
-                            <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{marcadorCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
-                            <p:inputTextarea  id="datos" rows="6" cols="33" value="#{marcadorCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
-                            <p:commandButton id="agregaMarcador" value="Aceptar" action="#{marcadorCtrl.agregarMarcador()}" update="form" styleClass="text-box2"/><br></br>
+                            <p:inputNumber decimalPlaces="6" id="longitud" value="#{mapCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
+                            <p:inputNumber decimalPlaces="6" id="latitud" value="#{mapCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
+                            <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{mapCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
+                            <p:inputTextarea  id="datos" rows="6" cols="33" value="#{mapCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
+                            <p:commandButton id="agregaMarcador" value="Aceptar" action="#{mapCtrl.agregarMarcador()}" update="form" styleClass="text-box2"/><br></br>
 
                         </h:form>
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center">
-                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:100%" model="#{marcadorCtrl.simpleModel}">
-                            <p:ajax event="markerDrag" listener="#{marcadorCtrl.onMarkerDrag}" update="form"/>
-                            <p:ajax event="pointSelect" listener="#{marcadorCtrl.onPointSelect}" update="form map"/>
+                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:100%" model="#{mapCtrl.simpleModel}">
+                            <p:ajax event="markerDrag" listener="#{mapCtrl.onMarkerDrag}" update="form"/>
+                            <p:ajax event="pointSelect" listener="#{mapCtrl.onPointSelect}" update="form map"/>
                            
                         </p:gmap>
                                          

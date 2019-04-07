@@ -2,36 +2,26 @@ package com.maave.maps2go.controlador;
 
 import com.maave.maps2go.modelo.Marcador;
 import com.maave.maps2go.modelo.MarcadorDAO;
-import java.io.Serializable;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import org.primefaces.event.map.OverlaySelectEvent;
 import com.maave.maps2go.modelo.Tema;
 import com.maave.maps2go.modelo.TemaDAO;
-import com.maave.maps2go.modelo.UsuarioDAO;
-import org.primefaces.event.map.MarkerDragEvent;
-import org.primefaces.event.map.PointSelectEvent;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
+import com.maave.maps2go.controlador.MapCtrl;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+
 
 @ManagedBean
 @ViewScoped
-public class MarcadorCtrl implements Serializable{
+public class MarcadorCtrl {
     
-     private String datosUtiles;
+    MapCtrl mp = new MapCtrl();
+    private String datosUtiles;
     private String descripcion;
     private double latitud;
     private double longitud;
     private int numMarcador;
-    private MapModel simpleModel;
-    private Marker marker;
-    private Marker marcador;
     private Tema tema;
-  
+
     public int getNumMarcador() {
         // Automatically generated method. Please do not modify this code.
         return this.numMarcador;
@@ -84,15 +74,14 @@ public class MarcadorCtrl implements Serializable{
 
     public void agregarMarcador() {
         MarcadorDAO mdb = new MarcadorDAO();
-        UsuarioDAO udb = new UsuarioDAO();
         Marcador m = new Marcador();
         TemaDAO tdb = new TemaDAO();
         Tema t = new Tema();
-        t = tdb.buscaTema("Mascota");
+        t = tdb.buscaTema("Mascotas");
         m.setDescripcion(descripcion);
         m.setDatosUtiles(datosUtiles);
-        m.setLatitud(latitud);
-        m.setLongitud(longitud);
+        m.setLatitud(mp.getLatitud());
+        m.setLongitud(mp.getLongitud());
         m.setTema(t);
         mdb.agregar(m);
     }
@@ -100,59 +89,7 @@ public class MarcadorCtrl implements Serializable{
     public void eliminarMarcador() {
     }
 
-    @PostConstruct
-    public void verMarcadores(){
-        simpleModel = new DefaultMapModel();
-        MarcadorDAO mdb = new MarcadorDAO();
-        List<Marcador> marcadores = mdb.consultarTodos();
-        for(Marcador m :marcadores){
-            LatLng cord = new LatLng(m.getLatitud(),m.getLongitud());
-            Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles());
-            simpleModel.addOverlay(marcador);
-        }    
-    }        
-    
-     //Métodos auxiliares para agregar marcador
-    
-    @PostConstruct
-    public void init(){
-        simpleModel = new DefaultMapModel();
-        marcador = new Marker(new LatLng(23.382390, -102.291477),"Arrastrame");
-        marcador.setDraggable(true);
-        marcador.setClickable(true);
-        simpleModel.addOverlay(marcador);
-        this.latitud = marcador.getLatlng().getLat();
-        this.longitud = marcador.getLatlng().getLng();
-    }
-    
-     public Marker getMarcador() {
-        return marcador;
-    }
-  
-    public MapModel getSimpleModel() {
-        return simpleModel;
-    }
-    
-    public void onMarkerSelect(OverlaySelectEvent event) {
-       marker =(Marker) event.getOverlay(); 
-    }
-    
-    public Marker getMarker() {
-        return marker;
-    }
 
-    public void onMarkerDrag(MarkerDragEvent event){
-        marcador = event.getMarker();
-        this.latitud = marcador.getLatlng().getLat();
-        this.longitud = marcador.getLatlng().getLng();
-    }
-    
-    public void onPointSelect(PointSelectEvent event) {
-        LatLng latlng = event.getLatLng();
-        marcador = simpleModel.getMarkers().get(0);
-        marcador.setLatlng(latlng);
-        this.latitud = latlng.getLat();
-        this.longitud = latlng.getLng();        
-    }
+     //Métodos auxiliares para agregar marcador
 
 }
