@@ -8,6 +8,7 @@ import com.maave.maps2go.vista.NombreExistenteIH;
 import com.maave.maps2go.vista.CuentaActualizadaIH;
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.InformadorAgregadoIH;
+import com.maave.maps2go.vista.CuentaAgregadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
 import java.security.SecureRandom;
 import java.util.regex.Matcher;
