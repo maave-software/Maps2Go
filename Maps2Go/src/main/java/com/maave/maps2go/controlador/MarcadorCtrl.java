@@ -32,7 +32,7 @@ public class MarcadorCtrl implements Serializable{
     private Marker marcador;
     private MapModel simpleModel;
     private Tema tema;
-    
+  
     public int getNumMarcador() {
         // Automatically generated method. Please do not modify this code.
         return this.numMarcador;
@@ -100,7 +100,7 @@ public class MarcadorCtrl implements Serializable{
 
     public void eliminarMarcador() {
     }
-  
+
     @PostConstruct
     public void verMarcadores(){
         simpleModel = new DefaultMapModel();
@@ -111,7 +111,7 @@ public class MarcadorCtrl implements Serializable{
             Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles());
             simpleModel.addOverlay(marcador);
         }    
-    }    
+    }        
     
      //Métodos auxiliares para agregar marcador
     
@@ -141,7 +141,7 @@ public class MarcadorCtrl implements Serializable{
     public Marker getMarker() {
         return marker;
     }
-  
+
     public void onMarkerDrag(MarkerDragEvent event){
         marcador = event.getMarker();
         this.latitud = marcador.getLatlng().getLat();

@@ -35,8 +35,7 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
     public List<Comentario> consultarTodos() {
         return super.consultarTodos(Comentario.class);
     }    
-<<<<<<< HEAD
-=======
+  
     public List<Comentario> consultarOrden() {
         List<Comentario> obj = null;
         Session session = this.sessionFactory.openSession();
@@ -106,6 +105,5 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
         }
         return obj;
     }
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
 
 }

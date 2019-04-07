@@ -1,7 +1,6 @@
 package com.maave.maps2go.controlador;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class  ComentarioCtrl {
@@ -12,31 +11,6 @@ public class  ComentarioCtrl {
     private String contenido;
     private double longitud;
     private double latitud;
-    private Usuario usuario;
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
     
     public int getNumComentario() {
         // Automatically generated method. Please do not modify this code.
@@ -79,8 +53,6 @@ public class  ComentarioCtrl {
     }
 
     public void agregarComentario() {        
-<<<<<<< HEAD
-=======
         if(contenido.compareTo("") != 0){
             ComentarioDAO cmdb = new ComentarioDAO();
             UsuarioDAO udb = new UsuarioDAO();
@@ -106,36 +78,8 @@ public class  ComentarioCtrl {
             ComentarioVacioIH warn = new ComentarioVacioIH();
             warn.mostrarMensaje();
         }
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
-    public void actualizarComentario(int id) {      
-        if(contenido.compareTo("") != 0){
-            ComentarioDAO cmdb = new ComentarioDAO();
-            Comentario com = cmdb.buscaId(id);
-            com.setContenido(contenido);            
-            try{
-                cmdb.actualizar(com);
-            } catch (Exception e) {
-                ErrorServidorIH error = new ErrorServidorIH();
-                error.mostrarMensaje();
-            }
-        } else {
-            ComentarioVacioIH warn = new ComentarioVacioIH();
-            warn.mostrarMensaje();            
-        }
+    public void actualizarComentario() {      
     }        
-    
-    public boolean esComentarioPropio(int id){
-        UsuarioDAO udb = new UsuarioDAO();
-        SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        Usuario u = udb.buscaPorCorreo(us.getCorreo());
-        ComentarioDAO cmdb = new ComentarioDAO();
-        Comentario com = cmdb.esPropio(id, u.getIdUsuario());        
-        System.out.println(com == null);
-        if(com == null)
-            return false;
-        else
-            return true;
-    }
 }

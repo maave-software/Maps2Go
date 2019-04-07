@@ -1,6 +1,4 @@
 package com.maave.maps2go.vista;
-import javax.faces.application.FacesMessage;
-import org.primefaces.context.RequestContext;
 
 import javax.faces.application.FacesMessage;
 import org.primefaces.context.RequestContext;
@@ -19,14 +17,8 @@ public class NombreExistenteIH {
     }
 
     public void mostrarMensaje() {
-<<<<<<< HEAD
         this.mensaje = "Este nombre ya está registrado. Intenta nuevamente con uno distinto.";
         RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
-=======
-        this.mensaje = "El nombre de usuario ya está en uso";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Ey!", mensaje));
-    
->>>>>>> e30e5c1e20b3dbdd7e2be3ded93e73465646d9df
     }
 
 }
