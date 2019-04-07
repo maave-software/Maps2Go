@@ -4,22 +4,31 @@ import com.maave.maps2go.modelo.Marcador;
 import com.maave.maps2go.modelo.MarcadorDAO;
 import com.maave.maps2go.modelo.Tema;
 import com.maave.maps2go.modelo.TemaDAO;
-import com.maave.maps2go.controlador.MapCtrl;
+import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 
 
 @ManagedBean
 @ViewScoped
-public class MarcadorCtrl {
+public class MarcadorCtrl implements Serializable {
     
-    MapCtrl mp = new MapCtrl();
     private String datosUtiles;
     private String descripcion;
     private double latitud;
     private double longitud;
     private int numMarcador;
+    private MapModel  simpleModel;
+    private Marker marker;
+    private Marker marcador;
     private Tema tema;
 
     public int getNumMarcador() {
@@ -72,24 +81,20 @@ public class MarcadorCtrl {
         this.datosUtiles = datosUtiles;
     }
 
-    public void agregarMarcador() {
-        MarcadorDAO mdb = new MarcadorDAO();
-        Marcador m = new Marcador();
-        TemaDAO tdb = new TemaDAO();
-        Tema t = new Tema();
-        t = tdb.buscaTema("Mascotas");
-        m.setDescripcion(descripcion);
-        m.setDatosUtiles(datosUtiles);
-        m.setLatitud(mp.getLatitud());
-        m.setLongitud(mp.getLongitud());
-        m.setTema(t);
-        mdb.agregar(m);
-    }
-
     public void eliminarMarcador() {
     }
 
 
-     //Métodos auxiliares para agregar marcador
+    @PostConstruct
+    public void verMarcadores(){
+        simpleModel = new DefaultMapModel();
+        MarcadorDAO mdb = new MarcadorDAO();
+        List<Marcador> marcadores = mdb.consultarTodos();
+        for(Marcador m :marcadores){
+            LatLng cord = new LatLng(m.getLatitud(),m.getLongitud());
+            Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles());
+            simpleModel.addOverlay(marcador);
+        }    
+    }
 
 }
