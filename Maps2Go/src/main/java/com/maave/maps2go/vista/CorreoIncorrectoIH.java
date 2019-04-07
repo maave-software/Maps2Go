@@ -17,8 +17,8 @@ public class CorreoIncorrectoIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "El correo no está registrado,\nrevisa que esté escrito correctamente";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Ey!", mensaje));
+        this.mensaje = ("Tu correo es incorrecto, revísalo y vuelve a intentarlo.");
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"¡Ey!", mensaje));
     }
 
 }
