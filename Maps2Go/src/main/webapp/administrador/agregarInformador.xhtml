@@ -13,8 +13,8 @@ and open the template in the editor.
     <f:view>    
         
          <h:head>
-            <title>Iniciar Sesion</title>
-            <h:outputStylesheet name="css/estilos.css"/>
+            <title>Agregar informador</title>
+            <h:outputStylesheet name="css/iniciarSesion.css"/>
         </h:head>
         
         <body>
@@ -22,22 +22,24 @@ and open the template in the editor.
                     <h1>Maps2Go</h1>
                     <hr></hr>
                         <h:form>
+                            
  
-                            <h2>Iniciar Sesión</h2>
+                            <h2>Agregar informador</h2>
                             
-                            <p:inputText id="correo" 
-                                         value="#{sessionCtrl.correo}"
+                            <p:inputText id="nombre" 
+                                         value="#{usuarioCtrl.nombreUsuario}"
                                          styleClass="textoCampo1"
-                                         placeholder="Correo"/> <br/>
+                                         placeholder="nombre"/> <br/>
                             
-                            <p:password  id="contrasenia" 
-                                         value="#{sessionCtrl.contrasenia}"
+                            <p:inputText  id="correo" 
+                                         value="#{usuarioCtrl.correo}"
                                          styleClass="textoCampo2"
-                                         placeholder="Contraseña"/> <br/>
+                                         placeholder="correo"/> <br/>
                             <p:commandButton 
-                                             action="#{sessionCtrl.iniciarSesion()}"
+                                             action="#{usuarioCtrl.agregarInformador()}"
                                              value="Aceptar"
-                                             styleClass="ButtonAceptar"/>
+                                             styleClass="ButtonAceptar"
+                                             ajax="false"/>
                         </h:form>
             </header>
         </body>
