@@ -11,44 +11,37 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <f:view>    
-
-        <h:head>
+        
+         <h:head>
             <title>Agregar informador</title>
-            <h:outputStylesheet name="css/estilos.css"/>
+            <h:outputStylesheet name="css/iniciarSesion.css"/>
         </h:head>
-
+        
         <body>
             <header>
-                <h1>Maps2Go</h1>
+                    <h1>Maps2Go</h1>
+                    <hr></hr>
+                        <h:form>
+                            
+ 
+                            <h2>Agregar informador</h2>
+                            
+                            <p:inputText id="nombre" 
+                                         value="#{usuarioCtrl.nombreUsuario}"
+                                         styleClass="textoCampo1"
+                                         placeholder="nombre"/> <br/>
+                            
+                            <p:inputText  id="correo" 
+                                         value="#{usuarioCtrl.correo}"
+                                         styleClass="textoCampo2"
+                                         placeholder="correo"/> <br/>
+                            <p:commandButton 
+                                             action="#{usuarioCtrl.agregarInformador()}"
+                                             value="Aceptar"
+                                             styleClass="ButtonAceptar"
+                                             ajax="false"/>
+                        </h:form>
             </header>
-            <main>
-                <center>
-                    <h2>Agregar Informador</h2>
-                </center>
-                <h:form id="formulario" >
-                    <center>
-
-                        <p:inputText id="nombre" 
-                                     value="#{usuarioCtrl.nombreUsuario}"
-                                     styleClass="text-box"
-                                     placeholder="nombre"/> <br/>
-
-                        <p:inputText  id="correo" 
-                                      value="#{usuarioCtrl.correo}"
-                                      styleClass="text-box"
-                                      placeholder="correo"/> <br/>
-                        <p:commandButton 
-                            action="#{usuarioCtrl.agregarInformador()}"
-                            value="Aceptar"
-                            styleClass="ButtonAceptar"/>
-                    </center>
-                </h:form>
-            </main>
-            <footer>
-                <h3> Copyright </h3>
-                <h3> 2019 Maps2go.com</h3>
-                <h3> Support</h3>
-            </footer>
         </body>
     </f:view>
 </html>

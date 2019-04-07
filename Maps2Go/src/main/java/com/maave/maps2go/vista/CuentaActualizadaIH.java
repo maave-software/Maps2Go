@@ -1,4 +1,6 @@
 package com.maave.maps2go.vista;
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
 
 public class CuentaActualizadaIH {
     private String mensaje;
@@ -14,6 +16,8 @@ public class CuentaActualizadaIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = "Cuenta actualizada.";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"", mensaje));
     }
 
 }

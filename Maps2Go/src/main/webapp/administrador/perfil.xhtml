@@ -1,86 +1,16 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <f:view>
-        <h:head>
-            <title>Inicio</title>
-            <h:outputStylesheet name="css/estilos.css"/>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=TUAPIKEY">
-            </script>    
-        </h:head>
-        <h:body>
-            <!-- Cargamos Jquery -->
-            <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
-                    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
-            </script>
-
-            <!-- Creamos nuestra función -->
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('#menu_on').click(function () { // Al hacer click...
-                        $('body').toggleClass('visible_menu'); // Añadimos o eliminamos la clase 'visible_menu' al body
-                    })
-                });
-            </script>
-            <header>
-                <h1>Maps2Go</h1>
-                <h:form id="busqueda">
-                    <div id="wrapper">
-                            <header id="#header">
-                                <a href="#" id="menu_on">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </header>
-                            <nav>	
-                                <ul>
-                                    <li><a href="agregarInformador.xhtml">Agregar Informador</a></li>
-                                    <li><a href="eliminarInformador.xhtml">Borrar informador</a></li>
-                                    <li><a href="#">Cerrar Sesión</a></li>
-                                </ul>
-                            </nav>
-                    </div>
-                                        </h:form>
-                                        </header>
-                                        <main>
-
-                                            <aside>
-                                                <h:form>
-                                                    <p:inputText id="tema" 
-                                                                 placeholder="Buscar"
-                                                                 /> <br/><br/>
-                                                </h:form>
-
-                                            </aside>
-                                            <h:form prependId="false">        
-                                                <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{mapCtrl.simpleModel}">
-
-                                                    <p:ajax event="overlaySelect" listener="#{mapCtrl.onMarkerSelect}"/>
-
-                                                    <p:gmapInfoWindow id="infoWindow">
-                                                        <p:outputPanel style="text-align: center; margin: auto">
-                                                            <h:outputText value="#{marcadorCtrl.marker.title}" style="font-weight:bold"/>
-                                                            <br/>
-                                                            <h:outputText value="#{marcadorCtrl.marker.data}"/>
-                                                        </p:outputPanel>
-                                                    </p:gmapInfoWindow>   
-                                                </p:gmap>
-                                            </h:form>       
-
-                                        </main>
-                                        <footer>
-                                            <h1 class = "a"> Copyright </h1>
-                                            <h1 class = "b"> 2019 Maps2go.com</h1>
-                                            <h1 class = "c"> Support</h1>
-
-                                        </footer>
-
-                                        </h:body>
-                                        </f:view>
-                                        </html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>TODO write content</div>
+    </body>
+</html>

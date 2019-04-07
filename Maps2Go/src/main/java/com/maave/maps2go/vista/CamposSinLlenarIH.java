@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class CamposSinLlenarIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class CamposSinLlenarIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = "No has llenado aún ninguno de los campos.";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }

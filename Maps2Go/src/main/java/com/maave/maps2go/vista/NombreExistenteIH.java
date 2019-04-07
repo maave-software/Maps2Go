@@ -17,9 +17,8 @@ public class NombreExistenteIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "El nombre de usuario ya está en uso";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Ey!", mensaje));
-    
+        this.mensaje = "Este nombre ya está registrado. Intenta nuevamente con uno distinto.";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }

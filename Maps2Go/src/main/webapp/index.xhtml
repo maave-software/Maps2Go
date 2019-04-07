@@ -38,9 +38,9 @@
                     
                 </aside>
              <h:form prependId="false">        
-                    <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{mapCtrl.simpleModel}">
+                    <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{marcadorCtrl.simpleModel}">
                     
-                        <p:ajax event="overlaySelect" listener="#{mapCtrl.onMarkerSelect}"/>
+                        <p:ajax event="overlaySelect" listener="#{marcadorCtrl.onMarkerSelect}"/>
                         
                         <p:gmapInfoWindow id="infoWindow">
                             <p:outputPanel style="text-align: center; margin: auto">

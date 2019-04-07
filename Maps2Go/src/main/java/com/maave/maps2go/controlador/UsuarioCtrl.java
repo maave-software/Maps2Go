@@ -10,7 +10,6 @@ import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.InformadorAgregadoIH;
 import com.maave.maps2go.vista.CuentaAgregadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
-import com.maave.maps2go.vista.CorreoInvalidoIH;
 import java.security.SecureRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,9 +95,6 @@ public class UsuarioCtrl {
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
-        } else if (!validarCorreo(correo)) {
-            CorreoInvalidoIH invalido = new CorreoInvalidoIH();
-            invalido.mostrarMensaje();
         } else {
             contrasenia = "i";
             for (int i = 0; i < 10; i++) {
@@ -116,9 +112,9 @@ public class UsuarioCtrl {
 
             InformadorAgregadoIH exito = new InformadorAgregadoIH();
             exito.mostrarMensaje();
-            return "/administrador/perfil?faces-redirect=true";
+            return "/administrador/perfil?faces-redirect=false";
         }
-        return "/administrador/agregarInformador?faces-redirect=false";
+        return "/administrador/agregarInformadorFallido?faces-redirect=false";
     }
     
     public String buscarInformador(){

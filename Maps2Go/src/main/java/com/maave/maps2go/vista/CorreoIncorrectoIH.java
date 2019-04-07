@@ -18,7 +18,7 @@ public class CorreoIncorrectoIH {
 
     public void mostrarMensaje() {
         this.mensaje = ("Tu correo es incorrecto, revísalo y vuelve a intentarlo.");
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"¡Ey!", mensaje));
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }
