@@ -9,11 +9,16 @@ import com.maave.maps2go.vista.CuentaActualizadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern; 
+import com.maave.maps2go.vista.CampoVacioIH;
+import com.maave.maps2go.vista.CuentaActualizadaIH;
+import com.maave.maps2go.vista.CorreoIncorrectoIH;
+import java.util.regex.Matcher; 
+import java.util.regex.Pattern; 
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class UsuarioCtrl {
-    
+
     private int idUsuario;
     private int rol;
     private String correo;
@@ -28,6 +33,17 @@ public class UsuarioCtrl {
     public void setIdUsuario(int idUsuario) {
         // Automatically generated method. Please do not modify this code.
         this.idUsuario = idUsuario;
+
+    private static final Random RANDOM = new SecureRandom();
+    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static List<Usuario> informadores = new ArrayList();
+    
+    public List<Usuario> getInformadores() {
+        return informadores;
+    }
+    
+    public int getIdUsuario(){
+        return this.idUsuario;        
     }
     
     public String getNombreUsuario() {
@@ -73,10 +89,26 @@ public class UsuarioCtrl {
     public void agregarInformador() {
     }
 
-    public void eliminarInformador() {
+
+    public void eliminarInformador(int id) {
+        UsuarioDAO udb = new UsuarioDAO();
+        Usuario usuario = udb.consultarPorId(id);
+        udb.borrar(usuario);
+        buscarInformador();
     }
-    
+  
     public void agregarCuenta(){
+         if (nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH cv = new CampoVacioIH();
+            cv.mostrarMensaje();
+        } else {
+            Usuario u = new Usuario();
+            u.setNombreUsuario(nombreUsuario);
+            u.setCorreo(correo);
+            u.setContrasenia(contrasenia);
+            u.setRol(3);
+            UsuarioDAO udb = new UsuarioDAO();
+            udb.agregar(u);
     }
     
     public void actualizarCuenta() {

@@ -1,4 +1,5 @@
 package com.maave.maps2go.vista;
+
 import javax.faces.application.FacesMessage;
 import org.primefaces.context.RequestContext;
 

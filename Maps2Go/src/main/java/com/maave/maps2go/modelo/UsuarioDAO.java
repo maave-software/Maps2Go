@@ -33,6 +33,9 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
     
     public Usuario consultarId(int id) {
         return super.consultarInt(Usuario.class, id); 
+      
+    public Usuario consultarPorId(int id) {
+        return super.consultarInt(Usuario.class, id);
     }
 
     public List<Usuario> consultarTodos() {
@@ -82,6 +85,50 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
             session.close();
         }
         return u;
+    }
+    
+         public boolean existeCorreo(String correo){
+         Usuario u = null;
+         Session session = this.sessionFactory.openSession();
+         Transaction tx = null; 
+         try{
+             tx = session.beginTransaction();
+             String hql = "from Usuario where correo = :correo";
+             Query query = session.createQuery(hql);
+             query.setParameter("correo", correo);
+             u = (Usuario)query.uniqueResult();
+             tx.commit();
+         }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return u!= null;    
+    }
+        
+        public boolean existeNombre(String nombreUsuario){
+         Usuario u = null;
+         Session session = this.sessionFactory.openSession();
+         Transaction tx = null; 
+         try{
+             tx = session.beginTransaction();
+             String hql = "from Usuario where nombre_usuario = :nombreUsuario";
+             Query query = session.createQuery(hql);
+             query.setParameter("nombreUsuario", nombreUsuario);
+             u = (Usuario)query.uniqueResult();
+             tx.commit();
+         }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return u!= null;    
     }
     
          public boolean existeCorreo(String correo){

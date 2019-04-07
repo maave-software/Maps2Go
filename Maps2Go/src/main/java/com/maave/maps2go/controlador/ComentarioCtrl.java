@@ -53,6 +53,31 @@ public class  ComentarioCtrl {
     }
 
     public void agregarComentario() {        
+        if(contenido.compareTo("") != 0){
+            ComentarioDAO cmdb = new ComentarioDAO();
+            UsuarioDAO udb = new UsuarioDAO();
+            MarcadorDAO mdb = new MarcadorDAO();         
+            Comentario coment = new Comentario();
+            // implementacio con login       
+            SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            Usuario u = udb.buscaPorCorreo(us.getCorreo());
+            //Implementacion sin login Usuario u = udb.buscaPorCorreo("qwerty");
+            Marcador m = mdb.buscaMarcador(1); //Pendiente 
+            coment.setMarcador(m);
+            coment.setLikes(0);
+            coment.setDislikes(0);
+            coment.setContenido(contenido);
+            coment.setUsuario(u);
+            try{
+                cmdb.agregar(coment);
+            } catch (Exception e) {
+                ErrorServidorIH error = new ErrorServidorIH();
+                error.mostrarMensaje();
+            }
+        } else {
+            ComentarioVacioIH warn = new ComentarioVacioIH();
+            warn.mostrarMensaje();
+        }
     }
 
     public void actualizarComentario() {      
