@@ -149,10 +149,4 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
         }
         return obj;
     }
-
-    public Usuario buscaInformador(String nombre) {
-        return null;
-    }
-
-
 }
