@@ -20,26 +20,36 @@ and open the template in the editor.
         <body>
             <header>
                     <h1>Maps2Go</h1>
-                    <hr></hr>
-                        <h:form>
- 
-                            <h2>Iniciar Sesión</h2>
+            </header>
+                    <main>
+                        <center>
+                        <h2>Iniciar Sesión</h2>
+                        </center>
+                        <h:form id="formulario" >
+                            <center> 
                             
                             <p:inputText id="correo" 
                                          value="#{sessionCtrl.correo}"
-                                         styleClass="textoCampo1"
+                                         styleClass="text-box"
                                          placeholder="Correo"/> <br/>
                             
                             <p:password  id="contrasenia" 
                                          value="#{sessionCtrl.contrasenia}"
-                                         styleClass="textoCampo2"
+                                         styleClass="text-box"
                                          placeholder="Contraseña"/> <br/>
+                            
                             <p:commandButton 
                                              action="#{sessionCtrl.iniciarSesion()}"
                                              value="Aceptar"
                                              styleClass="ButtonAceptar"/>
+                            </center>
                         </h:form>
-            </header>
+                    </main>
+            <footer>
+                <h3> Copyright </h3>
+                <h3> 2019 Maps2go.com</h3>
+                <h3> Support</h3>
+            </footer>
         </body>
     </f:view>
 </html>

@@ -70,7 +70,7 @@ public class SessionCtrl implements Serializable {
                 incorrecta.mostrarMensaje();
             }
         }
-        return "inicioSesionFallido?faces-redirect=false";
+        return "inicioSesion?faces-redirect=false";
     }
 
     public String cerrarSesion() {
