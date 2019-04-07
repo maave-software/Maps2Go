@@ -6,11 +6,7 @@ import com.maave.maps2go.vista.CamposSinLlenarIH;
 import com.maave.maps2go.vista.CorreoExistenteIH;
 import com.maave.maps2go.vista.NombreExistenteIH;
 import com.maave.maps2go.vista.CuentaActualizadaIH;
-import com.maave.maps2go.vista.CorreoIncorrectoIH;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
 import com.maave.maps2go.vista.CampoVacioIH;
-import com.maave.maps2go.vista.CuentaActualizadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
 import java.util.regex.Matcher; 
 import java.util.regex.Pattern; 
@@ -42,9 +38,6 @@ public class UsuarioCtrl {
         return informadores;
     }
     
-    public int getIdUsuario(){
-        return this.idUsuario;        
-    }
     
     public String getNombreUsuario() {
         // Automatically generated method. Please do not modify this code.

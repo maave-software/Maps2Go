@@ -30,7 +30,6 @@ public class MarcadorCtrl implements Serializable{
     private MapModel simpleModel;
     private Marker marker;
     private Marker marcador;
-    private MapModel simpleModel;
     private Tema tema;
   
     public int getNumMarcador() {
