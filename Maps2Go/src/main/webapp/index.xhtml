@@ -10,7 +10,7 @@
         <h:head>
             <title>Inicio</title>
             <h:outputStylesheet name="css/estilos.css"/>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=TUAPIKEY">
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc">
             </script>    
         </h:head>
         <h:body>
@@ -18,6 +18,7 @@
                 <h1>Maps2Go</h1>
                 <h:form id="busqueda">
                     <p:commandButton 
+                                     action="agregaCuenta"
                                      value="Registrarse"
                                      styleClass="ButtonReg"/>
 
@@ -38,9 +39,9 @@
                     
                 </aside>
              <h:form prependId="false">        
-                    <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{marcadorCtrl.simpleModel}">
+                    <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:85%;height:800px" id="mapa" model="#{mapCtrl.simpleModel}">
                     
-                        <p:ajax event="overlaySelect" listener="#{marcadorCtrl.onMarkerSelect}"/>
+                        <p:ajax event="overlaySelect" listener="#{mapCtrl.onMarkerSelect}"/>
                         
                         <p:gmapInfoWindow id="infoWindow">
                             <p:outputPanel style="text-align: center; margin: auto">
