@@ -125,7 +125,7 @@ public class UsuarioCtrl {
 
     public void eliminarInformador(int id) {
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario usuario = udb.consultarId(id);
+        Usuario usuario = udb.consultarIntId(id);
         udb.borrar(usuario);
         buscarInformador();
     }
@@ -147,7 +147,7 @@ public class UsuarioCtrl {
 
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario usuario = udb.consultarId(idUsuario);
+        Usuario usuario = udb.consultarIntId(idUsuario);
         if (usuario != null) {
             //Validaciones para el nombre de usuario
             if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
@@ -196,7 +196,7 @@ public class UsuarioCtrl {
 
     public void borrarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario cv = udb.consultarId(idUsuario);
+        Usuario cv = udb.consultarIntId(idUsuario);
         udb.borrar(cv);
     }
 
