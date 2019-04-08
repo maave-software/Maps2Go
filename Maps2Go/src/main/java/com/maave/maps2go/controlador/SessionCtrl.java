@@ -5,6 +5,7 @@ import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.ContraseniaIncorrectaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
+import com.maave.maps2go.vista.ErrorServidorIH;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,36 +40,42 @@ public class SessionCtrl implements Serializable {
     }
 
     public String iniciarSesion() {
-        UsuarioDAO udb = new UsuarioDAO();
-        if (correo.compareTo("") == 0 || contrasenia.compareTo("") == 0) {
-            CampoVacioIH vacio = new CampoVacioIH();
-            vacio.mostrarMensaje();
-        } else if(!udb.existeCorreo(correo)){
-            CorreoIncorrectoIH incorrecto = new CorreoIncorrectoIH();
-            incorrecto.mostrarMensaje();
-        } else {
-            Usuario usuario = udb.buscaUsuario(correo, contrasenia);
-            FacesContext context = FacesContext.getCurrentInstance();
-            if (usuario != null) {
-                UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol());
-                if (usuario.getRol() == 1) {
-                    context.getExternalContext().getSessionMap().put("usuario", u);
-                   return "/administrador/perfil?faces-redirect=true";
-                }
+        try {
+            UsuarioDAO udb = new UsuarioDAO();
+            if (correo.compareTo("") == 0 || contrasenia.compareTo("") == 0) {
+                CampoVacioIH vacio = new CampoVacioIH();
+                vacio.mostrarMensaje();
+            } else if (!udb.existeCorreo(correo)) {
+                CorreoIncorrectoIH incorrecto = new CorreoIncorrectoIH();
+                incorrecto.mostrarMensaje();
+            } else {
+                Usuario usuario = udb.buscaUsuario(correo, contrasenia);
+                FacesContext context = FacesContext.getCurrentInstance();
+                if (usuario != null) {
+                    UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol());
+                    if (usuario.getRol() == 1) {
+                        context.getExternalContext().getSessionMap().put("usuario", u);
+                        return "/administrador/perfil?faces-redirect=true";
+                    }
 
-                if (usuario.getRol() == 2) {
-                    context.getExternalContext().getSessionMap().put("usuario", u);
-                    return "/informador/perfil?faces-redirect=true";
-                }
+                    if (usuario.getRol() == 2) {
+                        context.getExternalContext().getSessionMap().put("usuario", u);
+                        return "/informador/perfil?faces-redirect=true";
+                    }
 
-                if (usuario.getRol() == 3) {
-                    context.getExternalContext().getSessionMap().put("usuario", u);
-                    return "/comentarista/perfil?faces-redirect=true";
+                    if (usuario.getRol() == 3) {
+                        context.getExternalContext().getSessionMap().put("usuario", u);
+                        return "/comentarista/perfil?faces-redirect=true";
+                    }
+                } else {
+                    ContraseniaIncorrectaIH incorrecta = new ContraseniaIncorrectaIH();
+                    incorrecta.mostrarMensaje();
                 }
-            } else{
-                ContraseniaIncorrectaIH incorrecta = new ContraseniaIncorrectaIH();
-                incorrecta.mostrarMensaje();
             }
+
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
         }
         return "inicioSesion?faces-redirect=false";
     }
