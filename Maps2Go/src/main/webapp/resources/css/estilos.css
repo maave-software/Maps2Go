@@ -8,108 +8,159 @@ and open the template in the editor.
     Author     : angela
 */
 
-*{
-    padding: 0px;
-    margin: 0px;
+.titulo{
+  color: #47525E;
+  font-family: Josefin Sans;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 50px;
+  width: 5%;
+  text-align: center;
 }
 
-html,body{
+.registrarse-btn {
+  background-color: #00A6FF;
+  border-radius: 5px;
+  width: 5%;
+  height: 48px;
+  text-align: center;
+  position: absolute;
+  left: 30%;
+    margin: auto;
+  display: block;
+}
+
+.iniciarSesion-btn{
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid #47525E;
+  border-radius: 5px;
+  width: 5%;
+  height: 48px;
+  position: absolute;
+  left: 35%;
+  margin: auto;
+  display: block;
+}
+
+.textoRegistrarse {
+  color: #FFFFFF;
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 62px;
+  width: 184.32px;
+  text-align: center;
+}
+
+.textoIniciarSesion {
+  color: #060708;
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 62px;
+  width: 150.11px;
+  text-align: center;
+}
+
+.buscar {
+  background-color: #FFFFFF;
+  border: 1px solid #8492A6;
+  border-radius: 5px;
+  width: 90%;
+
+}
+
+.footer {
+  background-color: rgba(0, 166, 255, 0.32);
+  width: 1441px;
+  height: 63px;
+}
+
+.footerText {
+  color: #47525E;
+  font-family: Josefin Sans;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 33px;
+  text-align: center;
+}
+
+#menu_on{
+    display: inline-block;
+    width:30px;
+    height: 20px;
+    z-index: 2;
+    position: absolute;
+    right: 2%;
+    margin: auto;
+}
+
+#menu_on span{
     width: 100%;
-    height: 100%;
-    background-color: #B0E0E6;
-}
-h1{
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-size: 35px;
-    color: rgb(0, 0, 0);
-}
-
-
-body *{
-    box-sizing: border-box;
+    height: 4px;
+    border-radius: 4px;
+    display: block;
+    position: absolute;
+    background: #fff;
+    transition: all 0.25s ease; 
+    transform-origin : 0px 100%;
+    background-color: black;
 }
 
-.ButtonReg{
-    background-color: rgba(70, 172, 241, 1);
-    border-radius: 5px;
-    width: 184.32px;
-    height: 48px;
+#menu_on span:nth-child(2){
+    top: calc(50% - 2px);
 }
 
-.ButtonIn{
-    background-color: rgba(255, 255, 255, 0);
-    border: 2px solid #47525E;
-    border-radius: 5px;
-    width: 184.32px;
-    height: 48px;
+#menu_on span:nth-child(3){
+    bottom: 0;
 }
 
-header{
-    width: 100%;
-    height: 10%;
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
+nav{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: -300px; 
+    width: 300px;
+    z-index: 1;
+    padding: 90px 30px 30px;
+    background: #68C5DB;
+    opacity: 0;
+    transition: all 0.75s ease;
+    font-size: 1.2em;
+    overflow-y: auto;
+}
+
+nav a{
+    display:block;
+    text-decoration: none;
     padding: 10px;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: all ease 0.25s;
 }
 
-main{
-    width: 100%;
-    height: 85%;
+nav a:hover{
+    color: rgba(255,255,255,1);
+    border-bottom-color:rgba(255,255,255,0.4);
 }
 
-footer{
-    width: 100%;
-    height: 5%;
-    background-color: rgba(0, 166, 255, 0.32);
-    color: white;
+.visible_menu span:nth-child(1){
+    transform: rotate(45deg) translate(-2px,1px); 
 }
 
-main>section{
-    width: 70%;
-    height: 100%;
-    float: left;    
+.visible_menu span:nth-child(2){
+    opacity: 0;
 }
 
-main>aside{
-    float: left;
-    background-color: #FFFFFF;
-    border: 1px solid #8492A6;
-    border-radius: 5px;
-    width: 14%;
-    height: 100%;
+.visible_menu span:nth-child(3){
+    transform: rotate(-45deg) translate(-3px,3px); 
 }
 
-
-#busqueda{
-    float: right;
-    
-}
-header>h1{
-    float: left;
+.visible_menu nav{
+    right: 0;
+    opacity: 1;
 }
 
-h1.a{
-    position:relative;
-    color: #47525E;
-    font-family: Josefin Sans;
-    font-size: 15px;
-    text-align: left;
-}
-
-    
-h1.b{
-    position: absolute;
-    color: #47525E;
-    font-family: Josefin Sans;
-    font-size: 15px;
-    text-align:  center;    
-}
-
-h1.c{
-    position: absolute;
-    color: #47525E;
-    font-family: Josefin Sans;
-    font-size: 15px;
-    text-align:  right; 
+.visible_menu #content{
+    transform: translateX(260px);
 }
