@@ -50,7 +50,7 @@ public class SessionCtrl implements Serializable {
             Usuario usuario = udb.buscaUsuario(correo, contrasenia);
             FacesContext context = FacesContext.getCurrentInstance();
             if (usuario != null) {
-                UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol());
+                UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol(), usuario.getIdUsuario());
                 if (usuario.getRol() == 1) {
                     context.getExternalContext().getSessionMap().put("usuario", u);
                    return "/administrador/perfil?faces-redirect=true";
@@ -82,8 +82,17 @@ public class SessionCtrl implements Serializable {
         private String nombre;
         private String correo;
         private int rol;
+        private int idUsuario;
 
-        public UsuarioLogged(String nombre, String correo, int rol) {
+        public int getIdUsuario() {
+            return idUsuario;
+        }
+
+        public void setIdUsuario(int idUsuario) {
+            this.idUsuario = idUsuario;
+        }
+
+        public UsuarioLogged(String nombre, String correo, int rol, int id) {
             this.nombre = nombre;
             this.correo = correo;
             this.rol = rol;
