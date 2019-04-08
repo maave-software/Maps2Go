@@ -164,7 +164,6 @@ public class UsuarioCtrl {
             exito.mostrarMensaje();
             //m.mandarCorreo();
         }
-        //return "/informador/perfil.xhtml?faces-redirect=true";
     }
     
     public void actualizarCuenta() {
