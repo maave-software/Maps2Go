@@ -7,13 +7,13 @@ import com.maave.maps2go.vista.CorreoExistenteIH;
 import com.maave.maps2go.vista.NombreExistenteIH;
 import com.maave.maps2go.vista.CuentaActualizadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.CuentaActualizadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
@@ -37,15 +37,15 @@ public class UsuarioCtrl {
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static List<Usuario> informadores = new ArrayList();
-    
+
     public List<Usuario> getInformadores() {
         return informadores;
     }
-    
+
     public int getIdUsuario(){
-        return this.idUsuario;        
+        return this.idUsuario;
     }
-    
+
     public String getNombreUsuario() {
         // Automatically generated method. Please do not modify this code.
         return this.nombreUsuario;
@@ -96,7 +96,7 @@ public class UsuarioCtrl {
         udb.borrar(usuario);
         buscarInformador();
     }
-  
+
     public void agregarCuenta(){
          if (nombreUsuario.compareTo("") == 0) {
             CampoVacioIH cv = new CampoVacioIH();
@@ -110,7 +110,7 @@ public class UsuarioCtrl {
             UsuarioDAO udb = new UsuarioDAO();
             udb.agregar(u);
     }
-    
+
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         Usuario usuario = udb.consultarId(idUsuario);
@@ -132,8 +132,8 @@ public class UsuarioCtrl {
             if (correo != null && !correo.isEmpty()) {
                 if (!validarCorreo(correo)){
                     CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
-                    mensaje.mostrarMensaje();  
-                } 
+                    mensaje.mostrarMensaje();
+                }
                 if(!udb.existeCorreo(correo)){
                     usuario.setCorreo(correo);
                 }else{
@@ -141,29 +141,32 @@ public class UsuarioCtrl {
                     mensaje.mostrarMensaje();
                 }
             }
-            
+
             if(nombreUsuario.isEmpty() && contrasenia.isEmpty() && correo.isEmpty()){
                 CamposSinLlenarIH mensaje = new CamposSinLlenarIH();
                 mensaje.mostrarMensaje();
             }
-        
+
             udb.actualizar(usuario);
         }
     }
-    
+
     public static boolean validarCorreo(String correo){
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
-                       "[a-zA-Z0-9_+&*-]+)*@" + 
-                       "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                       "[a-zA-Z0-9_+&*-]+)*@" +
+                       "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                        "A-Z]{2,7}$";
         Pattern pat = Pattern.compile(regex);
-        return pat.matcher(correo).matches(); 
+        return pat.matcher(correo).matches();
     }
 
     public void borrarCuenta(){
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario cv = udb.consultarId(idUsuario);
-        udb.borrar(cv);
+        FacesContext context = FacesContext.getCurrentInstance();
+        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        String correo_log = u.getCorreo();
+        Usuario usuario = udb.buscaPorCorreo(correo_log);
+        udb.borrar(usuario);
     }
 
 }
