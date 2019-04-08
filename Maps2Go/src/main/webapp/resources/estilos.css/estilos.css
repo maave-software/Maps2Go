@@ -76,3 +76,11 @@ and open the template in the editor.
   height: 63px;
 }
 
+.footerText {
+  color: #47525E;
+  font-family: Josefin Sans;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 33px;
+  text-align: center;
+}
