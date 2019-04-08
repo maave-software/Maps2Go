@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class NombreExistenteIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class NombreExistenteIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = "Este nombre ya está registrado. Intenta nuevamente con uno distinto.";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 
 }
