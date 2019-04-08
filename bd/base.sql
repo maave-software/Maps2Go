@@ -6,11 +6,11 @@ create table usuario(
 	rol int not null,
 	constraint "correo_unique" unique(correo),
 	constraint "usuario_pk" primary key(id_usuario)
-	);	
+	);
 
 create table tema(
 	tipo_tema text not null,
-	color varchar(7) not null,
+	color text not null,
 	id_usuario int not null,
 	constraint "color_unique"  unique(color),
 	constraint "tema_pk" primary key(tipo_tema)
@@ -23,16 +23,16 @@ create table marcador(
 	longitud double precision not null,
 	latitud double precision not null,
 	tipo_tema text not null,
-	constraint "marcador_pk" primary key(num_marcador)	
+	constraint "marcador_pk" primary key(num_marcador)
 	);
 
 create table comentario(
-	num_comentario serial not null, 
-	contenido text not null, 
-	likes int not null, 
-	dislikes int not null, 
-	num_marcador int not null, 
-	id_usuario int not null, 
+	num_comentario serial not null,
+	contenido text not null,
+	likes int not null,
+	dislikes int not null,
+	num_marcador int not null,
+	id_usuario int not null,
 	constraint "comentario_pk" primary key(num_comentario)
 	);
 
