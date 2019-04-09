@@ -20,14 +20,7 @@
             <h1>
                 Borrar Cuenta
             </h1>
-            <h:form>
-                <p:inputText id="idUsuario" 
-                             value="#{usuarioCtrl.idUsuario}" 
-                             placeholder="Escribe tu ID"
-                             styleClass="text-box"/> <br/>
-               
-                <h1>Borrar Cuenta</h1>
-                
+      
                 <h:form>     
                     <p:commandButton value="BorrarCuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
                         <p:confirm header="Confirmacion" message="¿Quieres borrar esta cuenta?"/>
@@ -37,10 +30,7 @@
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
                     </p:confirmDialog>      
-                </h:form>
-               
-                
-            </h:form>      
+                </h:form>     
             </main>
             <footer>
                 <h3>

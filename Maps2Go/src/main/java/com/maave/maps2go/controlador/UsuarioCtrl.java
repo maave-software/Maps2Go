@@ -1,5 +1,6 @@
 package com.maave.maps2go.controlador;
 
+import com.maave.maps2go.controlador.SessionCtrl.UsuarioLogged;
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.CamposSinLlenarIH;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class UsuarioCtrl {
@@ -148,8 +150,11 @@ public class UsuarioCtrl {
     
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario usuario = udb.consultarIntId(idUsuario);
-        if (usuario != null){
+        FacesContext context = FacesContext.getCurrentInstance();
+        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        int idUsuario_log = u.getIdUsuario();
+        Usuario usuario = udb.consultarIntId(idUsuario_log);
+        
             //Validaciones para el nombre de usuario
             if(nombreUsuario != null && !nombreUsuario.isEmpty()){
                 if(!udb.existeNombre(nombreUsuario)){
@@ -183,7 +188,6 @@ public class UsuarioCtrl {
             }
         
             udb.actualizar(usuario);
-        }
     }
     
     public static boolean validarCorreo(String correo){
@@ -197,8 +201,11 @@ public class UsuarioCtrl {
 
     public void borrarCuenta(){
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario cv = udb.consultarIntId(idUsuario);
-        udb.borrar(cv);
+        FacesContext context = FacesContext.getCurrentInstance();
+        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        String idUsuario_log = u.getCorreo();
+        Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
+        udb.borrar(usuario);
     }
 
 }
