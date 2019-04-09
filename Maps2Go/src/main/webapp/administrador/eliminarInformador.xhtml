@@ -4,30 +4,80 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view>
-        <h:head>
-            <title>Eliminar informadores</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        </h:head>
-        <h:body>
-            <p:dataTable styleClass="columns" style="max-width:3000px;max-height:770px;" var="informadores" value="#{usuarioCtrl.informadores}">
+    <f:view>    
 
-                <p:column headerText="Informador" style="width:150px;">
-                    <h:outputText value="#{informadores.nombreUsuario}" />
-                </p:column>
-                <p:column headerText="Eliminar" style="width:150px;">
+        <h:head>
+            <title>Borrar informador</title>
+            <h:outputStylesheet name="css/estilos.css"/>
+            <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
+                    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
+            </script>
+
+            <!-- Función -->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#menu_on').click(function () { // Al hacer click...
+                        $('body').toggleClass('visible_menu'); // Añadimos o eliminamos la clase 'visible_menu' al body
+                    })
+                });
+            </script>
+        </h:head>
+
+        <body>
+            <h1 class="titulo">Maps2Go</h1>
+            <header id="#header">
+                <a href="#" id="menu_on">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </header>
+            <nav>	
+                <ul>
+                    <li><a href="perfil.xhtml">Inicio</a></li>
+                    <li><a href="agregarInformador.xhtml">Agregar informador</a></li>
+                    <li><a href="#{sessionCtrl.cerrarSesion()}">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+            <center>
+                <hr></hr>
+                <h2 class="titulo-form">Borrar informador</h2>
+            </center>
+            <h:form id="formulario">
+                <center> 
                     <h:form>
-                    <p:commandButton action="#{usuarioCtrl.eliminarInformador(informadores.idUsuario)}"
-                                     value="Borrar"
-                                     ajax="false"/> 
+                        <center>
+                            <p:dataTable class="tabla" style="width: 750px;" var="informadores" value="#{usuarioCtrl.informadores}">
+
+                                <p:column style="width:290px;">
+                                    <center>
+                                        <h:outputText value="#{informadores.nombreUsuario}" />
+                                    </center>
+                                </p:column>
+                                <p:column style="width:290px;">
+                                    <h:form>
+                                        <center>
+                                            <p:commandButton action="#{usuarioCtrl.eliminarInformador(informadores.idUsuario)}"
+                                                             value="Borrar"
+                                                             class="ButtonBorrar"/> 
+                                        </center>
+                                    </h:form>
+                                </p:column>
+                            </p:dataTable>
+                        </center>
                     </h:form>
-                </p:column>
-            </p:dataTable>
-        </h:body>
+                </center>
+            </h:form>
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>
+        </body>
     </f:view>
 </html>
+

@@ -1,5 +1,6 @@
 package com.maave.maps2go.controlador;
 
+import static com.maave.maps2go.controlador.Mail.sendMail;
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.CamposSinLlenarIH;
@@ -10,6 +11,7 @@ import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.InformadorAgregadoIH;
 import com.maave.maps2go.vista.CuentaAgregadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
+import com.maave.maps2go.vista.CorreoInvalidoIH;
 import java.security.SecureRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,6 +97,9 @@ public class UsuarioCtrl {
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
+        } else if(!validarCorreo(correo)){
+            CorreoInvalidoIH invalido = new CorreoInvalidoIH();
+            invalido.mostrarMensaje();
         } else {
             contrasenia = "i";
             for (int i = 0; i < 10; i++) {
@@ -109,6 +114,7 @@ public class UsuarioCtrl {
             u.setRol(2);
 
             udb.agregar(u);
+            sendMail("Bienvenido a Maps2Go","Tu cuenta ha sido agregada con exito, tu contraseña es: " + u.getContrasenia(),u.getCorreo());
 
             InformadorAgregadoIH exito = new InformadorAgregadoIH();
             exito.mostrarMensaje();

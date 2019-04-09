@@ -11,37 +11,73 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <f:view>    
-        
-         <h:head>
+
+        <h:head>
             <title>Agregar informador</title>
-            <h:outputStylesheet name="css/iniciarSesion.css"/>
+            <h:outputStylesheet name="css/estilos.css"/>
+            <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
+                    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
+            </script>
+
+            <!-- Función -->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#menu_on').click(function () { // Al hacer click...
+                        $('body').toggleClass('visible_menu'); // Añadimos o eliminamos la clase 'visible_menu' al body
+                    })
+                });
+            </script>
         </h:head>
-        
+
         <body>
-            <header>
-                    <h1>Maps2Go</h1>
-                    <hr></hr>
-                        <h:form>
-                            
- 
-                            <h2>Agregar informador</h2>
-                            
-                            <p:inputText id="nombre" 
-                                         value="#{usuarioCtrl.nombreUsuario}"
-                                         styleClass="textoCampo1"
-                                         placeholder="nombre"/> <br/>
-                            
-                            <p:inputText  id="correo" 
-                                         value="#{usuarioCtrl.correo}"
-                                         styleClass="textoCampo2"
-                                         placeholder="correo"/> <br/>
-                            <p:commandButton 
-                                             action="#{usuarioCtrl.agregarInformador()}"
-                                             value="Aceptar"
-                                             styleClass="ButtonAceptar"
-                                             ajax="false"/>
-                        </h:form>
+
+
+            <h1 class="titulo">Maps2Go</h1>
+            <header id="#header">
+                <a href="#" id="menu_on">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
             </header>
+            <nav>	
+                <ul>
+                    <li><a href="perfil.xhtml">Inicio</a></li>
+                    <li><a href="eliminarInformador.xhtml">Borrar informador</a></li>
+                    <li><a href="#{sessionCtrl.cerrarSesion()}">Cerrar Sesión</a></li>
+                </ul>
+
+            </nav>
+
+
+
+            <center>
+                <hr></hr>
+                <h2 class="titulo-form">Agregar informador</h2>
+            </center>
+            <h:form id="formulario" >
+
+                <center> 
+
+                    <p:inputText id="nombre" 
+                                 value="#{usuarioCtrl.nombreUsuario}"
+                                 styleClass="textoCampo"
+                                 placeholder="nombre"/> <br/>
+
+                    <p:inputText  id="correo" 
+                                  value="#{usuarioCtrl.correo}"
+                                  styleClass="textoCampo"
+                                  placeholder="correo"/> <br/>
+                    <p:commandButton 
+                        action="#{usuarioCtrl.agregarInformador()}"
+                        value="Aceptar"
+                        styleClass="ButtonAceptar"/>
+                </center>
+
+            </h:form>
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>
         </body>
     </f:view>
 </html>
