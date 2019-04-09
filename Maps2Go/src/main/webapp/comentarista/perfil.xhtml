@@ -18,6 +18,17 @@ and open the template in the editor.
         <title>Inicio</title>
     </h:head>
     <h:body>      
+        <p:commandButton value="Actualizar cuenta" action="actualizarCuentaIH"/>
+           
+        <p:commandButton value="Borrar cuenta" action="#{usuarioCtrl.borrarCuenta()}">
+            <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
+        </p:commandButton>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
+        </p:confirmDialog>      
+               
         <h:form id="comments">
             <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" />
             <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioScrollerView.load()}" value="Comentar" update="comments"/>

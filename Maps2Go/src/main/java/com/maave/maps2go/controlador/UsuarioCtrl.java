@@ -150,15 +150,16 @@ public class UsuarioCtrl {
     
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
-        FacesContext context = FacesContext.getCurrentInstance();
-        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
-        int idUsuario_log = u.getIdUsuario();
-        Usuario usuario = udb.consultarIntId(idUsuario_log);
+        SessionCtrl.UsuarioLogged u = (SessionCtrl.UsuarioLogged)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        int usuario_log = u.getIdUsuario();
+        Usuario usuario = udb.consultarIntId(usuario_log);
         
             //Validaciones para el nombre de usuario
             if(nombreUsuario != null && !nombreUsuario.isEmpty()){
                 if(!udb.existeNombre(nombreUsuario)){
                     usuario.setNombreUsuario(nombreUsuario);
+                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+                    mensaje.mostrarMensaje();
                 }else{
                     NombreExistenteIH mensaje = new NombreExistenteIH();
                     mensaje.mostrarMensaje();
@@ -167,17 +168,22 @@ public class UsuarioCtrl {
             //Actualización de contrseña
             if (contrasenia != null && !contrasenia.isEmpty()) {
                 usuario.setContrasenia(contrasenia);
+                CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+                mensaje.mostrarMensaje();
             }
             //Validaciones para el correo
             if (correo != null && !correo.isEmpty()) {
                 if (!validarCorreo(correo)){
                     CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
                     mensaje.mostrarMensaje();  
-                } 
-                if(!udb.existeCorreo(correo)){
-                    usuario.setCorreo(correo);
-                }else{
+                }
+                if (udb.existeCorreo(correo)){
                     CorreoExistenteIH mensaje = new CorreoExistenteIH();
+                    mensaje.mostrarMensaje();
+                }
+                if(!udb.existeCorreo(correo) && validarCorreo(correo)){
+                    usuario.setCorreo(correo);
+                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
                     mensaje.mostrarMensaje();
                 }
             }
@@ -188,6 +194,8 @@ public class UsuarioCtrl {
             }
         
             udb.actualizar(usuario);
+            //CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+            //mensaje.mostrarMensaje();
     }
     
     public static boolean validarCorreo(String correo){
