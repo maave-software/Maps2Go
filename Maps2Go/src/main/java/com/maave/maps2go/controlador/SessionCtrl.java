@@ -43,7 +43,7 @@ public class SessionCtrl implements Serializable {
         if (correo.compareTo("") == 0 || contrasenia.compareTo("") == 0) {
             CampoVacioIH vacio = new CampoVacioIH();
             vacio.mostrarMensaje();
-        } else if(!udb.existeCorreo(correo)){
+        } else if (!udb.existeCorreo(correo)) {
             CorreoIncorrectoIH incorrecto = new CorreoIncorrectoIH();
             incorrecto.mostrarMensaje();
         } else {
@@ -53,7 +53,7 @@ public class SessionCtrl implements Serializable {
                 UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol(), usuario.getIdUsuario());
                 if (usuario.getRol() == 1) {
                     context.getExternalContext().getSessionMap().put("usuario", u);
-                   return "/administrador/perfil?faces-redirect=true";
+                    return "/administrador/perfil?faces-redirect=true";
                 }
 
                 if (usuario.getRol() == 2) {
@@ -65,7 +65,7 @@ public class SessionCtrl implements Serializable {
                     context.getExternalContext().getSessionMap().put("usuario", u);
                     return "/comentarista/perfil?faces-redirect=true";
                 }
-            } else{
+            } else {
                 ContraseniaIncorrectaIH incorrecta = new ContraseniaIncorrectaIH();
                 incorrecta.mostrarMensaje();
             }
@@ -74,7 +74,8 @@ public class SessionCtrl implements Serializable {
     }
 
     public String cerrarSesion() {
-        return "";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml/faces-redirect=true";
     }
 
     public class UsuarioLogged implements Serializable {
