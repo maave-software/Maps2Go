@@ -222,6 +222,7 @@ public class UsuarioCtrl {
         UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
         String idUsuario_log = u.getCorreo();
         Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
+        context.getExternalContext().invalidateSession();
         udb.borrar(usuario);
     }
 

@@ -7,39 +7,42 @@
       xmlns:p="http://primefaces.org/ui">
     <f:view>
         <h:head>
-            <title>Inicio</title>
+            <title>Actualizar</title>
             <h:outputStylesheet name="css/estilos.css"/>
         </h:head>
         <h:body>
-            <header>
+                
+            <h1 class="titulo">Maps2Go</h1>
+                
             
-            </header>
-            <main>
+            <center>
+                <h2 class="titulo-form">Actualizar datos</h2>
+
                 
-                
-            <h1>
-                Actualizar cuenta
-            </h1>
             <h:form>
+                
                 <p:inputText id="nombre" 
                              value="#{usuarioCtrl.nombreUsuario}" 
                              placeholder="Cambiar nombre"
-                             styleClass="text-box"/> <br/> 
+                             styleClass="textoCampo"/> <br/> 
                 <p:inputText id="correo" 
                              value="#{usuarioCtrl.correo}" 
                              placeholder="Cambiar correo"
-                             styleClass="text-box"/> <br/>
+                             styleClass="textoCampo"/> <br/>
                 <p:password id="contrasenia" 
                             value="#{usuarioCtrl.contrasenia}" 
                             placeholder="Cambiar contraseña"
-                            styleClass="text-box"/> <br/>
+                            styleClass="textoCampo"/> <br/>
                 <p:commandButton action="#{usuarioCtrl.actualizarCuenta()}" 
                                  value="Actualizar" ajax="false"
-                                 styleClass="text-box"/> 
+                                 styleClass="ButtonAceptar"/> 
             </h:form>
-            <br/> 
                 
-            </main>
+            </center>    
+            <br/> 
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>   
 
         </h:body>
     </f:view>
