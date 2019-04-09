@@ -43,17 +43,17 @@ public class SessionCtrl implements Serializable {
         if (correo.compareTo("") == 0 || contrasenia.compareTo("") == 0) {
             CampoVacioIH vacio = new CampoVacioIH();
             vacio.mostrarMensaje();
-        } else if(!udb.existeCorreo(correo)){
+        } else if (!udb.existeCorreo(correo)) {
             CorreoIncorrectoIH incorrecto = new CorreoIncorrectoIH();
             incorrecto.mostrarMensaje();
         } else {
             Usuario usuario = udb.buscaUsuario(correo, contrasenia);
             FacesContext context = FacesContext.getCurrentInstance();
             if (usuario != null) {
-                UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol());
+                UsuarioLogged u = new UsuarioLogged(usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getRol(), usuario.getIdUsuario());
                 if (usuario.getRol() == 1) {
                     context.getExternalContext().getSessionMap().put("usuario", u);
-                   return "/administrador/perfil?faces-redirect=true";
+                    return "/administrador/perfil?faces-redirect=true";
                 }
 
                 if (usuario.getRol() == 2) {
@@ -65,7 +65,7 @@ public class SessionCtrl implements Serializable {
                     context.getExternalContext().getSessionMap().put("usuario", u);
                     return "/comentarista/perfil?faces-redirect=true";
                 }
-            } else{
+            } else {
                 ContraseniaIncorrectaIH incorrecta = new ContraseniaIncorrectaIH();
                 incorrecta.mostrarMensaje();
             }
@@ -74,7 +74,8 @@ public class SessionCtrl implements Serializable {
     }
 
     public String cerrarSesion() {
-        return "";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml/faces-redirect=true";
     }
 
     public class UsuarioLogged implements Serializable {
@@ -82,8 +83,17 @@ public class SessionCtrl implements Serializable {
         private String nombre;
         private String correo;
         private int rol;
+        private int idUsuario;
 
-        public UsuarioLogged(String nombre, String correo, int rol) {
+        public int getIdUsuario() {
+            return idUsuario;
+        }
+
+        public void setIdUsuario(int idUsuario) {
+            this.idUsuario = idUsuario;
+        }
+
+        public UsuarioLogged(String nombre, String correo, int rol, int id) {
             this.nombre = nombre;
             this.correo = correo;
             this.rol = rol;

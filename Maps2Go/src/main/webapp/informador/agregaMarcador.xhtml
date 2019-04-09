@@ -1,55 +1,61 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">    
+    <h:head>
+        <title>Maps2Go</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/estilos.css"/>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key="/>
+    </h:head>
 
     <f:view>
-        <h:head>
-            <title>Marcador</title>
-            <h:outputStylesheet name="css/estilosM.css"/>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=P-Key">
-            </script>
-        </h:head>
-        
-        <h:body>
-            <header>
-                <h1>Maps2Go</h1>
-            </header>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <h1 class="titulo">Maps2Go</h1>
+            </div>                
 
-            <main>
-                <p:layout style="min-height:100%;">  
-                    <p:layoutUnit position="west" styleClass="l1">
-                        <h:form id="form">
-                            <p:messages id="men" showDetail="true" closable="true">
-                                <p:autoUpdate/>
-                            </p:messages>
-                            <p:inputNumber decimalPlaces="6" id="longitud" value="#{marcadorCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
-                            <p:inputNumber decimalPlaces="6" id="latitud" value="#{marcadorCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
-                            <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{marcadorCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
-                            <p:inputTextarea  id="datos" rows="6" cols="33" value="#{marcadorCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
-                            <p:commandButton id="agregaMarcador" value="Aceptar" action="#{marcadorCtrl.agregarMarcador()}" update="form" styleClass="text-box2"/><br></br>
-                        
-                        </h:form>
-                    </p:layoutUnit>
+        </div>
 
-                    <p:layoutUnit position="center">                      
-                        <p:gmap id='map' center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:400%;height:600%" model="#{marcadorCtrl.simpleModel}">
-                            <p:ajax event="markerDrag" listener="#{marcadorCtrl.onMarkerDrag}" update="form"/>
-                            <p:ajax event="pointSelect" listener="#{marcadorCtrl.onPointSelect}" update="form map"/>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2 ui-g-nopad">
+                <div class="ui-g-12">
+                    <!-- Zona de marcadores -->
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+                        <p:inputNumber decimalPlaces="6" id="longitud" value="#{mapCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
+                        <p:inputNumber decimalPlaces="6" id="latitud" value="#{mapCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
+                        <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{mapCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
+                        <p:inputTextarea  id="datos" rows="6" cols="33" value="#{mapCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
+                        <p:commandButton id="agregaMarcador" value="Aceptar" action="#{mapCtrl.agregarMarcador()}" update="form" ajax="false" styleClass="text-box2"/><br></br>
+                    </h:form>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                <div class="ui-g-12">
+                    <h:form prependId="false">        
+                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:500px" model="#{mapCtrl.simpleModel}">
+                            <p:ajax event="markerDrag" listener="#{mapCtrl.onMarkerDrag}" update="form"/>
+                            <p:ajax event="pointSelect" listener="#{mapCtrl.onPointSelect}" update="form map"/>
                         </p:gmap>
-                    </p:layoutUnit>
-                </p:layout>
-            </main>
-            
-            <footer>
-                <h3>
-                    Lorem ipsum dolor sit amet.
-                </h3>
-            </footer>
-        </h:body>
+                    </h:form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui-g-12 footer">
+            <p class="footerText">&#9400; 2019 Maave</p>
+        </div>
+
     </f:view>
 </html>
