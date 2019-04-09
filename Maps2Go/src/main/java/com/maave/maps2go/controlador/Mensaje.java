@@ -24,8 +24,8 @@ public class Mensaje {
     public void mandarCorreo(){
         
         //correo gmail de envío
-        String correoEnvia = "vale.garcia.landa@gmail.com";
-        String claveCorreo = "jolubreva1998";
+        String correoEnvia = "vale.garcia.landa@gmail.com"; 
+        String claveCorreo = "jolubreva1998"; 
          
         //configuración para enviar correo
         Properties p = new Properties();

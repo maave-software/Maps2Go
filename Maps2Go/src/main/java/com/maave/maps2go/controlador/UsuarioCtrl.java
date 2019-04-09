@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.maave.maps2go.controlador;
 
 import com.maave.maps2go.modelo.Usuario;
@@ -167,7 +162,7 @@ public class UsuarioCtrl {
 
             CuentaAgregadaIH exito = new CuentaAgregadaIH();
             exito.mostrarMensaje();
-            //m.mandarCorreo(); ----> validación de correo
+            //m.mandarCorreo(); ---> ejemplo fallido
         }
     }
     
