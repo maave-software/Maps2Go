@@ -136,18 +136,38 @@ public class UsuarioCtrl {
         buscarInformador();
     }
   
-    public void agregarCuenta(){
-         if (nombreUsuario.compareTo("") == 0) {
-            CampoVacioIH cv = new CampoVacioIH();
-            cv.mostrarMensaje();
+    public void agregarCuenta() {
+        UsuarioDAO udb = new UsuarioDAO();
+        if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH esVacio = new CampoVacioIH();
+            esVacio.mostrarMensaje();
+        } else if (udb.existeCorreo(correo)) {
+            CorreoExistenteIH existeC = new CorreoExistenteIH();
+            existeC.mostrarMensaje();
+        } else if (!validarCorreo(correo)) {
+            CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
+            mensaje.mostrarMensaje();
+        } else if (udb.existeNombre(nombreUsuario)) {
+            NombreExistenteIH existeN = new NombreExistenteIH();
+            existeN.mostrarMensaje();
         } else {
+            contrasenia = "i";
+            for (int i = 0; i < 10; i++) {
+                contrasenia += ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length()));
+            }
+
             Usuario u = new Usuario();
+
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
             u.setRol(3);
-            UsuarioDAO udb = new UsuarioDAO();
+
             udb.agregar(u);
+
+            CuentaAgregadaIH exito = new CuentaAgregadaIH();
+            exito.mostrarMensaje();
+            //m.mandarCorreo(); ----> validación de correo
         }
     }
     
