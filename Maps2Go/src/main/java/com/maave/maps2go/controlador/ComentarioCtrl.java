@@ -8,10 +8,14 @@ import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.ComentarioVacioIH;
 import com.maave.maps2go.vista.ErrorServidorIH;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
+@ViewScoped
 public class  ComentarioCtrl {
     
     private int dislike;
@@ -59,6 +63,41 @@ public class  ComentarioCtrl {
     public void setDislike(int dislike) {
         // Automatically generated method. Please do not modify this code.
         this.dislike = dislike;
+    }
+    
+    private List<Comentario> comentarios;
+    private List<String> usuarios;
+
+    public List<String> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<String> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }            
+    
+    public String getNombre(Comentario comment){
+        Usuario u = comment.getUsuario();
+        return u.getNombreUsuario();
+    }
+    
+    @PostConstruct
+    public void init() {
+        ComentarioDAO cmdb = new ComentarioDAO();
+        comentarios = cmdb.consultarOrden();
+        
+    }
+    
+    public void load(){
+        init();
     }
 
     public void agregarComentario() {        
@@ -111,11 +150,7 @@ public class  ComentarioCtrl {
         SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         Usuario u = udb.buscaPorCorreo(us.getCorreo());
         ComentarioDAO cmdb = new ComentarioDAO();
-        Comentario com = cmdb.esPropio(id, u.getIdUsuario());        
-        System.out.println(com == null);
-        if(com == null)
-            return false;
-        else
-            return true;
+        boolean res = cmdb.esPropio(id, u.getIdUsuario()); 
+        return res;
     }    
 }
