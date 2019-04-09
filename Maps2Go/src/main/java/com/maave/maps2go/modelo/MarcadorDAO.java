@@ -36,7 +36,7 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         return super.consultarTodos(Marcador.class);
     }
     
-       public Marcador buscaMarcador(int id) {
+    public Marcador buscaMarcador(int id) {
         Marcador m = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
@@ -59,4 +59,26 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         }
         return m;
     }
+       
+    public Tema consultarColor(Tema tipo_tema){
+        Tema t = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx =null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Tema where tipo_tema = :tipo_tema";
+            Query query = session.createQuery(hql);
+            query.setParameter("tipo_tema", tipo_tema);
+            t = (Tema)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return t;
+    }   
 }
