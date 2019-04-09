@@ -16,88 +16,80 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key="/>
-        <!-- Cargamos Jquery -->
-        <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
-        </script>
-
-        <!-- Función -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#menu_on').click(function () { // Al hacer click...
-                    $('body').toggleClass('visible_menu'); // Añadimos o eliminamos la clase 'visible_menu' al body
-                })
-            });
-        </script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
     </h:head>
 
     <f:view>
-        <body> 
 
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-6">
-                    <h1 class="titulo">Maps2Go</h1>
-                </div>                
-                <div class="ui-g-12 ui-md-6">
-                    <h:form style="height: 106px">
-                        <div id="wrapper">
-                            <header id="#header">
-                                <a href="#" id="menu_on">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </header>
-                            <nav>	
-                                <ul>
-                                    <li><a href="agregarInformador.xhtml">Agregar Informador</a></li>
-                                    <li><a href="eliminarInformador.xhtml">Borrar informador</a></li>
-                                    <li><a href="#{sessionCtrl.cerrarSesion()}">Cerrar Sesión</a></li>
-                                </ul>
-                            </nav>
-                        </div>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <h1 class="titulo">Maps2Go</h1>
+            </div>                
+            <div class="ui-g-12 ui-md-6">
+                <h:form style="height: 106px">
+                </h:form>
+            </div>
+        </div>
+        <h:form>
+            <p:commandButton value="Agregar Informador" action="/administrador/agregarInformador"/>
+            <p:commandButton value="Borrar Informador" action="/administrador/eliminarInformador"/>
+            <p:commandButton value="Inicio" action="/administrador/perfil"/>
+        </h:form>
+
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2 ui-g-nopad">
+                <div class="ui-g-12">
+                    <h:form>
+                        <p:inputText id="tema" placeholder="Buscar" class="buscar"/> <br/><br/>
+                    </h:form>
+
+                </div>
+                <div class="ui-g-12">
+                    <!-- Zona de marcadores -->
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                <div class="ui-g-12">
+                    <h:form prependId="false">        
+                        <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:500px" id="mapa" model="#{marcadorCtrl.simpleModel}">
+
+                            <p:ajax event="overlaySelect" listener="#{marcadorCtrl.onMarkerSelect}"/>
+
+                            <p:gmapInfoWindow id="infoWindow">
+                                <p:outputPanel style="text-align: center; margin: auto">
+                                    <h:outputText value="#{marcadorCtrl.marker.title}" style="font-weight:bold"/>
+                                    <br/>
+                                    <h:outputText value="#{marcadorCtrl.marker.data}"/>
+                                </p:outputPanel>
+                            </p:gmapInfoWindow>   
+                        </p:gmap>
+                    </h:form>
+                </div>
+                <div class="ui-g-12">
+                    <h:form id="comments">
+                        <p:dataScroller value="#{comentarioCtrl.comentarios}" var="comentario" chunkSize="10" mode="inline" scrollHeight="100"> 
+                            <h:panelGrid columns="1" style="width:100%">                            
+                                <p:outputPanel style="width: 100%">
+                                    <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
+                                        <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
+                                        <h:outputText value="#{comentario.contenido}"/>
+                                        <i class="far fa-thumbs-up like"></i>
+                                        <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
+                                        <i class="far fa-thumbs-down dislike" ></i>
+                                        <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>       
+
+                                    </h:panelGrid>
+                                </p:outputPanel>                            
+                            </h:panelGrid>                        
+                        </p:dataScroller>        
                     </h:form>
                 </div>
             </div>
+        </div>
 
-            <div class="ui-g">
-                <div class="ui-g-12 ui-md-2 ui-g-nopad">
-                    <div class="ui-g-12">
-                        <h:form>
-                            <p:inputText id="tema" placeholder="Buscar" class="buscar"/> <br/><br/>
-                        </h:form>
-
-                    </div>
-                    <div class="ui-g-12">
-                        <!-- Zona de marcadores -->
-                    </div>
-                </div>
-                <div class="ui-g-12 ui-md-10 ui-g-nopad">
-                    <div class="ui-g-12">
-                        <h:form prependId="false">        
-                            <p:gmap center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:500px" id="mapa" model="#{marcadorCtrl.simpleModel}">
-
-                                <p:ajax event="overlaySelect" listener="#{marcadorCtrl.onMarkerSelect}"/>
-
-                                <p:gmapInfoWindow id="infoWindow">
-                                    <p:outputPanel style="text-align: center; margin: auto">
-                                        <h:outputText value="#{marcadorCtrl.marker.title}" style="font-weight:bold"/>
-                                        <br/>
-                                        <h:outputText value="#{marcadorCtrl.marker.data}"/>
-                                    </p:outputPanel>
-                                </p:gmapInfoWindow>   
-                            </p:gmap>
-                        </h:form>
-                    </div>
-                    <div class="ui-g-12">
-                        <!-- Zona de comentarios -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui-g-12 footer">
-                <p class="footerText">&#9400; 2019 Maave</p>
-            </div>
-        </body> 
+        <div class="ui-g-12 footer">
+            <p class="footerText">&#9400; 2019 Maave</p>
+        </div>
     </f:view>
 </html>
