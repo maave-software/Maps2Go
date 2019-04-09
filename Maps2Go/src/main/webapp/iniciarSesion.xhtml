@@ -11,35 +11,43 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <f:view>    
-        
-         <h:head>
+
+        <h:head>
             <title>Iniciar Sesion</title>
             <h:outputStylesheet name="css/estilos.css"/>
         </h:head>
-        
+
         <body>
-            <header>
-                    <h1>Maps2Go</h1>
-                    <hr></hr>
-                        <h:form>
- 
-                            <h2>Iniciar Sesión</h2>
-                            
-                            <p:inputText id="correo" 
-                                         value="#{sessionCtrl.correo}"
-                                         styleClass="textoCampo1"
-                                         placeholder="Correo"/> <br/>
-                            
-                            <p:password  id="contrasenia" 
-                                         value="#{sessionCtrl.contrasenia}"
-                                         styleClass="textoCampo2"
-                                         placeholder="Contraseña"/> <br/>
-                            <p:commandButton 
-                                             action="#{sessionCtrl.iniciarSesion()}"
-                                             value="Aceptar"
-                                             styleClass="ButtonAceptar"/>
-                        </h:form>
-            </header>
+
+            <h1 class="titulo">Maps2Go</h1>
+            <hr></hr>
+
+            <center>
+                <h2 class="titulo-form">Iniciar Sesión</h2>
+            </center>
+            <h:form id="formulario" >
+                <center> 
+
+                    <p:inputText id="correo" 
+                                 value="#{sessionCtrl.correo}"
+                                 styleClass="textoCampo"
+                                 placeholder="Correo"/> <br/>
+
+                    <p:password  id="contrasenia" 
+                                 value="#{sessionCtrl.contrasenia}"
+                                 styleClass="textoCampo"
+                                 placeholder="Contraseña"/> <br/>
+
+                    <p:commandButton 
+                        action="#{sessionCtrl.iniciarSesion()}"
+                        value="Aceptar"
+                        styleClass="ButtonAceptar"/>
+                </center>
+
+            </h:form>
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>
         </body>
     </f:view>
 </html>

@@ -62,7 +62,7 @@ public class TemaCtrl {
         this.selectedTema = selectedTema;
     }
 
-    public void agregarTema() {
+    public String agregarTema() {
         Tema t = new Tema();
         Usuario u = new Usuario();
         UsuarioDAO udb = new UsuarioDAO();
@@ -71,8 +71,10 @@ public class TemaCtrl {
         u = udb.buscaPorCorreo(us.getCorreo());
         t.setTipoTema(tipoTema);
         t.setColor(color);
-        t.setUsuario(u);
+        t.setUsuario(u);                
         tdb.agregar(t);
+        
+        return "/informador/agregaMarcador?faces-redirect=true";
     }
 
     public void consultarTemas() {
