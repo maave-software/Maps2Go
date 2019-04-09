@@ -1,5 +1,6 @@
 package com.maave.maps2go.controlador;
 
+import com.maave.maps2go.controlador.SessionCtrl.UsuarioLogged;
 import static com.maave.maps2go.controlador.Mail.sendMail;
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class UsuarioCtrl {
@@ -154,31 +156,45 @@ public class UsuarioCtrl {
     
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario usuario = udb.consultarIntId(idUsuario);
-        if (usuario != null){
+        FacesContext context = FacesContext.getCurrentInstance();
+        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        int idUsuario_log = u.getIdUsuario();
+        Usuario usuario = udb.consultarIntId(idUsuario_log);
+        
             //Validaciones para el nombre de usuario
             if(nombreUsuario != null && !nombreUsuario.isEmpty()){
                 if(!udb.existeNombre(nombreUsuario)){
                     usuario.setNombreUsuario(nombreUsuario);
+                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+                    mensaje.mostrarMensaje();
                 }else{
                     NombreExistenteIH mensaje = new NombreExistenteIH();
                     mensaje.mostrarMensaje();
                 }
             }
+            
             //Actualización de contrseña
             if (contrasenia != null && !contrasenia.isEmpty()) {
                 usuario.setContrasenia(contrasenia);
+                CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+                mensaje.mostrarMensaje();
             }
+            
             //Validaciones para el correo
             if (correo != null && !correo.isEmpty()) {
                 if (!validarCorreo(correo)){
                     CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
                     mensaje.mostrarMensaje();  
-                } 
-                if(!udb.existeCorreo(correo)){
-                    usuario.setCorreo(correo);
-                }else{
+                }
+                
+                if(udb.existeCorreo(correo)){
                     CorreoExistenteIH mensaje = new CorreoExistenteIH();
+                    mensaje.mostrarMensaje();
+                    
+                }
+                if(!udb.existeCorreo(correo) && validarCorreo(correo)){
+                    usuario.setCorreo(correo);
+                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
                     mensaje.mostrarMensaje();
                 }
             }
@@ -189,7 +205,6 @@ public class UsuarioCtrl {
             }
         
             udb.actualizar(usuario);
-        }
     }
     
     public static boolean validarCorreo(String correo){
@@ -203,8 +218,11 @@ public class UsuarioCtrl {
 
     public void borrarCuenta(){
         UsuarioDAO udb = new UsuarioDAO();
-        Usuario cv = udb.consultarIntId(idUsuario);
-        udb.borrar(cv);
+        FacesContext context = FacesContext.getCurrentInstance();
+        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        String idUsuario_log = u.getCorreo();
+        Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
+        udb.borrar(usuario);
     }
 
 }

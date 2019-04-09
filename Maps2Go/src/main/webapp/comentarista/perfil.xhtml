@@ -30,6 +30,15 @@ and open the template in the editor.
                 </h:form>
             </div>
         </div>
+        <p:commandButton value="Actualizar cuenta" action="actualizarCuentaIH"/>
+        <p:commandButton value="BorrarCuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
+            <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
+        </p:commandButton>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
+        </p:confirmDialog>      
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
