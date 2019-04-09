@@ -43,7 +43,6 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
         try {
             tx = session.beginTransaction();
             String hql = "from Comentario c order by c.likes desc";
-            System.out.println(hql);
             Query query = session.createQuery(hql);
             obj = (List<Comentario>) query.list();
             tx.commit();
@@ -66,7 +65,6 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
         try {
             tx = session.beginTransaction();
             String hql = "from Comentario where num_comentario = :id";
-            System.out.println(hql);
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
             obj = (Comentario) query.uniqueResult();
@@ -82,14 +80,13 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
         return obj;
     }
 
-    public Comentario esPropio(int id, int user){
+    public boolean esPropio(int id, int user){
         Comentario obj = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             String hql = "from Comentario where num_comentario = :id and id_usuario = :user";
-            System.out.println(hql);
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
             query.setParameter("user", user);
@@ -103,7 +100,10 @@ public class ComentarioDAO extends AbstractDAO<Comentario>{
             session.close();
 
         }
-        return obj;
+        if(obj == null)
+            return false;
+        else
+            return true;
     }
 
 }
