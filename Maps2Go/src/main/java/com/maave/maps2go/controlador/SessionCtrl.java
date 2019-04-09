@@ -97,8 +97,9 @@ public class SessionCtrl implements Serializable {
             this.nombre = nombre;
             this.correo = correo;
             this.rol = rol;
+            this.idUsuario = id;
         }
-
+        
         public String getNombre() {
             return nombre;
         }
