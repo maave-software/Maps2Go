@@ -12,7 +12,7 @@
             <column name="id_usuario" not-null="true" />
         </many-to-one>
         <property name="color" type="string">
-            <column name="color" length="7" not-null="true" unique="true" />
+            <column name="color" not-null="true" unique="true" />
         </property>
         <set name="marcadors" table="marcador" inverse="true" lazy="true" fetch="select">
             <key>
