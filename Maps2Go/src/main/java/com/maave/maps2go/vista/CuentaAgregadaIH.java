@@ -18,7 +18,7 @@ public class CuentaAgregadaIH {
 
     public void mostrarMensaje() {
         this.mensaje = "La cuenta se ha agrado con éxito \n Le llegará un correo de confirmación";
-        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Exito!", mensaje));
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Éxito!", mensaje));
     }
 
 }

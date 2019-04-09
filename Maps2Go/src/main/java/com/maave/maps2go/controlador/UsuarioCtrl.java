@@ -131,7 +131,7 @@ public class UsuarioCtrl {
         buscarInformador();
     }
   
-    public void agregarCuenta() {
+    public String agregarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
@@ -152,18 +152,16 @@ public class UsuarioCtrl {
             }
 
             Usuario u = new Usuario();
-
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
             u.setRol(3);
-
             udb.agregar(u);
-
             CuentaAgregadaIH exito = new CuentaAgregadaIH();
             exito.mostrarMensaje();
             //m.mandarCorreo(); ---> ejemplo fallido
         }
+        return "/index.xhtml?faces-redirect=true";
     }
     
     public void actualizarCuenta() {
