@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
@@ -114,19 +115,26 @@ public class MarcadorCtrl implements Serializable {
     }
 
     public void eliminarMarcador() {
+        
     }
-
-
-    @PostConstruct
+    
+@PostConstruct
     public void verMarcadores(){
         simpleModel = new DefaultMapModel();
         MarcadorDAO mdb = new MarcadorDAO();
         List<Marcador> marcadores = mdb.consultarTodos();
         for(Marcador m :marcadores){
+            Tema tema = mdb.consultarColor(m.getTema());
+            String color = tema.getColor();
             LatLng cord = new LatLng(m.getLatitud(),m.getLongitud());
-            Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles());
+            Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles(), color);
             simpleModel.addOverlay(marcador);
         }    
     }
+    
+    public void onMarkerSelect(OverlaySelectEvent event) {
+       marker =(Marker) event.getOverlay(); 
+    }
+    
 
 }
