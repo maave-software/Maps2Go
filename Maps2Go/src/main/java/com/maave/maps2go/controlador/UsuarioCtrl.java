@@ -122,7 +122,7 @@ public class UsuarioCtrl {
             exito.mostrarMensaje();
             return "/administrador/perfil?faces-redirect=false";
         }
-        return "/administrador/agregarInformadorFallido?faces-redirect=false";
+        return "/administrador/agregarInformador?faces-redirect=false";
     }
     
     public String buscarInformador(){
@@ -139,18 +139,37 @@ public class UsuarioCtrl {
         buscarInformador();
     }
   
-    public void agregarCuenta(){
-         if (nombreUsuario.compareTo("") == 0) {
-            CampoVacioIH cv = new CampoVacioIH();
-            cv.mostrarMensaje();
+    public void agregarCuenta() {
+        UsuarioDAO udb = new UsuarioDAO();
+        if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
+            CampoVacioIH esVacio = new CampoVacioIH();
+            esVacio.mostrarMensaje();
+        } else if (udb.existeCorreo(correo)) {
+            CorreoExistenteIH existeC = new CorreoExistenteIH();
+            existeC.mostrarMensaje();
+        } else if (udb.existeNombre(nombreUsuario)) {
+            NombreExistenteIH existeN = new NombreExistenteIH();
+            existeN.mostrarMensaje();
+        } else if (!validarCorreo(correo)) {
+            CorreoInvalidoIH invalido = new CorreoInvalidoIH();
+            invalido.mostrarMensaje();
         } else {
+            contrasenia = "i";
+            for (int i = 0; i < 10; i++) {
+                contrasenia += ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length()));
+            }
+
             Usuario u = new Usuario();
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
             u.setRol(3);
-            UsuarioDAO udb = new UsuarioDAO();
             udb.agregar(u);
+
+            CuentaAgregadaIH exito = new CuentaAgregadaIH();
+            exito.mostrarMensaje();
+
+            sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito, tu contraseña es: " + u.getContrasenia(), u.getCorreo());
         }
     }
     
@@ -210,8 +229,7 @@ public class UsuarioCtrl {
     public static boolean validarCorreo(String correo){
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
                        "[a-zA-Z0-9_+&*-]+)*@" + 
-                       "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
-                       "A-Z]{2,7}$";
+                       "gmail.com"; 
         Pattern pat = Pattern.compile(regex);
         return pat.matcher(correo).matches(); 
     }
