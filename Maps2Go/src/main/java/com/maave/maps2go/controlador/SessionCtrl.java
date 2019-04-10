@@ -75,7 +75,7 @@ public class SessionCtrl implements Serializable {
 
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml/faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
 
     public class UsuarioLogged implements Serializable {

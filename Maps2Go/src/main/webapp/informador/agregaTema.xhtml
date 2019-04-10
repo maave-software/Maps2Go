@@ -18,28 +18,39 @@ and open the template in the editor.
         </h:head>
 
         <body>
-            <header>
-                <h1>Maps2Go</h1>
-                <hr></hr>
-            </header>
-            <div> 
-                <h:form>
-                    <p class="titulo">Agregar Tema</p>
-                    <p:inputText id="tema" value="#{temaCtrl.tipoTema}" placeholder="Título" style="left: 480%"/><br/>
-                    <h:panelGrid columns="1" cellpadding="5" style="margin-left: 20px">
-                        <h:outputText value="Color: " />
+
+            <h1 class="titulo">Maps2Go</h1>
+            <hr></hr>
+            <center>
+                <h2 class="titulo-form">Registrarse</h2>
+            </center>
+
+
+            <h:form id="formulario">
+                <center>
+                    <p:inputText id="tema" 
+                                 value="#{temaCtrl.tipoTema}" 
+                                 placeholder="Título" 
+                                 styleClass="textoCampo"/><br/>
+                    <h:panelGrid columns="1" cellpadding="5" styleClass="textoCampo">
+                        <h:outputText value="Color: " /><br/>
                         <p:colorPicker value="#{temaCtrl.color}" styleClass="text-box1" />                   
-                    </h:panelGrid>
-                    <p:commandButton action="#{temaCtrl.agregarTema()}" value="Aceptar" ajax="false"/>
-                    
-                </h:form>
+                    </h:panelGrid><br/><br/><br/><br/>
+                    <p:commandButton action="#{temaCtrl.agregarTema()}" value="Aceptar" ajax="false" styleClass="ButtonAceptar"/>
+
+                </center>
+            </h:form>
+            <div>
+
+
             </div>
-            
-        </body><br/>
-        
-        
-        <div class="ui-g-12 footer">
-            <p class="footerText">&#9400; 2019 Maave</p>
-        </div>
+
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>
+        </body>
+
+
+
     </f:view>
 </html>

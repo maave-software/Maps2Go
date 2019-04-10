@@ -23,14 +23,14 @@ and open the template in the editor.
             <hr></hr>
 
             <center>
-                <h2 class="titulo-form">Iniciar Sesión</h2>
+                <h2 class="titulo-form">Registrarse</h2>
             </center>
             <h:form id="formulario" >
                 <center> 
                     <p:inputText id="nombre"
                                  value="#{usuarioCtrl.nombreUsuario}"
                                  styleClass="textoCampo"
-                                 placeholder="Nombre"
+                                 placeholder="Nombre"/> <br/>
                     <p:inputText id="correo" 
                                  value="#{usuarioCtrl.correo}"
                                  styleClass="textoCampo"
@@ -42,7 +42,7 @@ and open the template in the editor.
                                  placeholder="Contraseña"/> <br/>
 
                     <p:commandButton 
-                        action="#{usuarioCtrl.agregaCuenta()}"
+                        action="#{usuarioCtrl.agregarCuenta()}"
                         value="Aceptar"
                         styleClass="ButtonAceptar"/>
                 </center>

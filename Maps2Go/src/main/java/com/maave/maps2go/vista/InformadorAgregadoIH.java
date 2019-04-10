@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class InformadorAgregadoIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class InformadorAgregadoIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = "Cuenta agregada con éxito, se enviará un correo de validación";
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Éxito!", mensaje));        
     }
 
 }
