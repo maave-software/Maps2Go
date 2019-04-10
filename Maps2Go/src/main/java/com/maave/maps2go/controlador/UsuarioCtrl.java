@@ -88,7 +88,7 @@ public class UsuarioCtrl {
         this.rol = rol;
     }
 
-    public String agregarInformador() {
+    public void agregarInformador() {        
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
@@ -109,7 +109,6 @@ public class UsuarioCtrl {
             }
 
             Usuario u = new Usuario();
-
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
@@ -120,9 +119,8 @@ public class UsuarioCtrl {
 
             InformadorAgregadoIH exito = new InformadorAgregadoIH();
             exito.mostrarMensaje();
-            return "/administrador/perfil?faces-redirect=false";
         }
-        return "/administrador/agregarInformador?faces-redirect=false";
+
     }
     
     public String buscarInformador(){
@@ -154,11 +152,6 @@ public class UsuarioCtrl {
             CorreoInvalidoIH invalido = new CorreoInvalidoIH();
             invalido.mostrarMensaje();
         } else {
-            contrasenia = "i";
-            for (int i = 0; i < 10; i++) {
-                contrasenia += ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length()));
-            }
-
             Usuario u = new Usuario();
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
@@ -169,7 +162,7 @@ public class UsuarioCtrl {
             CuentaAgregadaIH exito = new CuentaAgregadaIH();
             exito.mostrarMensaje();
 
-            sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito, tu contraseña es: " + u.getContrasenia(), u.getCorreo());
+            sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito", u.getCorreo());
         }
     }
     
@@ -234,7 +227,7 @@ public class UsuarioCtrl {
         return pat.matcher(correo).matches(); 
     }
 
-    public void borrarCuenta(){
+    public String borrarCuenta(){
         UsuarioDAO udb = new UsuarioDAO();
         FacesContext context = FacesContext.getCurrentInstance();
         UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
@@ -242,6 +235,7 @@ public class UsuarioCtrl {
         Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
         context.getExternalContext().invalidateSession();
         udb.borrar(usuario);
+        return "/index.xhtml?faces-redirect=true";
     }
 
 }
