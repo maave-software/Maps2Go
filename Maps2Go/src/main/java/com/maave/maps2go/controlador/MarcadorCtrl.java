@@ -7,8 +7,12 @@ import com.maave.maps2go.modelo.TemaDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.event.map.MarkerDragEvent;
 import org.primefaces.event.map.OverlaySelectEvent;
@@ -30,6 +34,10 @@ public class MarcadorCtrl implements Serializable {
     private MapModel  simpleModel;
     private Marker marker;
     private Marker marcador;
+    private List<Marcador> marcadores;
+    private Marcador mrkSelected;
+    private Tema temas;
+    
 
     public MapModel getSimpleModel() {
         return simpleModel;
@@ -114,12 +122,50 @@ public class MarcadorCtrl implements Serializable {
         this.datosUtiles = datosUtiles;
     }
 
-    public void eliminarMarcador() {
-        
+    public List<Marcador> getMarcadores() {
+        return marcadores;
+    }    
+     
+    public void setMarcadores(List<Marcador> marcadores){
+        this.marcadores=marcadores;
+    }
+    
+    public Marcador getMarcadorSelected(){
+        return mrkSelected;    
+    }
+    
+    public void setMarcadorSelected(Marcador mrkSelected){
+        this.mrkSelected=mrkSelected;
+    }
+    /*metodos para el manejo de eliminacion con confirmacion*/
+    public void handleClose(CloseEvent event) {
+        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+    }
+     
+    public void handleMove(MoveEvent event) {
+        addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
+    }
+     
+    public void destroyWorld() {
+        addMessage("System Error", "Please try again later.");
+    }
+     
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    
+    public void eliminarMarcador(Marcador mrkSelected) {
+        MarcadorDAO mrk = new MarcadorDAO();
+        mrk.borrar(mrkSelected);
     }
     
 @PostConstruct
     public void verMarcadores(){
+        MarcadorDAO mrk = new MarcadorDAO();
+        marcadores = mrk.consultarTodos();
+        
         simpleModel = new DefaultMapModel();
         MarcadorDAO mdb = new MarcadorDAO();
         List<Marcador> marcadores = mdb.consultarTodos();

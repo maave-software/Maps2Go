@@ -13,6 +13,7 @@ com/maave/maps2go/modelo/TemaDAO.class
 com/maave/maps2go/controlador/FilterSessionAdministrador.class
 com/maave/maps2go/controlador/ComentarioCtrl.class
 com/maave/maps2go/vista/NombreExistenteIH.class
+com/maave/maps2go/controlador/Mail.class
 com/maave/maps2go/modelo/Tema.class
 com/maave/maps2go/controlador/TemaCtrl.class
 com/maave/maps2go/vista/CorreoIncorrectoIH.class
@@ -31,6 +32,7 @@ com/maave/maps2go/vista/CamposSinLlenarIH.class
 com/maave/maps2go/vista/AgregarCuentaIH.class
 com/maave/maps2go/vista/ConfirmarBorrarCuentaIH.class
 com/maave/maps2go/modelo/Marcador.class
+com/maave/maps2go/controlador/Mail$1.class
 com/maave/maps2go/vista/ComentarioVacioIH.class
 com/maave/maps2go/vista/PantallaPrincipalIH.class
 com/maave/maps2go/controlador/MapCtrl.class

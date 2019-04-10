@@ -36,7 +36,8 @@ and open the template in the editor.
                 <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
             </p:commandButton>
             <p:commandButton value="AgregarTema" action="/informador/agregaTema"/>
-            <p:commandButton value="AgregarMarcador" action="/informador/agregaMarcador"/>
+            <p:commandButton value="AgregarMarcador" action="/Maps2Go/informador/agregaMarcador"/>
+            <p:commandButton value="BorrarMarcador" action="/informador/borraMarcador?facesRedirect=true"/>
             <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
