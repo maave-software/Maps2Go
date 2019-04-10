@@ -34,11 +34,14 @@ and open the template in the editor.
         <p:commandButton value="BorrarCuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
             <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
         </p:commandButton>
+        
         <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <div align="center">
             <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
-            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+            </div>
         </p:confirmDialog>      
 
         <div class="ui-g">

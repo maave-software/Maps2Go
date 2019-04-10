@@ -227,7 +227,7 @@ public class UsuarioCtrl {
         return pat.matcher(correo).matches(); 
     }
 
-    public void borrarCuenta(){
+    public String borrarCuenta(){
         UsuarioDAO udb = new UsuarioDAO();
         FacesContext context = FacesContext.getCurrentInstance();
         UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
@@ -235,6 +235,7 @@ public class UsuarioCtrl {
         Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
         context.getExternalContext().invalidateSession();
         udb.borrar(usuario);
+        return "/index.xhtml?faces-redirect=true";
     }
 
 }
