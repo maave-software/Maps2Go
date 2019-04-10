@@ -13,6 +13,7 @@ com/maave/maps2go/modelo/TemaDAO.class
 com/maave/maps2go/controlador/FilterSessionAdministrador.class
 com/maave/maps2go/controlador/ComentarioCtrl.class
 com/maave/maps2go/vista/NombreExistenteIH.class
+com/maave/maps2go/controlador/Mail.class
 com/maave/maps2go/modelo/Tema.class
 com/maave/maps2go/controlador/TemaCtrl.class
 com/maave/maps2go/vista/CorreoIncorrectoIH.class
@@ -31,8 +32,9 @@ com/maave/maps2go/vista/CamposSinLlenarIH.class
 com/maave/maps2go/vista/AgregarCuentaIH.class
 com/maave/maps2go/vista/ConfirmarBorrarCuentaIH.class
 com/maave/maps2go/modelo/Marcador.class
-com/maave/maps2go/vista/ComentarioVacioIH.class
+com/maave/maps2go/controlador/Mail$1.class
 com/maave/maps2go/vista/PantallaPrincipalIH.class
+com/maave/maps2go/vista/ComentarioVacioIH.class
 com/maave/maps2go/controlador/MapCtrl.class
 com/maave/maps2go/modelo/Usuario.class
 com/maave/maps2go/modelo/HibernateUtil.class
@@ -48,8 +50,8 @@ com/maave/maps2go/vista/BorrarMarcadorIH.class
 com/maave/maps2go/vista/AgregarInformadorIH.class
 com/maave/maps2go/vista/BusquedaCanceladaIH.class
 com/maave/maps2go/modelo/ComentarioDAO.class
-com/maave/maps2go/vista/AgregarTemaIH.class
 com/maave/maps2go/vista/IniciarSesionIH.class
+com/maave/maps2go/vista/AgregarTemaIH.class
 com/maave/maps2go/vista/ConfirmarBorrarMarcadorIH.class
 com/maave/maps2go/vista/CorreoNoRegistradoIH.class
 com/maave/maps2go/vista/CuentaActualizadaIH.class

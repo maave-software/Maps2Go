@@ -4,48 +4,53 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <f:view>
-        <h:head>
-            <title>Registrar</title>
-        </h:head>
+      xmlns:p="http://primefaces.org/ui">
+    <f:view>    
 
         <h:head>
+            <title>Iniciar Sesion</title>
             <h:outputStylesheet name="css/estilos.css"/>
         </h:head>
+
         <body>
-            <header>
-                <h1>Maps2Go</h1>
-                <hr></hr>
 
-                <h:form>
+            <h1 class="titulo">Maps2Go</h1>
+            <hr></hr>
 
-                    <h2>Registrarse</h2>
-
-                    <p:inputText id="nombre" 
+            <center>
+                <h2 class="titulo-form">Registrarse</h2>
+            </center>
+            <h:form id="formulario" >
+                <center> 
+                    <p:inputText id="nombre"
                                  value="#{usuarioCtrl.nombreUsuario}"
-                                 styleClass="textoCampo1"
+                                 styleClass="textoCampo"
                                  placeholder="Nombre"/> <br/>
                     <p:inputText id="correo" 
                                  value="#{usuarioCtrl.correo}"
-                                 styleClass="textoCampo1"
+                                 styleClass="textoCampo"
                                  placeholder="Correo"/> <br/>
+
                     <p:password  id="contrasenia" 
                                  value="#{usuarioCtrl.contrasenia}"
-                                 styleClass="textoCampo1"
+                                 styleClass="textoCampo"
                                  placeholder="Contraseña"/> <br/>
+
                     <p:commandButton 
                         action="#{usuarioCtrl.agregarCuenta()}"
                         value="Aceptar"
                         styleClass="ButtonAceptar"/>
-                </h:form>
-            </header>
+                </center>
+
+            </h:form>
+            <div class="pie">
+                <p>&#9400; 2019 Maave</p>
+            </div>
         </body>
     </f:view>
 </html>

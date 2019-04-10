@@ -20,8 +20,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class Mail {
 
-    private static final String nombreUsuario = "maave.maps2go@gmail.com";
-    private static final String contrasenia = "administrador";
+    private static final String nombreUsuario = "pruebaenviarcorreo3@gmail.com";
+    private static final String contrasenia = "administrar";
 
     public static void sendMail(String subject, String mensaje, String to) {
 
