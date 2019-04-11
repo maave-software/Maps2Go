@@ -36,9 +36,12 @@ and open the template in the editor.
                 <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
             </p:commandButton>
             <p:commandButton value="AgregarTema" action="/informador/agregaTema"/>
-            <p:commandButton value="AgregarMarcador" action="/informador/agregaMarcador"/>
-        <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
+            <p:commandButton value="AgregarMarcador" action="/Maps2Go/informador/agregaMarcador"/>
+            <p:commandButton value="BorrarMarcador" action="/informador/borraMarcador?facesRedirect=true"/>
+            <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
+
+      
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
@@ -55,6 +58,18 @@ and open the template in the editor.
                 </div>
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+                        
+                        <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true" scrollHeight="500">
+                            <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
+                            <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
+                            <p:column headerText="Temas">
+                                <h:outputText value="#{Tema.tipoTema}" />
+                            </p:column>  
+                            
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
