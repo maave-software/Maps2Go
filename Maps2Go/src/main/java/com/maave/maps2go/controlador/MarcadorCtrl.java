@@ -146,8 +146,8 @@ public class MarcadorCtrl implements Serializable {
         addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
     }
      
-    public void destroyWorld() {
-        addMessage("System Error", "Please try again later.");
+    public void mensajeConfirmacion() {
+        addMessage("Marcador Eliminado", " ;) ");
     }
      
     public void addMessage(String summary, String detail) {
@@ -156,9 +156,11 @@ public class MarcadorCtrl implements Serializable {
     }
     
     
-    public void eliminarMarcador(Marcador mrkSelected) {
+    public String eliminarMarcador(Marcador mrkSelected) {
         MarcadorDAO mrk = new MarcadorDAO();
         mrk.borrar(mrkSelected);
+        mensajeConfirmacion();
+        return "/informador/borraMarcador?faces-redirect=true";
     }
     
 @PostConstruct

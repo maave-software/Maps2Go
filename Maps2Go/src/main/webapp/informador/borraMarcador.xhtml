@@ -60,7 +60,7 @@ and open the template in the editor.
                 <p:dataTable id="marcadores" var="Marcador"  value="#{marcadorCtrl.marcadores}" sortBy="#{Marcador.numMarcador}" expandableRowGroups="true" >
                     
                     <p:column headerText="Marcador" class="table">
-                        <h:outputText value="#{Marcador.numMarcador}" style="" />
+                        <h:outputText value="#{Marcador.tema.tipoTema}" style="" />
                     </p:column>
                     
                     <p:column headerText="Datos Utiles" class="table" >
@@ -68,7 +68,7 @@ and open the template in the editor.
                     </p:column>
                     
                     <p:column style="width:112px;text-align: center">
-                        <p:commandButton id="delate_btn" class="deleteBtn"   title="Eliminar" action="#{marcadorCtrl.eliminarMarcador(Marcador)}" update=":form:message">
+                        <p:commandButton id="delate_btn" class="deleteBtn"   title="Eliminar" action="#{marcadorCtrl.eliminarMarcador(Marcador)}"  update=":form:message" >
                             <p:confirm header="Confirmation" message="Seguro que quieres eliminar el marcador #{marcadorCtrl.marcadorSelected.descripcion}?" />
                         </p:commandButton>
                     </p:column>
