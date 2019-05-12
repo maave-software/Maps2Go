@@ -73,13 +73,11 @@ and open the template in the editor.
                     </h:form>
                 </div>
                 <div class="ui-g-12">
-                    <h:form id="comments">
-                        <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" style="width: 80%"/>
-                        <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioCtrl.load()}" value="Comentar" update="comments"/>
+                    <h:form id="comments">                        
                         <p:dataScroller value="#{comentarioCtrl.comentarios}" var="comentario" chunkSize="10" mode="inline" scrollHeight="100"> 
                             <h:panelGrid columns="1" style="width:100%">                            
                                 <p:outputPanel style="width: 100%">
-                                    <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
+                                    <h:panelGrid columns="8" cellpadding="5" style="width: 100%">
                                         <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
                                         <h:outputText value="#{comentario.contenido}"/>
                                         <p:commandButton icon="fa far fa-thumbs-up" action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update="comments" ajax="true"/>
@@ -94,10 +92,13 @@ and open the template in the editor.
                                                 </h:panelGrid>
                                             </p:panel>
                                         </h:form>
+                                        <p:commandButton icon="fa fa-trash" action="#{comentarioCtrl.borrarComentario(comentario.numComentario)}" title="Borrar" update="comments" ajax="true" rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}"/>
                                     </h:panelGrid>
                                 </p:outputPanel>                            
                             </h:panelGrid>                        
-                        </p:dataScroller>        
+                        </p:dataScroller> 
+                        <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" style="width: 80%"/>
+                        <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioCtrl.load()}" value="Comentar" update="comments"/>
                     </h:form>
                 </div>
             </div>

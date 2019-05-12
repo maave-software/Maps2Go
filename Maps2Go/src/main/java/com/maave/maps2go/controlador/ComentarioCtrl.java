@@ -177,4 +177,15 @@ public class ComentarioCtrl {
             error.mostrarMensaje();
         }
     }    
+    
+    public void borrarComentario(int id) {
+        ComentarioDAO cmdb = new ComentarioDAO();
+        Comentario com = cmdb.buscaId(id);
+        try {
+            cmdb.borrar(com);
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
+        }        
+    }
 }
