@@ -15,8 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>        
     </h:head>
 
     <f:view>
@@ -34,13 +33,13 @@ and open the template in the editor.
         <p:commandButton value="BorrarCuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
             <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
         </p:commandButton>
-        
+
         <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
             <div align="center">
-            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
-            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
             </div>
         </p:confirmDialog>      
 
@@ -83,9 +82,9 @@ and open the template in the editor.
                                     <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
                                         <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
                                         <h:outputText value="#{comentario.contenido}"/>
-                                        <i class="far fa-thumbs-up like"></i>
+                                        <p:commandButton icon="fa far fa-thumbs-up" action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update="comments" ajax="true"/>
                                         <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
-                                        <i class="far fa-thumbs-down dislike" ></i>
+                                        <p:commandButton icon="fa far fa-thumbs-down" action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Like" update="comments" ajax="true"/>
                                         <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>       
                                         <h:form rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}">
                                             <p:panel toggleable="true" collapsed="true" toggleOrientation="horizontal" header="Editar">
