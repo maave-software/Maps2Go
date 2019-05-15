@@ -16,15 +16,15 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class  ComentarioCtrl {
-    
+public class ComentarioCtrl {
+
     private int dislike;
     private int like;
     private int numComentario;
     private String contenido;
     private double longitud;
     private double latitud;
-    
+
     public int getNumComentario() {
         // Automatically generated method. Please do not modify this code.
         return this.numComentario;
@@ -64,7 +64,7 @@ public class  ComentarioCtrl {
         // Automatically generated method. Please do not modify this code.
         this.dislike = dislike;
     }
-    
+
     private List<Comentario> comentarios;
     private List<String> usuarios;
 
@@ -75,39 +75,39 @@ public class  ComentarioCtrl {
     public void setUsuarios(List<String> usuarios) {
         this.usuarios = usuarios;
     }
-    
+
     public List<Comentario> getComentarios() {
         return comentarios;
     }
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
-    }            
-    
-    public String getNombre(Comentario comment){
+    }
+
+    public String getNombre(Comentario comment) {
         Usuario u = comment.getUsuario();
         return u.getNombreUsuario();
     }
-    
+
     @PostConstruct
     public void init() {
         ComentarioDAO cmdb = new ComentarioDAO();
         comentarios = cmdb.consultarOrden();
-        
+
     }
-    
-    public void load(){
+
+    public void load() {
         init();
     }
 
-    public void agregarComentario() {        
-        if(contenido.compareTo("") != 0){
+    public void agregarComentario() {
+        if (contenido.compareTo("") != 0) {
             ComentarioDAO cmdb = new ComentarioDAO();
             UsuarioDAO udb = new UsuarioDAO();
-            MarcadorDAO mdb = new MarcadorDAO();         
+            MarcadorDAO mdb = new MarcadorDAO();
             Comentario coment = new Comentario();
             // implementacio con login       
-            SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             Usuario u = udb.buscaPorCorreo(us.getCorreo());
             //Implementacion sin login Usuario u = udb.buscaPorCorreo("qwerty");
             Marcador m = mdb.buscaMarcador(1); //Pendiente 
@@ -116,7 +116,7 @@ public class  ComentarioCtrl {
             coment.setDislikes(0);
             coment.setContenido(contenido);
             coment.setUsuario(u);
-            try{
+            try {
                 cmdb.agregar(coment);
             } catch (Exception e) {
                 ErrorServidorIH error = new ErrorServidorIH();
@@ -128,12 +128,12 @@ public class  ComentarioCtrl {
         }
     }
 
-    public void actualizarComentario(int id) {      
-        if(contenido.compareTo("") != 0){
+    public void actualizarComentario(int id) {
+        if (contenido.compareTo("") != 0) {
             ComentarioDAO cmdb = new ComentarioDAO();
             Comentario com = cmdb.buscaId(id);
-            com.setContenido(contenido);            
-            try{
+            com.setContenido(contenido);
+            try {
                 cmdb.actualizar(com);
             } catch (Exception e) {
                 ErrorServidorIH error = new ErrorServidorIH();
@@ -141,16 +141,51 @@ public class  ComentarioCtrl {
             }
         } else {
             ComentarioVacioIH warn = new ComentarioVacioIH();
-            warn.mostrarMensaje();            
+            warn.mostrarMensaje();
         }
-    }        
-    
-    public boolean esComentarioPropio(int id){
+    }
+
+    public boolean esComentarioPropio(int id) {
         UsuarioDAO udb = new UsuarioDAO();
-        SessionCtrl.UsuarioLogged us= (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         Usuario u = udb.buscaPorCorreo(us.getCorreo());
         ComentarioDAO cmdb = new ComentarioDAO();
-        boolean res = cmdb.esPropio(id, u.getIdUsuario()); 
+        boolean res = cmdb.esPropio(id, u.getIdUsuario());
         return res;
+    }
+
+    public void darLike(int id) {
+        ComentarioDAO cmdb = new ComentarioDAO();
+        Comentario com = cmdb.buscaId(id);
+        com.setLikes(com.getLikes() + 1);
+        try {
+            cmdb.actualizar(com);
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
+        }
+    }
+    
+    public void darDislike(int id) {
+        ComentarioDAO cmdb = new ComentarioDAO();
+        Comentario com = cmdb.buscaId(id);
+        com.setDislikes(com.getDislikes() + 1);
+        try {
+            cmdb.actualizar(com);
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
+        }
     }    
+    
+    public void borrarComentario(int id) {
+        ComentarioDAO cmdb = new ComentarioDAO();
+        Comentario com = cmdb.buscaId(id);
+        try {
+            cmdb.borrar(com);
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
+        }        
+    }
 }

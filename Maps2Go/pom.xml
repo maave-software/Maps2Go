@@ -55,7 +55,7 @@
             <artifactId>simple-java-mail</artifactId>
             <version>5.0.1</version>
         </dependency>              
-    </dependencies>
+    </dependencies>        
     <build>
         <plugins>
             <plugin>
