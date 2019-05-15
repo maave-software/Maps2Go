@@ -56,5 +56,27 @@ public class TemaDAO extends AbstractDAO<Tema>{
         }
         return t;
     }
+    
+    public boolean existeTema(String tipoTema){
+        Tema t = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Tema where tipo_tema = :tipoTema";
+            Query query = session.createQuery(hql);
+            query.setParameter("tipoTema", tipoTema);
+            t = (Tema)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx != null){
+                tx.rollback();
+            }
+        }finally{
+            session.close();
+        }
+        return t!=null;
+                
+    }
 
 }
