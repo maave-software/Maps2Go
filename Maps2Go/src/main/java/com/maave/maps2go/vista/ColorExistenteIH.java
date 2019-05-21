@@ -17,7 +17,7 @@ public class ColorExistenteIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = ("Este correo ya está registrado. Intenta nuevamente con uno distinto.");
+        this.mensaje = ("Este color ya existe. Intenta con uno distinto.");
         RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_WARN,"Advertencia", mensaje));
     }
 

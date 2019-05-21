@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
+        <script type="text/javascript" src="PKEY"/>
     </h:head>
 
     <f:view>
@@ -32,20 +32,24 @@ and open the template in the editor.
                     <!-- Zona de marcadores -->
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
-                        <p:inputNumber decimalPlaces="6" id="longitud" value="#{mapCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
-                        <p:inputNumber decimalPlaces="6" id="latitud" value="#{mapCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
-                        <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{mapCtrl.descripcion}" placeholder="Descripción" required="true"/><br></br>
-                        <p:inputTextarea  id="datos" rows="6" cols="33" value="#{mapCtrl.datosUtiles}" placeholder="Datos útiles" required="true" /> <br></br>
-                        <p:commandButton id="agregaMarcador" value="Aceptar" action="#{mapCtrl.agregarMarcador()}" update="form" ajax="false" styleClass="text-box2"/><br></br>
+                        <p:inputNumber decimalPlaces="6" id="longitud" value="#{temaCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
+                        <p:inputNumber decimalPlaces="6" id="latitud" value="#{temaCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
+                        <p>Confirma tu tema</p>
+                        <p:inputText id="titulo" value="#{temaCtrl.tipoTema}" placeholder="Tema"/><br></br>
+                        <p:inputTextarea  id="descripcion" rows="6" cols="33" value="#{temaCtrl.descripcion}" placeholder="Descripción"/><br></br>
+                        <p:inputTextarea  id="datos" rows="6" cols="33" value="#{temaCtrl.datosUtiles}" placeholder="Datos útiles"/> <br></br>
+                        <p:commandButton id="agregaMarcador" value="Aceptar" action="#{temaCtrl.agregarMarcador()}" update="form" ajax="false" styleClass="text-box2"/><br></br><br></br>
+                        <p:commandButton id="agregarMarcador" value="Salir" action="/informador/perfil?faces-redirect=true" update="form" ajax="false" styleClass="text-box2"/>
                     </h:form>
+                
                 </div>
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
                     <h:form prependId="false">        
-                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:500px" model="#{mapCtrl.simpleModel}">
-                            <p:ajax event="markerDrag" listener="#{mapCtrl.onMarkerDrag}" update="form"/>
-                            <p:ajax event="pointSelect" listener="#{mapCtrl.onPointSelect}" update="form map"/>
+                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap"  style="width:80%;height:500px;left:20%" model="#{temaCtrl.simpleModel}">
+                            <p:ajax event="markerDrag" listener="#{temaCtrl.onMarkerDrag}" update="form"/>
+                            <p:ajax event="pointSelect" listener="#{temaCtrl.onPointSelect}" update="form map"/>
                         </p:gmap>
                     </h:form>
                 </div>
