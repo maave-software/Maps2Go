@@ -21,34 +21,38 @@ and open the template in the editor.
         </h:head>
 
         <body>
-            <h1 class="titulo">Maps2Go</h1>           
+            <div>
+                <h1 class="titulo">Maps2go</h1>
+            </div>
+            
             <center>
                 <hr></hr>
                 <h2 class="titulo-form">Borrar informador</h2>
             </center>
             <h:form id="formulario">
-                <center> 
-                    <h:form>
-                        <center>
-                            <p:dataTable class="tabla" style="width: 750px;" var="informadores" value="#{usuarioCtrl.informadores}">
 
-                                <p:column style="width:290px;">
-                                    <center>
-                                        <h:outputText value="#{informadores.nombreUsuario}" />
-                                    </center>
-                                </p:column>
-                                <p:column style="width:290px;">
-                                    <h:form>
-                                        <center>
-                                            <p:commandButton action="#{usuarioCtrl.eliminarInformador(informadores.idUsuario)}"
-                                                             value="Borrar"
-                                                             class="ButtonBorrar"/> 
-                                        </center>
-                                    </h:form>
-                                </p:column>
-                            </p:dataTable>
-                        </center>
-                    </h:form>
+                <center>
+                    <p:dataTable class="tabla" style="width: 900px;" var="informadores" value="#{usuarioCtrl.informadores}">
+
+                        <p:column headerText="Nombre" style="width:200px;">
+                            <center>
+                                <h:outputText value="#{informadores.nombreUsuario}" />
+                            </center>
+                        </p:column>
+                        <p:column headerText="Correo" style="width:290px;">
+                            <center>
+                                <h:outputText value="#{informadores.correo}" />
+                            </center>
+                        </p:column>
+                        <p:column style="width:290px;">
+
+                            <p:commandButton action="#{usuarioCtrl.eliminarInformador(informadores.idUsuario)}"
+                                             value="Borrar"
+                                             styleClass="ButtonBorrar">
+                            </p:commandButton>
+
+                        </p:column>
+                    </p:dataTable>
                 </center>
             </h:form>
             <div class="pie">
