@@ -137,7 +137,7 @@ public class UsuarioCtrl {
         buscarInformador();
     }
   
-    public void agregarCuenta() {
+    public String agregarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
@@ -164,6 +164,7 @@ public class UsuarioCtrl {
 
             sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito", u.getCorreo());
         }
+        return "/index.xhtml?faces-redirect=true";
     }
     
     public void actualizarCuenta() {

@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
+        <script type="text/javascript" src="PKEY"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
     </h:head>
 
@@ -35,9 +35,9 @@ and open the template in the editor.
             <p:commandButton value="BorrarCuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
                 <p:confirm header="Confirmacion" message="¿Deseas borrar tu cuenta? Este cambio no se revertirá."/>
             </p:commandButton>
-            <p:commandButton value="AgregarTema" action="/informador/agregaTema"/>
+            <p:commandButton value="AgregarTema" action="/informador/agregaTema?faces-redirect=true"/>
 
-            <p:commandButton value="AgregarMarcador" action="/Maps2Go/informador/agregaMarcador"/>
+            <p:commandButton value="AgregarMarcador" action="/informador/marcadores?faces-redirect=true"/>
             <p:commandButton value="BorrarMarcador" action="/informador/borraMarcador?faces-redirect=true"/>
             <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
@@ -50,27 +50,7 @@ and open the template in the editor.
       
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
-                <div class="ui-g-12">
-                    <h:form>
-                        <p:inputText id="tema" placeholder="Buscar" class="buscar"/> <br/><br/>
-                    </h:form>
-
-                </div>
-                <div class="ui-g-12">
-                    <!-- Zona de marcadores -->
-                    <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
-                        
-                        <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true" scrollHeight="500">
-                            <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
-                            <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
-                            <p:column headerText="Temas">
-                                <h:outputText value="#{Tema.tipoTema}" />
-                            </p:column>  
-                            
-                        </p:dataTable>
-                    </h:form>
-                </div>
+                
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
                 <div class="ui-g-12">
@@ -87,34 +67,6 @@ and open the template in the editor.
                                 </p:outputPanel>
                             </p:gmapInfoWindow>   
                         </p:gmap>
-                    </h:form>
-                </div>
-                <div class="ui-g-12">
-                    <h:form id="comments">
-                        <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" style="width: 80%"/>
-                        <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioCtrl.load()}" value="Comentar" update="comments"/>
-                        <p:dataScroller value="#{comentarioCtrl.comentarios}" var="comentario" chunkSize="10" mode="inline" scrollHeight="100"> 
-                            <h:panelGrid columns="1" style="width:100%">                            
-                                <p:outputPanel style="width: 100%">
-                                    <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
-                                        <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
-                                        <h:outputText value="#{comentario.contenido}"/>
-                                        <i class="far fa-thumbs-up like"></i>
-                                        <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
-                                        <i class="far fa-thumbs-down dislike" ></i>
-                                        <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>       
-                                        <h:form rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}">
-                                            <p:panel toggleable="true" collapsed="true" toggleOrientation="horizontal" header="Editar">
-                                                <h:panelGrid columns="2" cellpadding="10">
-                                                    <p:inputTextarea placeholder="Escribe comentario..."  value="#{comentarioCtrl.contenido}"></p:inputTextarea>
-                                                    <p:commandButton ajax="true" action="#{comentarioCtrl.actualizarComentario(comentario.numComentario)}" value="Aceptar" update="comments"/>
-                                                </h:panelGrid>
-                                            </p:panel>
-                                        </h:form>
-                                    </h:panelGrid>
-                                </p:outputPanel>                            
-                            </h:panelGrid>                        
-                        </p:dataScroller>        
                     </h:form>
                 </div>
             </div>

@@ -17,7 +17,7 @@ public class TemaAgregadoIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "Tema agregado con éxito";
+        this.mensaje = ("Tema agregado con éxito.");
         RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Éxito!", mensaje));      
     }
 
