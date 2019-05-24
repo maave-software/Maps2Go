@@ -37,7 +37,7 @@ public class MarcadorCtrl implements Serializable {
     private List<Marcador> marcadores;
     private Marcador mrkSelected;
     private Tema temas;
-    
+    private String tema_buscar;
 
     public MapModel getSimpleModel() {
         return simpleModel;
@@ -163,17 +163,22 @@ public class MarcadorCtrl implements Serializable {
         return "/informador/borraMarcador?faces-redirect=true";
     }
     
-@PostConstruct
-    public void verMarcadores(){
-        MarcadorDAO mrk = new MarcadorDAO();
-        marcadores = mrk.consultarTodos();
-        
+    public String getTema_buscar() {
+        return tema_buscar;
+    }
+
+    public void setTema_buscar(String tema_buscar) {
+        this.tema_buscar = tema_buscar;
+    }
+    
+    
+    public void marcadoresPorTema(){
         simpleModel = new DefaultMapModel();
         MarcadorDAO mdb = new MarcadorDAO();
-        List<Marcador> marcadores = mdb.consultarTodos();
+        List<Marcador> marcadores = mdb.marcadorPorTema(tema_buscar);
         for(Marcador m :marcadores){
-            Tema tema = mdb.consultarColor(m.getTema());
-            String color = tema.getColor();
+            //String color = m.getTema().getColor();
+            String color = "http://maps.google.com/mapfiles/ms/micons/blue-dot.png";
             LatLng cord = new LatLng(m.getLatitud(),m.getLongitud());
             Marker marcador = new Marker(cord,m.getDescripcion(),m.getDatosUtiles(), color);
             simpleModel.addOverlay(marcador);
@@ -183,6 +188,5 @@ public class MarcadorCtrl implements Serializable {
     public void onMarkerSelect(OverlaySelectEvent event) {
        marker =(Marker) event.getOverlay(); 
     }
-    
 
 }
