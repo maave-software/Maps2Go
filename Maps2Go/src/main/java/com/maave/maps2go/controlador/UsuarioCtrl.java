@@ -158,7 +158,6 @@ public class UsuarioCtrl {
             u.setContrasenia(contrasenia);
             u.setRol(3);
             udb.agregar(u);
-
             CuentaAgregadaIH exito = new CuentaAgregadaIH();
             exito.mostrarMensaje();
 

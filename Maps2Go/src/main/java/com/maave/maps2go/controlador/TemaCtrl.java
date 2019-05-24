@@ -10,7 +10,9 @@ import com.maave.maps2go.vista.TemaAgregadoIH;
 import com.maave.maps2go.vista.TemaExistenteIH;
 import com.maave.maps2go.vista.CampoVacioIH;
 import com.maave.maps2go.vista.ColorExistenteIH;
+import com.maave.maps2go.vista.ErrorServidorIH;
 import com.maave.maps2go.vista.MarcadorAgregadoIH;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -29,7 +31,7 @@ import org.primefaces.model.map.Marker;
 
 @ManagedBean
 @ViewScoped
-public class TemaCtrl {
+public class TemaCtrl implements Serializable {
 
     private String color;
     private String tipoTema;
@@ -44,6 +46,7 @@ public class TemaCtrl {
     private Marker marcador;
     private Marker marker;
     private MapModel simpleModel;
+    private String tema_buscar;
 
     @PostConstruct
     public void init() {
@@ -124,22 +127,29 @@ public class TemaCtrl {
     public MapModel getSimpleModel() {
         return simpleModel;
     }
+    
+     public String getTema_buscar() {
+        return tema_buscar;
+    }
 
+    public void setTema_buscar(String tema_buscar) {
+        this.tema_buscar = tema_buscar;
+    }
+    
     public String agregarTema() {
         TemaDAO tdb = new TemaDAO();
         if(tipoTema.compareTo("")==0 || color.compareTo("")==0 || descripcion.compareTo("")==0 || datosUtiles.compareTo("") == 0){
             CampoVacioIH vacio = new CampoVacioIH();
             vacio.mostrarMensaje();
-            //System.out.println("Campo Vacio");
-            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"WARNING!", "Campo Vacio"));
+            return "/informador/agregaTema?faces-redirect=true";
         }else if(tdb.existeTema(tipoTema)){
             TemaExistenteIH existe = new TemaExistenteIH();
             existe.mostrarMensaje();
-           //System.out.println("Ya existe");
+            return "/informador/agregaTema?faces-redirect=true";
         }else if(tdb.existeColor(color)){
             ColorExistenteIH existeC = new ColorExistenteIH();
-            existeC.mostrarMensaje();            
-            //System.out.println("Color existe");
+            existeC.mostrarMensaje();      
+            return "/informador/agregaTema?faces-redirect=true";
         }else {
             Tema t = new Tema();
             UsuarioDAO udb = new UsuarioDAO();
@@ -156,20 +166,25 @@ public class TemaCtrl {
             m.setLatitud(latitud);
             m.setLongitud(longitud);
             m.setTema(t);
-            mdb.agregar(m);
-            
-            TemaAgregadoIH exito = new TemaAgregadoIH();
-            exito.mostrarMensaje();
-            //System.out.println("Agregado exitosamente");
+            try {
+                mdb.agregar(m);
+                TemaAgregadoIH exito = new TemaAgregadoIH();
+                exito.mostrarMensaje();
+            }catch (Exception e) {
+                ErrorServidorIH error = new ErrorServidorIH();
+                error.mostrarMensaje();
+            }
         }
+    
         return "/informador/perfil?faces-redirect=true";
     }
-
+    
     public String agregarMarcador() {
         MarcadorDAO mdb = new MarcadorDAO();
         if(tipoTema.compareTo("")==0 || descripcion.compareTo("")==0 || datosUtiles.compareTo("")==0){
             CampoVacioIH vacio = new CampoVacioIH();
             vacio.mostrarMensaje();
+            return "/informador/agregaMarcador?faces-redirect=true";
         }else{
             Tema t = new Tema();
             Marcador m = new Marcador();
@@ -179,10 +194,15 @@ public class TemaCtrl {
             m.setLatitud(latitud);
             m.setLongitud(longitud);
             m.setTema(t);
-            mdb.agregar(m);
-            
-            MarcadorAgregadoIH exito = new MarcadorAgregadoIH();
-            exito.mostrarMensaje();
+            try {
+                mdb.agregar(m);
+
+                MarcadorAgregadoIH exito = new MarcadorAgregadoIH();
+                exito.mostrarMensaje();
+            }catch(Exception e){
+                ErrorServidorIH error = new ErrorServidorIH();
+                error.mostrarMensaje();              
+            }
         }
         return "/informador/agregaMarcador?faces-redirect=true";
     }
@@ -191,15 +211,14 @@ public class TemaCtrl {
     public void consultarTemas() {
     }
     
-    public List<Tema> temasPropios(String tipoTema, int usuario){
+    public void temasPorInformador(){
         UsuarioDAO udb = new UsuarioDAO();
-        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         Usuario u = udb.buscaPorCorreo(us.getCorreo());
         TemaDAO tdb = new TemaDAO();
-        List<Tema> t = tdb.temaPropio(tipoTema, u.getIdUsuario());
-        return t;
+        List<Tema> temas = tdb.temaPorUsuario(tema_buscar);
+        
     }
-    
     
     public void onMarkerSelect(OverlaySelectEvent event) {
        marker =(Marker) event.getOverlay(); 
