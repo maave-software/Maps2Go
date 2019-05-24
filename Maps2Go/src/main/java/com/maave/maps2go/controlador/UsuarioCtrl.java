@@ -1,7 +1,7 @@
 package com.maave.maps2go.controlador;
 
-import com.maave.maps2go.controlador.SessionCtrl.UsuarioLogged;
 import static com.maave.maps2go.controlador.Mail.sendMail;
+import com.maave.maps2go.controlador.SessionCtrl.UsuarioLogged;
 import com.maave.maps2go.modelo.Usuario;
 import com.maave.maps2go.modelo.UsuarioDAO;
 import com.maave.maps2go.vista.CamposSinLlenarIH;
@@ -13,16 +13,20 @@ import com.maave.maps2go.vista.InformadorAgregadoIH;
 import com.maave.maps2go.vista.CuentaAgregadaIH;
 import com.maave.maps2go.vista.CorreoIncorrectoIH;
 import com.maave.maps2go.vista.CorreoInvalidoIH;
+import com.maave.maps2go.vista.ErrorServidorIH;
 import java.security.SecureRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
+@ViewScoped
 public class UsuarioCtrl {
 
     private int idUsuario;
@@ -88,7 +92,18 @@ public class UsuarioCtrl {
         this.rol = rol;
     }
 
-    public void agregarInformador() {        
+    @PostConstruct
+    public void init() {
+        UsuarioDAO udb = new UsuarioDAO();
+        List<Usuario> u = udb.buscaInformadores();
+        informadores = u;
+    }
+
+    public void load() {
+        init();
+    }
+
+    public String agregarInformador() {
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
@@ -99,7 +114,7 @@ public class UsuarioCtrl {
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
-        } else if(!validarCorreo(correo)){
+        } else if (!validarCorreo(correo)) {
             CorreoInvalidoIH invalido = new CorreoInvalidoIH();
             invalido.mostrarMensaje();
         } else {
@@ -113,17 +128,22 @@ public class UsuarioCtrl {
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
             u.setRol(2);
+            try {
+                udb.agregar(u);
+                sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito, tu contraseña es: " + u.getContrasenia(), u.getCorreo());
 
-            udb.agregar(u);
-            sendMail("Bienvenido a Maps2Go","Tu cuenta ha sido agregada con exito, tu contraseña es: " + u.getContrasenia(),u.getCorreo());
-
-            InformadorAgregadoIH exito = new InformadorAgregadoIH();
-            exito.mostrarMensaje();
+                InformadorAgregadoIH exito = new InformadorAgregadoIH();
+                exito.mostrarMensaje();
+                return "perfil?faces-redirect=false";
+            } catch (Exception e) {
+                ErrorServidorIH error = new ErrorServidorIH();
+                error.mostrarMensaje();
+            }
         }
-
+        return "agregarInformador?faces-redirect=false";
     }
-    
-    public String buscarInformador(){
+
+    public String buscarInformador() {
         UsuarioDAO udb = new UsuarioDAO();
         List<Usuario> u = udb.buscaInformadores();
         informadores = u;
@@ -133,10 +153,15 @@ public class UsuarioCtrl {
     public void eliminarInformador(int id) {
         UsuarioDAO udb = new UsuarioDAO();
         Usuario usuario = udb.consultarIntId(id);
-        udb.borrar(usuario);
-        buscarInformador();
+        try {
+            udb.borrar(usuario);
+            load();
+        } catch (Exception e) {
+            ErrorServidorIH error = new ErrorServidorIH();
+            error.mostrarMensaje();
+        }
     }
-  
+
     public String agregarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
@@ -165,72 +190,72 @@ public class UsuarioCtrl {
         }
         return "/index.xhtml?faces-redirect=true";
     }
-    
+
     public void actualizarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         FacesContext context = FacesContext.getCurrentInstance();
-        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        UsuarioLogged u = (UsuarioLogged) context.getExternalContext().getSessionMap().get("usuario");
         int idUsuario_log = u.getIdUsuario();
         Usuario usuario = udb.consultarIntId(idUsuario_log);
-        
-            //Validaciones para el nombre de usuario
-            if(nombreUsuario != null && !nombreUsuario.isEmpty()){
-                if(!udb.existeNombre(nombreUsuario)){
-                    usuario.setNombreUsuario(nombreUsuario);
-                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
-                    mensaje.mostrarMensaje();
-                }else{
-                    NombreExistenteIH mensaje = new NombreExistenteIH();
-                    mensaje.mostrarMensaje();
-                }
+
+        //Validaciones para el nombre de usuario
+        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+            if (!udb.existeNombre(nombreUsuario)) {
+                usuario.setNombreUsuario(nombreUsuario);
+                CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+                mensaje.mostrarMensaje();
+            } else {
+                NombreExistenteIH mensaje = new NombreExistenteIH();
+                mensaje.mostrarMensaje();
             }
-            
-            //Actualización de contrseña
-            if (contrasenia != null && !contrasenia.isEmpty()) {
-                usuario.setContrasenia(contrasenia);
+        }
+
+        //Actualización de contrseña
+        if (contrasenia != null && !contrasenia.isEmpty()) {
+            usuario.setContrasenia(contrasenia);
+            CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
+            mensaje.mostrarMensaje();
+        }
+
+        //Validaciones para el correo
+        if (correo != null && !correo.isEmpty()) {
+            if (!validarCorreo(correo)) {
+                CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
+                mensaje.mostrarMensaje();
+            }
+
+            if (udb.existeCorreo(correo)) {
+                CorreoExistenteIH mensaje = new CorreoExistenteIH();
+                mensaje.mostrarMensaje();
+
+            }
+            if (!udb.existeCorreo(correo) && validarCorreo(correo)) {
+                usuario.setCorreo(correo);
                 CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
                 mensaje.mostrarMensaje();
             }
-            
-            //Validaciones para el correo
-            if (correo != null && !correo.isEmpty()) {
-                if (!validarCorreo(correo)){
-                    CorreoIncorrectoIH mensaje = new CorreoIncorrectoIH();
-                    mensaje.mostrarMensaje();  
-                }
-                
-                if(udb.existeCorreo(correo)){
-                    CorreoExistenteIH mensaje = new CorreoExistenteIH();
-                    mensaje.mostrarMensaje();
-                    
-                }
-                if(!udb.existeCorreo(correo) && validarCorreo(correo)){
-                    usuario.setCorreo(correo);
-                    CuentaActualizadaIH mensaje = new CuentaActualizadaIH();
-                    mensaje.mostrarMensaje();
-                }
-            }
-            
-            if(nombreUsuario.isEmpty() && contrasenia.isEmpty() && correo.isEmpty()){
-                CamposSinLlenarIH mensaje = new CamposSinLlenarIH();
-                mensaje.mostrarMensaje();
-            }
-        
-            udb.actualizar(usuario);
-    }
-    
-    public static boolean validarCorreo(String correo){
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
-                       "[a-zA-Z0-9_+&*-]+)*@" + 
-                       "gmail.com"; 
-        Pattern pat = Pattern.compile(regex);
-        return pat.matcher(correo).matches(); 
+        }
+
+        if (nombreUsuario.isEmpty() && contrasenia.isEmpty() && correo.isEmpty()) {
+            CamposSinLlenarIH mensaje = new CamposSinLlenarIH();
+            mensaje.mostrarMensaje();
+        }
+
+        udb.actualizar(usuario);
     }
 
-    public String borrarCuenta(){
+    public static boolean validarCorreo(String correo) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "gmail.com";
+        Pattern pat = Pattern.compile(regex);
+        return pat.matcher(correo).matches();
+    }
+
+    public String borrarCuenta() {
         UsuarioDAO udb = new UsuarioDAO();
         FacesContext context = FacesContext.getCurrentInstance();
-        UsuarioLogged u = (UsuarioLogged)context.getExternalContext().getSessionMap().get("usuario");
+        UsuarioLogged u = (UsuarioLogged) context.getExternalContext().getSessionMap().get("usuario");
         String idUsuario_log = u.getCorreo();
         Usuario usuario = udb.buscaPorCorreo(idUsuario_log);
         context.getExternalContext().invalidateSession();
