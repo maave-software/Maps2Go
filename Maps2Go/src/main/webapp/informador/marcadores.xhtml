@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Agregar Marcadores</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style type="text/css">
+            .Mainbox {
+                background-color: rgba(150, 159, 170, 0.09);
+                width: 40%;
+                height: 300px;
+                overflow-y: scroll;
+                margin: auto;
+                padding-left: 20%;
+                padding-right: 20%;
+            }
+            .titleB {
+                color: #47525E;
+                font-family: Cardo;
+                font-size: 60px;
+                font-weight: 400;
+                line-height: 78px;
+                text-align: center;
+            }
+            .deleteBtn {
+                background-color: #E43236;
+                border-radius: 100px;
+                width: 108px;
+                height: 35px;                
+            }
+            .table{
+                width: 50%;
+                text-align: center;
+                border: none !important;
+                border-spacing: 50%;
+
+
+            }
+        </style>
+    </h:head>
+
+    <f:view>
+        <h:body>
+            <h1 align="center" class="titleB">Agregar Marcador</h1>
+            <div >
+                <h:form id="form">
+                    <p:growl id="message" showDetail="true" />
+                    <p:dataTable id="temas" var="Tema" value="#{temaCtrl.temas}">
+                        <p:column headerText="Mis Temas" class="table">
+                            <h:outputText value="#{Tema.tipoTema}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="fa fa-plus" action="/informador/agregaMarcador?faces-redirect=true"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </h:body>
+    </f:view>
+</html>

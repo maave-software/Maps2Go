@@ -36,6 +36,29 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         return super.consultarTodos(Marcador.class);
     }
     
+    public String obtenerColor(String color){
+    String colorMar = ""; 
+    Session session = this.sessionFactory.openSession();
+    Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Marcador where color = :color";
+            Query query = session.createQuery(hql);
+            query.setParameter("color", color);
+            colorMar = (String)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+
+        }finally{
+            session.close();
+        }
+        return colorMar;
+    }
+    
     public Marcador buscaMarcador(int id) {
         Marcador m = null;
         Session session = this.sessionFactory.openSession();
@@ -59,17 +82,17 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         }
         return m;
     }
-       
-    public Tema consultarColor(Tema tipo_tema){
-        Tema t = null;
+
+    public List<Marcador> marcadorPorTema (String tipo_tema){
+        List<Marcador> obj =null;
         Session session = this.sessionFactory.openSession();
         Transaction tx =null;
         try{
             tx = session.beginTransaction();
-            String hql = "from Tema where tipo_tema = :tipo_tema";
+            String hql = "from Marcador where tipo_tema = :tipo_tema";
             Query query = session.createQuery(hql);
             query.setParameter("tipo_tema", tipo_tema);
-            t = (Tema)query.uniqueResult();
+            obj = (List<Marcador>)query.list();
             tx.commit();
         }catch(HibernateException e){
             if(tx!=null){
@@ -79,6 +102,8 @@ public class MarcadorDAO extends AbstractDAO<Marcador>{
         }finally{
             session.close();
         }
-        return t;
-    }   
+        return obj;
+    }
+    
+    
 }

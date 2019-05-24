@@ -4,53 +4,63 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    <f:view>    
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">    
+    <h:head>
+        <title>Maps2Go</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/estilos.css"/>
+        <script type="text/javascript" src="PKEY"/>
+    </h:head>
 
-        <h:head>
-            <title>Agrega Tema</title>
-            <h:outputStylesheet name="css/estilos.css"/>
-        </h:head>
+    <f:view>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <h1 class="titulo">Maps2Go</h1>
+            </div>                
 
-        <body>
+        </div>
 
-            <h1 class="titulo">Maps2Go</h1>
-            <hr></hr>
-            <center>
-                <h2 class="titulo-form">Registrarse</h2>
-            </center>
-
-
-            <h:form id="formulario">
-                <center>
-                    <p:inputText id="tema" 
-                                 value="#{temaCtrl.tipoTema}" 
-                                 placeholder="Título" 
-                                 styleClass="textoCampo"/><br/>
-                    <h:panelGrid columns="1" cellpadding="5" styleClass="textoCampo">
-                        <h:outputText value="Color: " /><br/>
-                        <p:colorPicker value="#{temaCtrl.color}" styleClass="text-box1" />                   
-                    </h:panelGrid><br/><br/><br/><br/>
-                    <p:commandButton action="#{temaCtrl.agregarTema()}" value="Aceptar" ajax="false" styleClass="ButtonAceptar"/>
-
-                </center>
-            </h:form>
-            <div>
-
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-2 ui-g-nopad">
+                <div class="ui-g-12">
+                    <!-- Zona de marcadores -->
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>   
+                        <p:inputNumber decimalPlaces="6" id="longitud" value="#{temaCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
+                        <p:inputNumber decimalPlaces="6" id="latitud" value="#{temaCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br><br></br>
+                        <p:inputText id="titulo" value="#{temaCtrl.tipoTema}" placeholder="Tema" /><br></br><br></br>
+                        <h:panelGrid columns="2" cellpadding="5" style="margin-left: 20px">
+                            <h:outputText value="Color: " />
+                            <p:colorPicker value="#{temaCtrl.color}" />                   
+                        </h:panelGrid> 
+                        <p:inputTextarea  id="descripcion" rows="6" cols="20" value="#{temaCtrl.descripcion}" placeholder="Descripción"/><br></br>
+                        <p:inputTextarea  id="datos" rows="6" cols="20" value="#{temaCtrl.datosUtiles}" placeholder="Datos útiles" /> <br></br><br></br>
+                        <p:commandButton id="agregaMarcador" value="Aceptar" action="#{temaCtrl.agregarTema()}" update="form" ajax="false" styleClass="text-box2"/><br></br>
+                    </h:form>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                <div class="ui-g-12">
+                    <h:form prependId="false">        
+                        <p:gmap id="map" center="23.382390, -102.291477" zoom="5" type="roadmap" style="width:100%;height:500px" model="#{temaCtrl.simpleModel}">
+                            <p:ajax event="markerDrag" listener="#{temaCtrl.onMarkerDrag}" update="form"/>
+                            <p:ajax event="pointSelect" listener="#{temaCtrl.onPointSelect}" update="form map"/>
+                        </p:gmap>
+                    </h:form>
+                </div>
 
             </div>
+        </div>
 
-            <div class="pie">
-                <p>&#9400; 2019 Maave</p>
-            </div>
-        </body>
-
-
+        <div class="ui-g-12 footer">
+            <p class="footerText">&#9400; 2019 Maave</p>
+        </div>
 
     </f:view>
 </html>

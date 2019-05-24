@@ -1,5 +1,8 @@
 package com.maave.maps2go.vista;
 
+import javax.faces.application.FacesMessage;
+import org.primefaces.context.RequestContext;
+
 public class MarcadorAgregadoIH {
     private String mensaje;
 
@@ -14,6 +17,8 @@ public class MarcadorAgregadoIH {
     }
 
     public void mostrarMensaje() {
+        this.mensaje = ("Marcador agregado con éxito.");
+        RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,"¡Éxito!",mensaje));
     }
 
 }

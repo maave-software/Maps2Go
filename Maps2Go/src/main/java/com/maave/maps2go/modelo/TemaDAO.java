@@ -34,27 +34,71 @@ public class TemaDAO extends AbstractDAO<Tema>{
     public List<Tema> consultarTodos() {
         return super.consultarTodos(Tema.class);
     }
-    
-    public Tema buscaTema(String tema){
+        
+    public boolean existeTema(String tipoTema){
         Tema t = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            String hql = "from Tema where tipoTema = :tema";
+            String hql = "from Tema where tipo_tema = :tipoTema";
             Query query = session.createQuery(hql);
-            query.setParameter("tema", tema);
+            query.setParameter("tipoTema", tipoTema);
             t = (Tema)query.uniqueResult();
             tx.commit();
         }catch(HibernateException e){
-            if(tx!=null){
+            if(tx != null){
                 tx.rollback();
             }
-            e.printStackTrace();
         }finally{
             session.close();
         }
-        return t;
+        return t!=null;
+                
+    }
+    
+    public List<Tema> temaPropio(String tipoTema, int user){
+        List<Tema> obj = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Tema where tipo_tema = :tipoTema and id_usuario = :user";
+            Query query = session.createQuery(hql);
+            query.setParameter("tipoTema", tipoTema);
+            query.setParameter("user", user);
+            obj = (List<Tema>) query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+
+        }
+        return obj;
+    }
+    
+    public boolean existeColor(String color){
+        Tema t = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Tema where color = :color";
+            Query query = session.createQuery(hql);
+            query.setParameter("color", color);
+            t = (Tema)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx != null){
+                tx.rollback();
+            }
+        }finally{
+            session.close();
+        }
+        return t!=null;
     }
 
 }
