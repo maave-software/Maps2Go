@@ -33,7 +33,7 @@ and open the template in the editor.
         <h:form>
             <p:commandButton value="Agregar Informador" action="/administrador/agregarInformador"/>
             <p:commandButton value="Borrar Informador" action="/administrador/eliminarInformador"/>
-        <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
+            <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
         </h:form>
 
 
@@ -67,23 +67,27 @@ and open the template in the editor.
                     </h:form>
                 </div>
                 <div class="ui-g-12">
-                    <h:form id="comments">
-                        <p:dataScroller value="#{comentarioCtrl.comentarios}" var="comentario" chunkSize="10" mode="inline" scrollHeight="100"> 
-                            <h:panelGrid columns="1" style="width:100%">                            
-                                <p:outputPanel style="width: 100%">
-                                    <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
-                                        <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
-                                        <h:outputText value="#{comentario.contenido}"/>
-                                        <i class="far fa-thumbs-up like"></i>
-                                        <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
-                                        <i class="far fa-thumbs-down dislike" ></i>
-                                        <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>       
+                    <p:dataTable id="commentbox" var="comentario" value="#{comentarioCtrl.comentarios}" reflow="true" scrollable="true" scrollHeight="100" scrollWidth="100%">
 
-                                    </h:panelGrid>
-                                </p:outputPanel>                            
-                            </h:panelGrid>                        
-                        </p:dataScroller>        
-                    </h:form>
+                        <p:column>
+                            <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{comentario.contenido}"/>
+                        </p:column>            
+                        <p:column>
+                            <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update=":comment:commentbox" ajax="true" disabled="true">
+                                <h:outputText class="fa far fa-thumbs-up"/>
+                            </p:commandLink>
+                            <h:outputText value="#{comentario.likes}" style="font-weight: bold; margin-left: 2px"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update=":comment:commentbox" ajax="true" disabled="true">
+                                <h:outputText class="fa far fa-thumbs-down"/>
+                            </p:commandLink>
+                            <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>
+                        </p:column>                            
+                    </p:dataTable>
                 </div>
             </div>
         </div>

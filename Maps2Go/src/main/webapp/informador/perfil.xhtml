@@ -41,13 +41,13 @@ and open the template in the editor.
             <p:commandButton value="BorrarMarcador" action="/informador/borraMarcador?faces-redirect=true"/>
             <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
 
-      
+
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"/>
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
             </p:confirmDialog>      
         </h:form>
-      
+
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
                 <div class="ui-g-12">
@@ -60,14 +60,14 @@ and open the template in the editor.
                     <!-- Zona de marcadores -->
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
-                        
+
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true" scrollHeight="500">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
                             <p:column headerText="Temas">
                                 <h:outputText value="#{Tema.tipoTema}" />
                             </p:column>  
-                            
+
                         </p:dataTable>
                     </h:form>
                 </div>
@@ -90,32 +90,27 @@ and open the template in the editor.
                     </h:form>
                 </div>
                 <div class="ui-g-12">
-                    <h:form id="comments">
-                        <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" style="width: 80%"/>
-                        <p:commandButton ajax="true" actionListener="#{comentarioCtrl.agregarComentario()}" onsuccess="#{comentarioCtrl.load()}" value="Comentar" update="comments"/>
-                        <p:dataScroller value="#{comentarioCtrl.comentarios}" var="comentario" chunkSize="10" mode="inline" scrollHeight="100"> 
-                            <h:panelGrid columns="1" style="width:100%">                            
-                                <p:outputPanel style="width: 100%">
-                                    <h:panelGrid columns="7" cellpadding="5" style="width: 100%">
-                                        <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
-                                        <h:outputText value="#{comentario.contenido}"/>
-                                        <i class="far fa-thumbs-up like"></i>
-                                        <h:outputText value="#{comentario.likes}" style="font-weight: bold"/>
-                                        <i class="far fa-thumbs-down dislike" ></i>
-                                        <h:outputText value="#{comentario.dislikes}" style="font-weight: bold"/>       
-                                        <h:form rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}">
-                                            <p:panel toggleable="true" collapsed="true" toggleOrientation="horizontal" header="Editar">
-                                                <h:panelGrid columns="2" cellpadding="10">
-                                                    <p:inputTextarea placeholder="Escribe comentario..."  value="#{comentarioCtrl.contenido}"></p:inputTextarea>
-                                                    <p:commandButton ajax="true" action="#{comentarioCtrl.actualizarComentario(comentario.numComentario)}" value="Aceptar" update="comments"/>
-                                                </h:panelGrid>
-                                            </p:panel>
-                                        </h:form>
-                                    </h:panelGrid>
-                                </p:outputPanel>                            
-                            </h:panelGrid>                        
-                        </p:dataScroller>        
-                    </h:form>
+                    <p:dataTable id="commentbox" var="comentario" value="#{comentarioCtrl.comentarios}" reflow="true" scrollable="true" scrollHeight="100" scrollWidth="100%">
+
+                        <p:column>
+                            <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{comentario.contenido}"/>
+                        </p:column>            
+                        <p:column>
+                            <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update=":comment:commentbox" ajax="true" disabled="true">
+                                <h:outputText class="fa far fa-thumbs-up"/>
+                            </p:commandLink>
+                            <h:outputText value="#{comentario.likes}" style="font-weight: bold; margin-left: 2px"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update=":comment:commentbox" ajax="true" disabled="true">
+                                <h:outputText class="fa far fa-thumbs-down"/>
+                            </p:commandLink>
+                            <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>
+                        </p:column>                            
+                    </p:dataTable>
                 </div>
             </div>
         </div>
