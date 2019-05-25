@@ -17,24 +17,26 @@ and open the template in the editor.
         <h:outputStylesheet name="css/estilos.css"/>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
+        <script src="../resources/js/menu.js"/>
     </h:head>
 
     <f:view>
 
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-                <h1 class="titulo">Maps2Go</h1>
-            </div>                
-            <div class="ui-g-12 ui-md-6">
-                <h:form style="height: 106px">
-                </h:form>
-            </div>
+        <div class="topnav" id="myTopnav">
+            <a class="titulo">Maps2Go</a>
+            <a>
+                <p:commandButton value="Agregar Informador" action="agregarInformador"/>
+            </a> 
+            <a>
+                <p:commandButton value="Borrar Informador" action="eliminarInformador"/>
+            </a>
+            <a>
+                <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
+            </a>
+            <a href="javascript:void(0);" class="icon" onclick="menu()">
+                <i class="fa fa-bars"></i>
+            </a>   
         </div>
-        <h:form>
-            <p:commandButton value="Agregar Informador" action="/administrador/agregarInformador"/>
-            <p:commandButton value="Borrar Informador" action="/administrador/eliminarInformador"/>
-            <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
-        </h:form>
 
 
         <div class="ui-g">
@@ -47,6 +49,18 @@ and open the template in the editor.
                 </div>
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
+                            <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
+                            <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
+                            <p:column headerText="Temas">
+                                <h:outputText value="#{Tema.tipoTema}" />
+                            </p:column>  
+
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
             <div class="ui-g-12 ui-md-10 ui-g-nopad">
