@@ -199,6 +199,13 @@ public class MarcadorCtrl implements Serializable {
         }    
     }
     
+    @PostConstruct
+    public void verMarcadores(){
+        MarcadorDAO mrk = new MarcadorDAO();
+        marcadores = mrk.consultarTodos();
+    
+        }    
+    
     public void onMarkerSelect(OverlaySelectEvent event) {
        marker =(Marker) event.getOverlay(); 
     }

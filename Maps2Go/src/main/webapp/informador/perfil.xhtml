@@ -60,7 +60,7 @@ and open the template in the editor.
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
-                            <p:column headerText="Temas">
+                            <p:column headerText="Temas" filterBy="#{Tema.tipoTema}" filterMatchMode="contains">
                                 <h:outputText value="#{Tema.tipoTema}" />
                             </p:column>  
 
