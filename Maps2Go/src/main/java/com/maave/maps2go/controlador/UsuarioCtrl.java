@@ -167,28 +167,37 @@ public class UsuarioCtrl {
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
             esVacio.mostrarMensaje();
+            return "/agregaCuenta?faces-redirect=true";
         } else if (udb.existeCorreo(correo)) {
             CorreoExistenteIH existeC = new CorreoExistenteIH();
             existeC.mostrarMensaje();
+            return "/agregaCuenta?faces-redirect=true";
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
+            return "/agregaCuenta?faces-redirect=true";
         } else if (!validarCorreo(correo)) {
             CorreoInvalidoIH invalido = new CorreoInvalidoIH();
             invalido.mostrarMensaje();
+            return "/agregaCuenta?faces-redirect=true";
         } else {
             Usuario u = new Usuario();
             u.setNombreUsuario(nombreUsuario);
             u.setCorreo(correo);
             u.setContrasenia(contrasenia);
             u.setRol(3);
-            udb.agregar(u);
-            CuentaAgregadaIH exito = new CuentaAgregadaIH();
-            exito.mostrarMensaje();
-
-            sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito", u.getCorreo());
+            try {
+                udb.agregar(u);
+                CuentaAgregadaIH exito = new CuentaAgregadaIH();
+                exito.mostrarMensaje();
+                sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito", u.getCorreo());
+                return "/index.xhtml?faces-redirect=true";
+            } catch (Exception e) {
+                ErrorServidorIH error = new ErrorServidorIH();
+                error.mostrarMensaje();
+            }
         }
-        return "/index.xhtml?faces-redirect=true";
+        return "";
     }
 
     public void actualizarCuenta() {

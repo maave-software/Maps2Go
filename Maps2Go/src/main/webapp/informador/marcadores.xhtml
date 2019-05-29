@@ -9,61 +9,41 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">    
     <h:head>
-        <title>Agregar Marcadores</title>
+        <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style type="text/css">
-            .Mainbox {
-                background-color: rgba(150, 159, 170, 0.09);
-                width: 40%;
-                height: 300px;
-                overflow-y: scroll;
-                margin: auto;
-                padding-left: 20%;
-                padding-right: 20%;
-            }
-            .titleB {
-                color: #47525E;
-                font-family: Cardo;
-                font-size: 60px;
-                font-weight: 400;
-                line-height: 78px;
-                text-align: center;
-            }
-            .deleteBtn {
-                background-color: #E43236;
-                border-radius: 100px;
-                width: 108px;
-                height: 35px;                
-            }
-            .table{
-                width: 50%;
-                text-align: center;
-                border: none !important;
-                border-spacing: 50%;
+        <h:outputStylesheet name="css/estilos.css"/>
 
-
-            }
-        </style>
     </h:head>
 
     <f:view>
-        <h:body>
-            <h1 align="center" class="titleB">Agregar Marcador</h1>
-            <div >
-                <h:form id="form">
-                    <p:growl id="message" showDetail="true" />
-                    <p:dataTable id="temas" var="Tema" value="#{temaCtrl.temas}">
-                        <p:column headerText="Mis Temas" class="table">
-                            <h:outputText value="#{Tema.tipoTema}"/>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <h1 class="titulo">Maps2Go</h1>
+            </div>                
+
+        </div>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-6">
+                <h:form>
+                    <p:dataTable var="temas" value="#{temaCtrl.temas}" scrollable="true" scrollHeight="500">
+                        <p:column headerText="Mis Temas">
+                            <h:outputText value="#{temaCtrl.tipoTema}" />
                         </p:column>
-                        <p:column>
-                            <p:commandButton icon="fa fa-plus" action="/informador/agregaMarcador?faces-redirect=true"/>
+                        <p:column headerText="Agregar">
+                            <p:commandButton icon="fa far fa-plus" action="/informador/agregaMarcador?faces-redirect=true" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
             </div>
-        </h:body>
+        </div>
+
+        <div class="ui-g-12 footer">
+            <p class="footerText">&#9400; 2019 Maave</p>
+        </div>
+
     </f:view>
 </html>

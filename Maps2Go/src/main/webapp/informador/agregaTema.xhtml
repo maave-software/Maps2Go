@@ -41,7 +41,8 @@ and open the template in the editor.
                         </h:panelGrid> 
                         <p:inputTextarea  id="descripcion" rows="6" cols="20" value="#{temaCtrl.descripcion}" placeholder="Descripción"/><br></br>
                         <p:inputTextarea  id="datos" rows="6" cols="20" value="#{temaCtrl.datosUtiles}" placeholder="Datos útiles" /> <br></br><br></br>
-                        <p:commandButton id="agregaMarcador" value="Aceptar" action="#{temaCtrl.agregarTema()}" update="form:msgs" ajax="false" styleClass="text-box2"/><br></br>
+                        <p:commandButton id="agregaTema" value="Aceptar" action="#{temaCtrl.agregarTema()}" update="form:msgs" ajax="false" styleClass="text-box2"/><br></br><br></br>
+                        <p:commandButton id="salir" value="Salir" action="/informador/perfil?faces-redirect=true" ajax="false" styleClass="text-box2"/>                  
                     </h:form>
                 </div>
             </div>
