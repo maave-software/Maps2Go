@@ -43,9 +43,10 @@ and open the template in the editor.
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
                 <div class="ui-g-12">
                     <h:form>
-                        <p:inputText id="tema" placeholder="Buscar" class="buscar"/> <br/><br/>
+                        <p:inputText id="tema" placeholder="Buscar" class="buscar" value="#{marcadorCtrl.tema_buscar}"/>
+                        <br/><br/>
+                        <p:commandButton action="#{marcadorCtrl.marcadoresPorTema()}" value="buscar" update="mapa" />
                     </h:form>
-
                 </div>
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->

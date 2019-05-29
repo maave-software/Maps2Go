@@ -26,7 +26,7 @@
             </key>
             <one-to-many class="com.maave.maps2go.modelo.Tema" />
         </set>
-        <set name="comentarios" table="comentario" inverse="true" lazy="true" fetch="select">
+        <set name="comentarios" table="comentario" inverse="true" lazy="false" fetch="select">
             <key>
                 <column name="id_usuario" not-null="true" />
             </key>
