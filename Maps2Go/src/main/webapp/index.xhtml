@@ -24,13 +24,17 @@ and open the template in the editor.
 
         <div class="topnav" id="myTopnav">
             <a class="titulo">Maps2Go</a>
-            <a href="agregaCuenta.xhtml" class="registrarse-btn textoRegistrarse">Registrarse</a>             
-            <a href="iniciarSesion.xhtml" class="iniciarSesion-btn textoIniciarSesion">Iniciar Sesion</a>   
+            <a>
+                <p:commandButton value="Registrarse" action="agregaCuenta"/>
+            </a> 
+            <a>
+                <p:commandButton value="Iniciar Sesion" action="iniciarSesion"/>
+            </a>
             <a href="javascript:void(0);" class="icon" onclick="menu()">
                 <i class="fa fa-bars"></i>
-            </a>            
+            </a>    
         </div>
-
+        
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
                 <div class="ui-g-12">
@@ -49,7 +53,7 @@ and open the template in the editor.
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
-                            <p:column headerText="Temas">
+                            <p:column headerText="Temas" filterBy="#{Tema.tipoTema}" filterMatchMode="contains">
                                 <h:outputText value="#{Tema.tipoTema}" />
                             </p:column>  
 
