@@ -57,27 +57,33 @@ public class TemaDAO extends AbstractDAO<Tema>{
                 
     }
     
-    public List<Tema> temaPorUsuario(String tipoTema) {
-        List<Tema> obj = null;
+    public boolean esPropio(int id, int user){
+        Tema obj = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            String hql = "from Marcador where tipo_tema = :tipoTema";
+            String hql = "from Tema where tipo_tema = :id and id_usuario = :user";
             Query query = session.createQuery(hql);
-            query.setParameter("tipoTema", tipoTema);
-            obj = (List<Tema>) query.list();
+            query.setParameter("id", id);
+            query.setParameter("user", user);
+            obj = (Tema) query.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
         } finally {
             session.close();
+
         }
-        return obj;
+        if(obj == null)
+            return false;
+        else
+            return true;
     }
+
+    
     
     public boolean existeColor(String color){
         Tema t = null;

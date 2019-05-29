@@ -211,6 +211,15 @@ public class TemaCtrl implements Serializable {
     public void consultarTemas() {
     }
     
+    public boolean esTemaPropio(int id){
+        UsuarioDAO udb = new UsuarioDAO();
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        Usuario u = udb.buscaPorCorreo(us.getCorreo());
+        TemaDAO tdb = new TemaDAO();
+        boolean res = tdb.esPropio(id, u.getIdUsuario());
+        return res;
+    }
+    
   
     
     public void onMarkerSelect(OverlaySelectEvent event) {
