@@ -21,26 +21,27 @@ and open the template in the editor.
     </h:head>
 
     <f:view>
+        <h:form>
+            <div class="topnav" id="myTopnav">
+                <a class="titulo">Maps2Go</a>
+                <a>
+                    <p:commandButton value="Agregar Tema" action="/informador/agregaTema?faces-redirect=true"/>
+                </a>
+                <a>
+                    <p:commandButton value="Agregar Marcador" action="/informador/marcadores?faces-redirect=true"/>                
+                </a>
+                <a>
+                    <p:commandButton value="Borrar Marcador" action="borraMarcador"/>                
+                </a>
+                <a>
+                    <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
+                </a>
+                <a href="javascript:void(0);" class="icon" onclick="menu()">
+                    <i class="fa fa-bars"></i>
+                </a>   
+            </div>
+        </h:form>
 
-        <div class="topnav" id="myTopnav">
-            <a class="titulo">Maps2Go</a>
-            <a>
-                <p:commandButton value="Agregar Tema" action="agregaTema"/>
-            </a>
-            <a>
-                <p:commandButton value="Agregar Marcador" action="agregaMarcador"/>                
-            </a>
-            <a>
-                <p:commandButton value="Borrar Marcador" action="borraMarcador"/>                
-            </a>
-            <a>
-                <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
-            </a>
-            <a href="javascript:void(0);" class="icon" onclick="menu()">
-                <i class="fa fa-bars"></i>
-            </a>   
-        </div>
-        
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
                 <div class="ui-g-12">

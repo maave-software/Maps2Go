@@ -57,25 +57,24 @@ public class TemaDAO extends AbstractDAO<Tema>{
                 
     }
     
-    public List<Tema> temaPropio(String tipoTema, int user){
+    public List<Tema> temaPorUsuario(String tipoTema) {
         List<Tema> obj = null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            String hql = "from Tema where tipo_tema = :tipoTema and id_usuario = :user";
+            String hql = "from Marcador where tipo_tema = :tipoTema";
             Query query = session.createQuery(hql);
             query.setParameter("tipoTema", tipoTema);
-            query.setParameter("user", user);
-            obj = (List<Tema>) query.uniqueResult();
+            obj = (List<Tema>) query.list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
+            e.printStackTrace();
         } finally {
             session.close();
-
         }
         return obj;
     }
