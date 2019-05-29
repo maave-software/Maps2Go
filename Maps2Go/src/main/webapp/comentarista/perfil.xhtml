@@ -91,7 +91,10 @@ and open the template in the editor.
                     </h:form>
                 </div>
                 <div class="ui-g-12">
-                    <h:form>
+                    <h:form id="comment">
+                        <p:inputTextarea placeholder="Escribe comentario..." value="#{comentarioCtrl.contenido}" style="width: 80%"/>
+                        <p:commandButton ajax="true" action="#{comentarioCtrl.agregarComentario()}" oncomplete="#{comentarioCtrl.load()}" value="Comentar"  update="commentbox"/>
+
                         <p:dataTable id="commentbox" var="comentario" value="#{comentarioCtrl.comentarios}" reflow="true" scrollable="true" scrollHeight="100" scrollWidth="100%">
 
                             <p:column>
@@ -101,19 +104,37 @@ and open the template in the editor.
                                 <h:outputText value="#{comentario.contenido}"/>
                             </p:column>            
                             <p:column>
-                                <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update=":comment:commentbox" ajax="true" disabled="true">
+                                <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update="commentbox" ajax="true">
                                     <h:outputText class="fa far fa-thumbs-up"/>
                                 </p:commandLink>
                                 <h:outputText value="#{comentario.likes}" style="font-weight: bold; margin-left: 2px"/>
                             </p:column>
                             <p:column>
-                                <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update=":comment:commentbox" ajax="true" disabled="true">
+                                <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update="commentbox" ajax="true">
                                     <h:outputText class="fa far fa-thumbs-down"/>
                                 </p:commandLink>
-                                <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>
+                                <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>                                
                             </p:column>                            
-                        </p:dataTable>
-                    </h:form>
+                            <p:column>
+                                <p:commandLink onclick="PF('edit').show();" rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}">
+                                    <h:outputText class="fa fa-pencil"/>                    
+                                </p:commandLink>
+                                <p:dialog header="Editar Comentario" widgetVar="edit">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:form>
+                                            <p:inputTextarea value="#{comentarioCtrl.contenido}" placeholder="Escribe comentario ..."/>
+                                            <p:commandButton value="Aceptar" ajax="true" action="#{comentarioCtrl.actualizarComentario(comentario.numComentario)}" update=":comment:commentbox" oncomplete="#{comentarioCtrl.load()}"/>
+                                        </h:form>
+                                    </h:panelGrid>
+                                </p:dialog>        
+                            </p:column>
+                            <p:column>
+                                <p:commandLink actionListener="#{comentarioCtrl.borrarComentario(comentario.numComentario)}" title="Borrar" rendered="#{comentarioCtrl.esComentarioPropio(comentario.numComentario)}" ajax="false">
+                                    <h:outputText class="fa fa-trash"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>                        
+                    </h:form>                    
                 </div>
             </div>
         </div>
