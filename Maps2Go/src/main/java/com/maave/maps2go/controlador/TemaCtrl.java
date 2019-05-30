@@ -59,7 +59,10 @@ public class TemaCtrl implements Serializable {
         simpleModel.addOverlay(marcador);
         this.latitud = marcador.getLatlng().getLat();
         this.longitud = marcador.getLatlng().getLng();
-        filtrados = filtroTemas();
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if(us != null){
+            filtrados = filtroTemas();
+        }
     }
 
     public List<Tema> getFiltrados(){
@@ -222,9 +225,8 @@ public class TemaCtrl implements Serializable {
     
     public List<Tema> filtroTemas(){
         SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-        UsuarioDAO udb = new UsuarioDAO();
         TemaDAO tdb = new TemaDAO();
-        List<Tema> t = tdb.temaPorUsuario(11);
+        List<Tema> t = tdb.temaPorUsuario(us.getIdUsuario());
         return t;
     }
     
