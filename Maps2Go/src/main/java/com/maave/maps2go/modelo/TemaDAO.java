@@ -35,6 +35,29 @@ public class TemaDAO extends AbstractDAO<Tema>{
         return super.consultarTodos(Tema.class);
     }
         
+    
+    public List<Tema> temaPorUsuario(int id) {
+        List<Tema> obj = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Tema WHERE usuario.idUsuario = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            obj = (List<Tema>) query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return obj;
+    }
+    
     public boolean existeTema(String tipoTema){
         Tema t = null;
         Session session = this.sessionFactory.openSession();
@@ -56,35 +79,7 @@ public class TemaDAO extends AbstractDAO<Tema>{
         return t!=null;
                 
     }
-    
-    public boolean esPropio(int id, int user){
-        Tema obj = null;
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "from Tema where tipo_tema = :id and id_usuario = :user";
-            Query query = session.createQuery(hql);
-            query.setParameter("id", id);
-            query.setParameter("user", user);
-            obj = (Tema) query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-        } finally {
-            session.close();
-
-        }
-        if(obj == null)
-            return false;
-        else
-            return true;
-    }
-
-    
-    
+     
     public boolean existeColor(String color){
         Tema t = null;
         Session session = this.sessionFactory.openSession();
