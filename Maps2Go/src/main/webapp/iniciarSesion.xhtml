@@ -20,6 +20,10 @@ and open the template in the editor.
         <body>
 
             <h1 class="titulo">Maps2Go</h1>
+            <h:form>
+            <p:commandButton id="home" icon="fa far fa-home" action="/index?faces-redirect=true"/>
+            </h:form>
+            
             <hr></hr>
 
             <center>
@@ -27,7 +31,11 @@ and open the template in the editor.
             </center>
             <h:form id="formulario" >
                 <center> 
-                    <p:growl id="msgs" showDetail="true"/>
+                    <p:messages id="messages" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+                       
+              
                     <p:inputText id="correo" 
                                  value="#{sessionCtrl.correo}"
                                  styleClass="textoCampo"

@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src=PKEY"/>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADz9JM2RkYCqXhzl6R7ocdsaV1TiHDQpI"/>
         <script src="resources/js/menu.js"/>
     </h:head>
 
@@ -24,40 +24,32 @@ and open the template in the editor.
 
         <div class="topnav" id="myTopnav">
             <a class="titulo">Maps2Go</a>
-            <a>
-                <p:commandButton value="Registrarse" action="agregaCuenta"/>
-            </a> 
-            <a>
-                <p:commandButton value="Iniciar Sesion" action="iniciarSesion"/>
-            </a>
-            <a href="javascript:void(0);" class="icon" onclick="menu()">
-                <i class="fa fa-bars"></i>
-            </a>    
+            <h:form>
+                <a>
+                    <p:commandButton value="Registrarse" action="/agregaCuenta?faces-redirect=true"/>
+                </a> 
+                <a>
+                    <p:commandButton value="Iniciar Sesion" action="/iniciarSesion?faces-redirect=true"/>
+                </a>
+                <a href="javascript:void(0);" class="icon" onclick="menu()">
+                    <i class="fa fa-bars"></i>
+                </a>    
+            </h:form>
         </div>
         
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
                 <div class="ui-g-12">
-                    <h:form>
-                        <p:inputText id="tema" placeholder="Buscar" class="buscar" value="#{marcadorCtrl.tema_buscar}"/>
-                        <br/><br/>
-                        <p:commandButton action="#{marcadorCtrl.marcadoresPorTema()}" value="buscar" update="mapa" />
-                    </h:form>
 
                 </div>
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
-
-                        <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
-                            <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
-                            <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
-                            <p:column headerText="Temas" filterBy="#{Tema.tipoTema}" filterMatchMode="contains">
-                                <h:outputText value="#{Tema.tipoTema}" />
-                            </p:column>  
-
-                        </p:dataTable>
+                        <p:selectOneMenu id="tema" value="#{marcadorCtrl.tema_buscar}" effect="fold" editable="true">
+                        <f:selectItem itemLabel="Escoge uno" itemValue="" />
+                        <f:selectItems value="#{temaCtrl.selecciona}" />
+                        </p:selectOneMenu>
+                        <p:commandButton action="#{marcadorCtrl.marcadoresPorTema()}" value="buscar" update="mapa" />
                     </h:form>
                 </div>
             </div>

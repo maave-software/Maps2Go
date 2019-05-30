@@ -15,29 +15,29 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="key"/>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADz9JM2RkYCqXhzl6R7ocdsaV1TiHDQpI"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
         <script src="../resources/js/menu.js"/>
     </h:head>
 
     <f:view>
-
-        <div class="topnav" id="myTopnav">
-            <a class="titulo">Maps2Go</a>
-            <a>
-                <p:commandButton value="Agregar Informador" action="agregarInformador"/>
-            </a> 
-            <a>
-                <p:commandButton value="Borrar Informador" action="eliminarInformador"/>
-            </a>
-            <a>
-                <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
-            </a>
-            <a href="javascript:void(0);" class="icon" onclick="menu()">
-                <i class="fa fa-bars"></i>
-            </a>   
-        </div>
-
+        <h:form>
+            <div class="topnav" id="myTopnav">
+                <a class="titulo">Maps2Go</a>
+                <a>
+                    <p:commandButton value="Agregar Informador" action="/administrador/agregarInformador?faces-redirect=true"/>
+                </a> 
+                <a>
+                    <p:commandButton value="Borrar Informador" action="/administrador/eliminarInformador?faces-redirect=true"/>
+                </a>
+                <a>
+                    <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
+                </a>
+                <a href="javascript:void(0);" class="icon" onclick="menu()">
+                    <i class="fa fa-bars"></i>
+                </a>   
+            </div>
+        </h:form>
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
@@ -51,8 +51,7 @@ and open the template in the editor.
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
-
+                        <p:growl id="msgs" showDetail="true"/> 
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />
@@ -82,27 +81,29 @@ and open the template in the editor.
                     </h:form>
                 </div>
                 <div class="ui-g-12">
-                    <p:dataTable id="commentbox" var="comentario" value="#{comentarioCtrl.comentarios}" reflow="true" scrollable="true" scrollHeight="100" scrollWidth="100%">
+                    <h:form>
+                        <p:dataTable id="commentbox" var="comentario" value="#{comentarioCtrl.comentarios}" reflow="true" scrollable="true" scrollHeight="100" scrollWidth="100%">
 
-                        <p:column>
-                            <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{comentario.contenido}"/>
-                        </p:column>            
-                        <p:column>
-                            <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update=":comment:commentbox" ajax="true" disabled="true">
-                                <h:outputText class="fa far fa-thumbs-up"/>
-                            </p:commandLink>
-                            <h:outputText value="#{comentario.likes}" style="font-weight: bold; margin-left: 2px"/>
-                        </p:column>
-                        <p:column>
-                            <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update=":comment:commentbox" ajax="true" disabled="true">
-                                <h:outputText class="fa far fa-thumbs-down"/>
-                            </p:commandLink>
-                            <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>
-                        </p:column>                            
-                    </p:dataTable>
+                            <p:column>
+                                <h:outputText value="#{comentario.usuario.nombreUsuario}" style="font-weight: bold;"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{comentario.contenido}"/>
+                            </p:column>            
+                            <p:column>
+                                <p:commandLink action="#{comentarioCtrl.darLike(comentario.numComentario)}" title="Like" update=":comment:commentbox" ajax="true" disabled="true">
+                                    <h:outputText class="fa far fa-thumbs-up"/>
+                                </p:commandLink>
+                                <h:outputText value="#{comentario.likes}" style="font-weight: bold; margin-left: 2px"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink  action="#{comentarioCtrl.darDislike(comentario.numComentario)}" title="Dislike" update=":comment:commentbox" ajax="true" disabled="true">
+                                    <h:outputText class="fa far fa-thumbs-down"/>
+                                </p:commandLink>
+                                <h:outputText value="#{comentario.dislikes}" style="font-weight: bold; margin-left: 2px"/>
+                            </p:column>                            
+                        </p:dataTable>
+                    </h:form>
                 </div>
             </div>
         </div>

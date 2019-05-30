@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADz9JM2RkYCqXhzl6R7ocdsaV1TiHDQpI"/>
     </h:head>
 
     <f:view>
@@ -31,7 +31,9 @@ and open the template in the editor.
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
+                        <p:messages id="messages" showDetail="true" >
+                            <p:autoUpdate />
+                        </p:messages>
                         <p:inputNumber decimalPlaces="6" id="longitud" value="#{temaCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
                         <p:inputNumber decimalPlaces="6" id="latitud" value="#{temaCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br>
                         <p>Confirma tu tema</p>

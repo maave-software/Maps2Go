@@ -10,21 +10,24 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view>    
 
-        <h:head>
-            <title>Borrar informador</title>
-            <h:outputStylesheet name="css/estilos.css"/>
-            <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
-                    integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
-            </script>
-        </h:head>
+    <h:head>
+        <title>Borrar informador</title>
+        <h:outputStylesheet name="css/estilos.css"/>
+        <script src="http://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
+        </script>
+    </h:head>
+    <f:view>    
 
         <body>
             <div>
                 <h1 class="titulo">Maps2go</h1>
+                <h:form>
+                    <p:commandButton id="home" icon="fa far fa-home" action="/administrador/perfil?faces-redirect=true"/>
+                </h:form>
             </div>
-            
+
             <center>
                 <hr></hr>
                 <h2 class="titulo-form">Borrar informador</h2>

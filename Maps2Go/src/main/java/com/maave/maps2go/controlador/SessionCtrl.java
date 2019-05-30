@@ -44,9 +44,11 @@ public class SessionCtrl implements Serializable {
         if (correo.compareTo("") == 0 || contrasenia.compareTo("") == 0) {
             CampoVacioIH vacio = new CampoVacioIH();
             vacio.mostrarMensaje();
+            return "/iniciarSesion?faces-redirect=true";
         } else if (!udb.existeCorreo(correo)) {
             CorreoIncorrectoIH incorrecto = new CorreoIncorrectoIH();
             incorrecto.mostrarMensaje();
+            return "/iniciarSesion?faces-redirect=true";
         } else {
             try {
                 Usuario usuario = udb.buscaUsuario(correo, contrasenia);

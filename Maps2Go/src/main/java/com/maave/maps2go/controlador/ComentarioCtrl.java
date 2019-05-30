@@ -110,7 +110,7 @@ public class ComentarioCtrl {
             SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             Usuario u = udb.buscaPorCorreo(us.getCorreo());
             //Implementacion sin login Usuario u = udb.buscaPorCorreo("qwerty");
-            Marcador m = mdb.buscaMarcador(1); //Pendiente 
+            Marcador m = mdb.buscaMarcador(5); //Pendiente 
             coment.setMarcador(m);
             coment.setLikes(0);
             coment.setDislikes(0);

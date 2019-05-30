@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCixV6qftTrDimgBedZYFNQRxbYKv54RKc"/>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADz9JM2RkYCqXhzl6R7ocdsaV1TiHDQpI"/>
     </h:head>
 
     <f:view>
@@ -31,7 +31,9 @@ and open the template in the editor.
                 <div class="ui-g-12">
                     <!-- Zona de marcadores -->
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>   
+                        <p:messages id="messages" showDetail="true" >
+                            <p:autoUpdate />
+                        </p:messages>  
                         <p:inputNumber decimalPlaces="6" id="longitud" value="#{temaCtrl.longitud}" placeholder="Longitud" disabled="true"/><br></br>
                         <p:inputNumber decimalPlaces="6" id="latitud" value="#{temaCtrl.latitud}" placeholder="Latitud" disabled="true"/><br></br><br></br>
                         <p:inputText id="titulo" value="#{temaCtrl.tipoTema}" placeholder="Tema" /><br></br><br></br>
@@ -41,7 +43,7 @@ and open the template in the editor.
                         </h:panelGrid> 
                         <p:inputTextarea  id="descripcion" rows="6" cols="20" value="#{temaCtrl.descripcion}" placeholder="Descripción"/><br></br>
                         <p:inputTextarea  id="datos" rows="6" cols="20" value="#{temaCtrl.datosUtiles}" placeholder="Datos útiles" /> <br></br><br></br>
-                        <p:commandButton id="agregaTema" value="Aceptar" action="#{temaCtrl.agregarTema()}" update="form:msgs" ajax="false" styleClass="text-box2"/><br></br><br></br>
+                        <p:commandButton id="agregaTema" value="Aceptar" action="#{temaCtrl.agregarTema()}"  ajax="false" styleClass="text-box2"/><br></br><br></br>
                         <p:commandButton id="salir" value="Salir" action="/informador/perfil?faces-redirect=true" ajax="false" styleClass="text-box2"/>                  
                     </h:form>
                 </div>
