@@ -47,6 +47,7 @@ public class TemaCtrl implements Serializable {
     private Marker marker;
     private MapModel simpleModel;
     private String tema_buscar;
+    private List<Tema> filtrados;
 
     @PostConstruct
     public void init() {
@@ -58,8 +59,19 @@ public class TemaCtrl implements Serializable {
         simpleModel.addOverlay(marcador);
         this.latitud = marcador.getLatlng().getLat();
         this.longitud = marcador.getLatlng().getLng();
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        if(us != null){
+            filtrados = filtroTemas();
+        }
     }
 
+    public List<Tema> getFiltrados(){
+        return this.filtrados;
+    }
+    
+    public void setFiltratodos(List filtrados){
+        this.filtrados = filtrados;
+    }
     public String getDatosUtiles() {
         return datosUtiles;
     }
@@ -211,7 +223,12 @@ public class TemaCtrl implements Serializable {
     public void consultarTemas() {
     }
     
-  
+    public List<Tema> filtroTemas(){
+        SessionCtrl.UsuarioLogged us = (SessionCtrl.UsuarioLogged) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        TemaDAO tdb = new TemaDAO();
+        List<Tema> t = tdb.temaPorUsuario(us.getIdUsuario());
+        return t;
+    }
     
     public void onMarkerSelect(OverlaySelectEvent event) {
        marker =(Marker) event.getOverlay(); 

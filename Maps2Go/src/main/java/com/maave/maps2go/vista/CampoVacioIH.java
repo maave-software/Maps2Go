@@ -23,8 +23,7 @@ public class CampoVacioIH {
     }
 
     public void mostrarMensaje() {
-        this.mensaje = "Por favor ingresa todos los datos";
-        
+        this.mensaje = "Por favor ingresa todos los datos";        
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Ey!", mensaje));
         context.getExternalContext().getFlash().setKeepMessages(true);

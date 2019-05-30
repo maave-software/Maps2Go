@@ -26,19 +26,19 @@ and open the template in the editor.
 
         </div>
 
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-6">
-                <h:form>
-                    <p:dataTable var="temas" value="#{temaCtrl.temas}" scrollable="true" scrollHeight="500">
-                        <p:column headerText="Mis Temas">
-                            <h:outputText value="#{temaCtrl.tipoTema}" />
-                        </p:column>
-                        <p:column headerText="Agregar">
-                            <p:commandButton icon="fa far fa-plus" action="/informador/agregaMarcador?faces-redirect=true" />
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </div>
+        <div class="ui-g-12">
+            <h:form>           
+                <p:dataTable  var="tema" value="#{temaCtrl.filtrados}" reflow="true" scrollable="true" scrollHeight="200" scrollWidth="100%">
+                    <p:column headerText="Mis Temas">
+                        <h:outputText title="temas" value="#{tema.tipoTema}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandLink  title="Agregar" action="/informador/agregaMarcador?faces-redirect=true">
+                            <h:outputText class="fa fa-plus"/>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>                        
+            </h:form>                    
         </div>
 
         <div class="ui-g-12 footer">

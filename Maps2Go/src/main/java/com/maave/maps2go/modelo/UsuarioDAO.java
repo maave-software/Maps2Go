@@ -83,6 +83,29 @@ public class UsuarioDAO extends AbstractDAO<Usuario>{
         }
         return u;
     }
+    
+    public Usuario buscaPorId(int id){
+        Usuario u =null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx =null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Usuario where idUsuario = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            u = (Usuario)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return u;
+    }
+
 
    public boolean existeCorreo(String correo){
        Usuario u = null;

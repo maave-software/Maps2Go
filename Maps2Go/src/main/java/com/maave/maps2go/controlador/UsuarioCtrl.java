@@ -108,15 +108,19 @@ public class UsuarioCtrl {
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
             esVacio.mostrarMensaje();
+            return "/administrador/agregarInformador?faces-redirect=true";
         } else if (udb.existeCorreo(correo)) {
             CorreoExistenteIH existeC = new CorreoExistenteIH();
             existeC.mostrarMensaje();
+            return "/administrador/agregarInformador?faces-redirect=true";
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
+            return "/administrador/agregarInformador?faces-redirect=true";
         } else if (!validarCorreo(correo)) {
             CorreoInvalidoIH invalido = new CorreoInvalidoIH();
             invalido.mostrarMensaje();
+            return "/administrador/agregarInformador?faces-redirect=true";
         } else {
             contrasenia = "i";
             for (int i = 0; i < 10; i++) {
@@ -134,13 +138,13 @@ public class UsuarioCtrl {
 
                 InformadorAgregadoIH exito = new InformadorAgregadoIH();
                 exito.mostrarMensaje();
-                return "perfil?faces-redirect=false";
+                return "/perfil?faces-redirect=true";
             } catch (Exception e) {
                 ErrorServidorIH error = new ErrorServidorIH();
                 error.mostrarMensaje();
             }
         }
-        return "agregarInformador?faces-redirect=false";
+        return "";
     }
 
     public String buscarInformador() {
@@ -191,7 +195,7 @@ public class UsuarioCtrl {
                 CuentaAgregadaIH exito = new CuentaAgregadaIH();
                 exito.mostrarMensaje();
                 sendMail("Bienvenido a Maps2Go", "Tu cuenta ha sido agregada con exito", u.getCorreo());
-                return "/index.xhtml?faces-redirect=true";
+                return "/index?faces-redirect=true";
             } catch (Exception e) {
                 ErrorServidorIH error = new ErrorServidorIH();
                 error.mostrarMensaje();

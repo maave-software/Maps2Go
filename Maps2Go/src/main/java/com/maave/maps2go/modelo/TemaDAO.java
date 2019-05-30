@@ -35,6 +35,29 @@ public class TemaDAO extends AbstractDAO<Tema>{
         return super.consultarTodos(Tema.class);
     }
         
+    
+    public List<Tema> temaPorUsuario(int id) {
+        List<Tema> obj = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String hql = "from Tema WHERE usuario.idUsuario = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            obj = (List<Tema>) query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return obj;
+    }
+    
     public boolean existeTema(String tipoTema){
         Tema t = null;
         Session session = this.sessionFactory.openSession();
@@ -56,29 +79,7 @@ public class TemaDAO extends AbstractDAO<Tema>{
         return t!=null;
                 
     }
-    
-    public List<Tema> temaPorUsuario(String tipoTema) {
-        List<Tema> obj = null;
-        Session session = this.sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            String hql = "from Marcador where tipo_tema = :tipoTema";
-            Query query = session.createQuery(hql);
-            query.setParameter("tipoTema", tipoTema);
-            obj = (List<Tema>) query.list();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return obj;
-    }
-    
+     
     public boolean existeColor(String color){
         Tema t = null;
         Session session = this.sessionFactory.openSession();
