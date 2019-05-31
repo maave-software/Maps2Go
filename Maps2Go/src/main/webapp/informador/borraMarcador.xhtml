@@ -72,14 +72,14 @@ and open the template in the editor.
                             <p:confirm header="Confirmation" message="Seguro que quieres eliminar el marcador #{marcadorCtrl.marcadorSelected.descripcion}?" />
                         </p:commandButton>
                     </p:column>
-                 
+                    
                 </p:dataTable>
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="No" type="button"  styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
                 </p:confirmDialog> 
-                
+                <p:commandButton id="salir" value="Salir" action="/informador/perfil?faces-redirect=true" ajax="false" />
                 
                 
             </h:form>

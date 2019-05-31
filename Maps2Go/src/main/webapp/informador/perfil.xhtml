@@ -15,7 +15,7 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-        <script type="text/javascript" src="PKEY"/>
+        <script type="text/javascript" src=""/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>        
         <script src="../resources/js/menu.js"/>
     </h:head>
@@ -31,7 +31,7 @@ and open the template in the editor.
                     <p:commandButton value="Agregar Marcador" action="/informador/marcadores?faces-redirect=true"/>                
                 </a>
                 <a>
-                    <p:commandButton value="Borrar Marcador" action="borraMarcador"/>                
+                    <p:commandButton value="Borrar Marcador" action="/informador/borraMarcador?faces-redirect=true"/>                
                 </a>
                 <a>
                     <p:commandButton value="Cerrar Sesion" action="#{sessionCtrl.cerrarSesion()}"/>
@@ -53,10 +53,9 @@ and open the template in the editor.
 
                 </div>
                 <div class="ui-g-12">
-                    <!-- Zona de marcadores -->
+                    <!-- Zona de marcadores -->                   
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
-
+                        <p:growl id="msgs" showDetail="true"/> 
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />

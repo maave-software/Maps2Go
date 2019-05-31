@@ -15,20 +15,18 @@ and open the template in the editor.
         <title>Maps2Go</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/estilos.css"/>
-<<<<<<< HEAD
-        <script type="text/javascript" src="Pkey"/>        
-=======
-        <script type="text/javascript" src="key"/>        
->>>>>>> 1306d220ece0bd496bc458a36e088c4acf42f261
+
+        <script type="text/javascript" src="I"/>        
+
         <script src="../resources/js/menu.js"/>
     </h:head>
 
     <f:view>
-
+        <h:form>
         <div class="topnav" id="myTopnav">
             <a class="titulo">Maps2Go</a>
             <a>
-                <p:commandButton value="Actualizar Cuenta" action="actualizarCuentaIH"/>
+                <p:commandButton value="Actualizar Cuenta" action="/comentarista/actualizarCuentaIH?faces-redirect=true"/>
             </a> 
             <a>
                 <p:commandButton value="Borrar Cuenta" action="#{usuarioCtrl.borrarCuenta()}" styleClass="text-box">
@@ -48,7 +46,7 @@ and open the template in the editor.
                 </div>
             </p:confirmDialog>  
         </div>
-
+        </h:form>
 
         <div class="ui-g">
             <div class="ui-g-12 ui-md-2 ui-g-nopad">
@@ -61,10 +59,9 @@ and open the template in the editor.
 
                 </div>
                 <div class="ui-g-12">
-                    <!-- Zona de marcadores -->
+                    <!-- Zona de marcadores -->                   
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
-
+                        <p:growl id="msgs" showDetail="true"/> 
                         <p:dataTable value="#{temaCtrl.temas}"  var="Tema" selectionMode="single"  selection="#{temaCtrl.selectedTema}" rowKey="#{Tema.tipoTema}" scrollable="true">
                             <p:ajax event="rowSelect" listener="#{temaCtrl.onRowSelect}" update=":form:msgs" />
                             <p:ajax event="rowUnselect" listener="#{temaCtrl.onRowUnselect}" update=":form:msgs" />

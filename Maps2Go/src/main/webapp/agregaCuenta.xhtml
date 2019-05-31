@@ -20,13 +20,18 @@ and open the template in the editor.
         <body>
 
             <h1 class="titulo">Maps2Go</h1>
+            <h:form>
+            <p:commandButton id="home" icon="fa far fa-home" action="/index?faces-redirect=true"/>
+            </h:form>
             <hr></hr>
 
             <center>
                 <h2 class="titulo-form">Registrarse</h2>
             </center>
             <h:form id="formulario" >
-                <p:growl id="msgs" showDetail="true"/> 
+                <p:messages id="messages" showDetail="true" >
+                <p:autoUpdate />
+                </p:messages>
                 <center> 
                     <p:inputText id="nombre"
                                  value="#{usuarioCtrl.nombreUsuario}"

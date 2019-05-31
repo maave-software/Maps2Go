@@ -13,6 +13,7 @@ import com.maave.maps2go.vista.ColorExistenteIH;
 import com.maave.maps2go.vista.ErrorServidorIH;
 import com.maave.maps2go.vista.MarcadorAgregadoIH;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -48,6 +49,16 @@ public class TemaCtrl implements Serializable {
     private MapModel simpleModel;
     private String tema_buscar;
     private List<Tema> filtrados;
+    private List<String> selecciona;
+
+    public List<String> getSelecciona() {
+        return selecciona;
+    }
+
+    public void setSelecciona(List<String> selecciona) {
+        this.selecciona = selecciona;
+    }
+
 
     @PostConstruct
     public void init() {
@@ -63,6 +74,7 @@ public class TemaCtrl implements Serializable {
         if(us != null){
             filtrados = filtroTemas();
         }
+        this.consultarTemaString();
     }
 
     public List<Tema> getFiltrados(){
@@ -147,6 +159,7 @@ public class TemaCtrl implements Serializable {
     public void setTema_buscar(String tema_buscar) {
         this.tema_buscar = tema_buscar;
     }
+
     
     public String agregarTema() {
         TemaDAO tdb = new TemaDAO();
@@ -221,6 +234,18 @@ public class TemaCtrl implements Serializable {
 
 
     public void consultarTemas() {
+        
+    }
+    
+    public List<String> consultarTemaString(){
+        TemaDAO temita = new TemaDAO();
+        List<Tema> temas = new ArrayList<Tema>();
+        temas = temita.consultarTodos();
+        selecciona = new ArrayList<String>();
+        for(Tema t: temas){
+            selecciona.add(t.getTipoTema());
+        }
+       return selecciona;
     }
     
     public List<Tema> filtroTemas(){

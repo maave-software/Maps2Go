@@ -108,19 +108,19 @@ public class UsuarioCtrl {
         if (correo.compareTo("") == 0 || nombreUsuario.compareTo("") == 0) {
             CampoVacioIH esVacio = new CampoVacioIH();
             esVacio.mostrarMensaje();
-            return "/administrador/agregarInformador?faces-redirect=true";
+            return "";
         } else if (udb.existeCorreo(correo)) {
             CorreoExistenteIH existeC = new CorreoExistenteIH();
             existeC.mostrarMensaje();
-            return "/administrador/agregarInformador?faces-redirect=true";
+            return "";
         } else if (udb.existeNombre(nombreUsuario)) {
             NombreExistenteIH existeN = new NombreExistenteIH();
             existeN.mostrarMensaje();
-            return "/administrador/agregarInformador?faces-redirect=true";
+            return "";
         } else if (!validarCorreo(correo)) {
             CorreoInvalidoIH invalido = new CorreoInvalidoIH();
             invalido.mostrarMensaje();
-            return "/administrador/agregarInformador?faces-redirect=true";
+            return "";
         } else {
             contrasenia = "i";
             for (int i = 0; i < 10; i++) {
